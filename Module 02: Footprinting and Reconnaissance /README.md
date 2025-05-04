@@ -226,3 +226,10 @@ Information resource sites that help the attcker to obtain expert opinions about
 - Gathering information from Public Source-Code Repositories.
 
 # 🌐Footprinting through Social Networking Sites 
+Social Netwoking Services are online services, platforms, or sites that focus on facilitating the building of social networks or social relations among people.
+
+## Using Sherlock
+Sherlock is a python-based tool that is used to gather information about a target person over various social networking sites. Sherlock searches a vast number of social networking sites for a given target user, locates the person, and displays the results along with the complete URL related to the target person.
+```
+
+```
