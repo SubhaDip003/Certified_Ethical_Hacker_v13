@@ -1,13 +1,12 @@
-# Footprinting through Search Engines
-🔗Source: [https://www.googleguide.com]
-
-🔗GHDB: [https://www.exploit-db.com/google-hacking-database]
+# 🔍Footprinting through Search Engines
+- 🔗Source: [https://www.googleguide.com]
+- 🔗GHDB: [https://www.exploit-db.com/google-hacking-database]
 
 Attackers use search engines to **extract information about a target**, such as employed technology platforms, employee details, login pages, and intranet portals, which help the attacker to perform social engineering and other types of advanced system attacks. 
 
 Google hacking refers to the use of advanced Google search operators for creating complex search queries to extract sensitive or hidden information that helps attackers find vulnerable targets.
 
-## Popular Google advanced search operators
+## 🌐Popular Google advanced search operators
 - **site:** This operator restricts search results to the specified site or domain. For example, the [games site: www.certifiedhacker.com] query gives information on games from the certifiedhacker site. 
 - **allinurl:** This operator restricts results to only the pages containing all the query terms specified in the URL. For example, the [allinurl: google career] query returns only pages containing the words "google" and "career" in the URL. 
 - **inurl:** This operator restricts the results to only the pages containing the specified word in the URL. For example, the [inurl: copy site:www.google.com] query returns only Google pages in which the URL has the word "copy." 
@@ -29,7 +28,7 @@ Google hacking refers to the use of advanced Google search operators for creatin
 - **after:** This operator finds information that was published after a certain date. For example, [site:wikipedia.org after:2023-01-01 artificial intelligence] will retrieve Wikipedia articles about artificial intelligence published after January 1, 2023.
 
 
-## VPN Footprinting through Google Hacking Database
+## 🗺️VPN Footprinting through Google Hacking Database
 ```
 # →  Finds pages containing login portals
 inurl:"/sslvpn_logon.shtml" intitle:"User Authentication" "WatchGuard Technologies" 							
@@ -68,7 +67,7 @@ inurl:"/vpn/tmindex.html" vpn
 intitle:"SSL VPN Service" + intext:"Your system administrator provided the following information to help understand and remedy the security conditions:" 
 ```
 
-## Footprinting through SHODAN Search Engine
+## 🗺️Footprinting through SHODAN Search Engine
 🔗 Source: [https://www.shodan.io]
 
 ## Others Techniques for Footprinting through Search Engines
@@ -78,3 +77,152 @@ Gathering information using **Google Advanced Search**, **Advanced Image Search*
 - Google Advanced Image Search: 🔗 Source: [https://www.google.com/advanced_image_search]
 - Reverse Iamge Search: 🔗 Source: [https://www.google.com/imghp]
 
+## Gathering Information from File Transfer Protocol (FTP) Search Engines
+- NAPALM FTP Indexer 🔗Source:[https://www.searchftps.net/]
+- FreewareWeb FTP File Search 🔗 Source: [https://www.freewareweb.com/ftpsearch.shtml]
+- Mamont 🔗 Source: [https://www.mmnt.ru/int/]
+- Globalfilesearch.com 🔗 Source:[http://ww1.globalfilesearch.com/]
+
+Some of the important advanced Google search queries for finding FTP servers
+```
+# → Finds files containing juicy information 
+site:.in .com | .net intitle:"index of" ftp 
+intitle:"index of" "*/ftp.txt" 
+intext:"index of" "ftp" 
+inurl:WS_FTP.log 
+intitle:index.of/cftp/robots.txt 
+
+# → Finds files containing passwords 
+intitle: "Index of ftp passwords" 
+
+# → Detects the web server 
+inurl: /ftp intitle:"office" 
+
+# → Finds pages containing login portals 
+inurl:/web-ftp.cgi 
+site:sftp.*.*/ intext:"login" intitle:"server login" 
+
+# → Finds the "ws_ftp.ini" file, which contain usernames and passwords of FTP users 
+intitle:"Index of" ws_ftp.ini 
+
+# → Finds archived email conversations, at times revealing full credit-card numbers and customer information as well as private company emails 
+inurl:ftp-inurl:(http|https) intext:"@gmail.com" intext:subject fwd confidential | important | CARD|cvw 
+
+# → Detects various pages of CrushFTP WebInterface, which includes login portals as well password reset/recovery page 
+allintitle:"CrushFTP WebInterface" 
+
+# → Finds sensitive directories. 
+"ws_ftp.log" ext:log 
+
+# → Shows websites that use the FTP service of Monsta FTP 
+intitle:"Monsta ftp" intext:"Lock session to IP"
+
+# → Finds potential log files 
+"index of" /ftp/logs 
+
+# → Lists admin folders on FTP servers
+intitle:"index of" inurl:ftp intext:admin 
+```
+
+# 📝Footprinting through Internet Research Services 
+Internet Research Services are online applications or sources that provide a varity of publicly accessible information related to the target organization. Some examples of information of: Domains, Subdomain, Hosts, etc.
+
+- Netcraft 🔗Source: [https://www.netcraft.com]
+- DNSdumpster 🔗Source: [https://dnsdumpster.com]
+- Pentest-Tools 🔗Source: [https://pentest-tools.com]
+
+## Extracting Website Information from archive.org 
+🔗Source: [https://archive.org]
+Internet Archive's Wayback Machine allows one to visit archived versions of websites.
+
+## Footprinting through People Search Services
+People search service, such as **Spokeo**, **Intelius**, and **Pipl** can provide critical information about a person or an organization, including location, emails, websites, blogs, contacts, importent dates, address, etc.
+
+Job sites such as Dice, LinkedIn, and Glassdoor can reveal detials about a company's infrastructure, potentially aiding attackers in identifying vulnerabilities within the target's IT environment.
+
+- Spokeo 🔗Source: [https://www.spokeo.com]
+
+## 💀Dark Web Footprinting
+
+### Dark web or Darknet 
+- The dark web or Darknet is a deeper layer of the online cyberspace, that enables anyone to navigate anonymously without being traced
+- Attackers use dark web searching tools, such as Tor Browser and ExoneraTor, to gather confidential information about the target
+- Attackers can also use advanced search parameters to refine searches in the Dark Web to find specific data 
+
+### TOR Browser 
+🔗Source: [https://www.torproject.org]
+- It is used to access the dark web where it acts as a default VPN for the user and bounces the network IP address through several servers before interacting with the web
+
+### Searching the Dark Web with Advanced Search Parameters
+```
+Type of Information 			Search Query 						Explanation
+-------------------			------------						-----------
+Sensitive PDFs 				filetype:pdf site:onion confidential 			Finds PDF documents marked as confidential on .onion sites. 
+Passwords in Config Files 		inurl:config filetype:txt password 			Searches for text files in configuration URLs containing passwords. 
+Financial Documents 			filetype:xlsx site:onion financial 			Locates Excel files related to financial data on .onion sites. 
+Database Dumps 				filetype:sql site:onion dump 				Finds SQL database dump files on.onion sites. 
+Email Lists 				filetype:csv site:onion email 				Searches for CSV files containing email lists on .onion sites. 
+Login Credentials 			intitle:"login credentials" filetype:docx 		Locates Word documents with login credentials in the title. 
+Server Configurations 			filetype:xml inurl:config server 			Finds XML files related to server configurations. 
+Private Keys 				filetype:key site:onion private 			Searches for private key files on .onion sites. 
+Medical Records 			filetype:pdf site:onion "medical records" 		Locates PDF documents containing medical records on .onion sites. 
+Business Plans 				filetype:ppt site:onion "business plan" 		Finds PowerPoint files with business plans on .onion sites. 
+Source Code 				filetype:py site:onion "def" 				Searches for Python source code files on .onion sites. 
+Legal Documents 			filetype:docx site:onion "legal document" 		Locates Word documents related to legal matters on .onion sites. 
+Bank Statements 			filetype:pdf site:onion "bank statement"		Finds PDF documents containing bank statements on .onion sites. 
+Intellectual Property 			filetype:pdf inurl:patent confidential 			Searches for patent documents marked as confidential in PDFs. 
+Security Vulnerabilities		filetype:txt inurl:exploit 				Finds text files detailing security
+```
+
+## Determinning the Operation System
+- Netcraft 🔗Source: [https://www.netcraft.com/tools]
+- SHODAN 🔗Source: [https://www.shodan.io]
+- Censys 🔗Source: [https://censys.io]
+
+## Competitive Intelligence Gathering 
+- Competitive intelligence gathering is the process of identifying, gathering, analyzing, verifying, and using information about your competitors from resources, such as the Internet
+- Competitive intelligence is non-interfering and subtle in nature
+  
+Sources of Competitive Intelligence 
+1. Company websites and employment ads
+2. Social engineering employees
+3. Search engines, Internet, and online database
+4. Product catalogs and retail outlets
+5. Press releases and annual reports
+6. Analyst and regulatory reports
+7. Trade journals, conferences, and newspapers
+8. Customer and vendor interviews
+9. Patent and trademarks
+10. Agents, distributors, and suppliers
+
+### Information Resources Sites
+- EDGAR Database 🔗Source: [https://www.sec.gov/edgar]
+- D&B Hoovers 🔗Source: [https://www.dnb.com]
+- LexisNexis 🔗Source: [https://www.lexisnexis.com]
+- Business Wire 🔗Source: [https://www.businesswire.com]
+- Factiva 🔗Source: [https://www.dowjones.com]
+
+Information resource sites that help attackers gain a company's plans include:
+- MarketWatch 🔗Source: [https://www.marketwatch.com]
+- The Wall Street Transcipt 🔗Source: [https://www.twst.com]
+- Euromonitor 🔗Source: [https://www.eurominitor.com]
+- Experian 🔗Source: [https://www.experian.com]
+- The Search monitor 🔗Source: [https://www.thesearchmonitor.com]
+- USPTO 🔗Source: [https://www.uspto.gov]
+
+Information resource sites that help the attcker to obtain expert opinions about the target company include:
+- SEMRush 🔗Source: [https://www.semrush.com]
+- ABI/INFORM Global 🔗Source: [https://www.proquest.com]
+- SimilarWeb 🔗Source: [https://www.similarweb.com]
+- SeRanking 🔗Source: [https://seranking.com]
+
+## Other Techniques for Footprinting through Internet Research Services
+- Finding the Geographical ocation of the Target. Tool: Google Earth 🔗Source: [http://earth.google.com]
+- Gathering information from Financial Services. Tool: Google Finance 🔗Source: [https://www.google.com/finance]
+- Gathering information from Business Profiles Sites. 🔗Source: [opencorporates.com]
+- Monitoring targets Using Alerts. Tool: Google Alerts 🔗Source: [https://www.google.com/alerts]
+- Tracking the Online Reputation of the Target Tool: 🔗Source: Mention 🔗Source: [https://mention.com]
+- Gathering information from Groups, Forums, and Blogs.
+- Gathering information from Public Source-Code Repositories.
+
+# 🌐Footprinting through Social Networking Sites 
