@@ -70,6 +70,8 @@ intitle:"SSL VPN Service" + intext:"Your system administrator provided the follo
 ## 🗺️Footprinting through SHODAN Search Engine
 🔗 Source: [https://www.shodan.io]
 
+Shodan is a search engine that enables attackers to perform footprinting at various levels. It is used to detect devices and networks with vulnerabilities. A search in Shodan for VoIP and VPN footprinting can deliver various results, which will help gather VPN- and VoIP-related information. 
+
 ## Others Techniques for Footprinting through Search Engines
 Gathering information using **Google Advanced Search**, **Advanced Image Search**, and **Reverse Image Search**.
 
@@ -124,7 +126,7 @@ intitle:"Monsta ftp" intext:"Lock session to IP"
 intitle:"index of" inurl:ftp intext:admin 
 ```
 
-# 📝Footprinting through Internet Research Services 
+# 🌐Footprinting through Internet Research Services 
 Internet Research Services are online applications or sources that provide a varity of publicly accessible information related to the target organization. Some examples of information of: Domains, Subdomain, Hosts, etc.
 
 - Netcraft 🔗Source: [https://www.netcraft.com]
@@ -225,11 +227,51 @@ Information resource sites that help the attcker to obtain expert opinions about
 - Gathering information from Groups, Forums, and Blogs.
 - Gathering information from Public Source-Code Repositories.
 
-# 🌐Footprinting through Social Networking Sites 
+# 🧑‍🤝‍🧑Footprinting through Social Networking Sites 
 Social Netwoking Services are online services, platforms, or sites that focus on facilitating the building of social networks or social relations among people.
 
 ## Using Sherlock
+🔗Source: [https://github.com/sherlock-project/sherlock]
+
 Sherlock is a python-based tool that is used to gather information about a target person over various social networking sites. Sherlock searches a vast number of social networking sites for a given target user, locates the person, and displays the results along with the complete URL related to the target person.
-```
 
 ```
+sherlock <"target_name">
+sherlock "Elon Musk"
+```
+
+## Social Searcher 
+🔗Source: [https://www.social-searcher.com ]
+
+Social Searcher allows attackers to search for content on social networks in real time and provides deep analytics data. Attackers use this tool to track a target user on various social networking sites and obtain information such as complete URLs to their profiles, their postings, and other personal information.
+
+## TheHarvester
+🔗Source: [https://www.kali.org/tools/theharvester/]
+
+theHarvester is a tool designed to be used in the early stages of a penetration test. It is used for open-source intelligence gathering and helps to determine a company's external threat landscape on the Internet. Attackers use this tool to perform enumeration on the LinkedIn social networking site to find employees of the target company along with their job titles.
+```
+theharvester -d microsoft.com -l 200 -b linkedin        # → Collects up to 200 email/usernames related to microsoft.com from LinkedIn.
+theharvester -d eccouncil.org -l 200 -b baidu           # → Collects up to 200 email/usernames related to eccouncil.org from Baidu search engine.
+theharvester -d microsoft.com -l 200 -b baidu -f Microsoft_email.xml  # → Collects up to 200 email/usernames related to microsoft.com from Baidu and saves the result in an XML file named Microsoft_email.xml.
+```
+
+## BuzzSumo 
+🔗Source: [https://buzzsumo.com ]
+
+BuzzSumo's advanced social search engine finds the most shared content for a topic, author, or domain. It shows the shared activity across all the major social networks including Twitter, Facebook, LinkedIn, Google Plus, and Pinterest.
+
+## Social Searcher 
+🔗Source: [https://www.social-searcher.com]
+
+Social Searcher allows attackers to search for content on social networks in real time and provides deep analytics data. Attackers use this tool to track a target user on various social networking sites and obtain information such as complete URLs to their profiles, their postings, and other personal information.
+
+# 🔎🌐Whois Footprinting
+
+
+# 🧭📡DNS Footprinting
+
+# 🌐📬Network and Email Footprinting
+
+# 🎭📞Footprinting through Social Engineering
+
+# 🤖🧰Footprinting Tasks using Advanced Tools and AI
