@@ -266,9 +266,84 @@ BuzzSumo's advanced social search engine finds the most shared content for a top
 Social Searcher allows attackers to search for content on social networks in real time and provides deep analytics data. Attackers use this tool to track a target user on various social networking sites and obtain information such as complete URLs to their profiles, their postings, and other personal information.
 
 # 🔎🌐Whois Footprinting
+- 🔗Source: [https://whois.domaintools.com]
+- 🔗Source: [https://www.tamos.com]
+- 🔗Source: [http://www.sabsoft.com]
 
+Whois databases are maintained by Regional Internet Registries and contain personal information of domain owners.
+
+### Whois query returns 
+- Domain name details
+- Contact details of domain owners
+- Domain name servers
+- NetRange
+- When a domain was created
+- Expiry records
+- Last updated record
+  
+### Information obtained from Whois database assists an attacker to 
+- Gather personal information that assists in social engineering
+- Create a map of the target organization's network
+- Obtain internal details of the target network
+  
+### Regional Internet Registries (RIRs) 
+The RIRs include the following: 
+- American Registry for Internet Numbers (ARIN) [https://www.arin.net]
+- African Network Information Center (AFRINIC) [https://www.afrinic.net]
+- Asia Pacific Network Information Center (APNIC) [https://www.apnic.net]
+- Réseaux IP Européens Network Coordination Centre (RIPE) [https://www.ripe.net]
+- Latin American and Caribbean Network Information Center (LACNIC) [https://www.lacnic.net]
+
+## Finding IP Geolocation Information 
+🔗Source: [https://www.ip2location.com/]
+
+IP geolocation helps to identify information, such as country, region/state, city, ZIP/postal code, time zone, connection speed, ISP (hosting company), domain name, IDD country code, area code, mobile carrier, and elevation. 
+
+IP geolocation lookup tools, such as **IP2Location** and **IP Location Finder**, help to collect IP geolocation information about the target, which in turn helps attackers in launching social engineering attacks, such as spamming and phishing.
 
 # 🧭📡DNS Footprinting
+
+
+- DNS records provide important information about the location and types of servers. 
+- Attackers can gather DNS information to determine key hosts in the network and can perform social engineering attacks 
+```
+Record Type	Description
+-----------	-----------
+A 		Points to a host's IP address 
+MX 		Points to domain's mail server 
+NS 		Points to host's name server 
+CNAME 		Canonical naming allows aliases to a host 
+SOA 		Indicate authority for a domain 
+SRV 		Service records 
+PTR 		Maps IP address to a hostname 
+RP 		Responsible person 
+HINFO 		Host information record includes CPU type and OS 
+TXT 		Unstructured text records
+```
+Attackers query DNS servers using DNS interrogation tools, such as **Security Trails**, **Fierce**, **DNSChecker**, and **zdns**, to retrieve the record structure that contains information about the target DNS
+
+### DNS Interrogation Tools 
+- **nslookup:** 🔗Source: [https://www.nslookup.io/]
+- **SecurityTrails:** 🔗Source: [https://securitytrails.com]
+- **Fierce:** 🔗Source: [https://www.kali.org/tools/fierce/]
+```
+fierce --domain certifiedhacker.com                          		# → Performs a basic DNS reconnaissance on certifiedhacker.com to find subdomains and related hosts.
+fierce --domain certifiedhacker.com --subdomains write admin mail  	# → Checks if subdomains like write.certifiedhacker.com, admin.certifiedhacker.com, and mail.certifiedhacker.com exist.
+fierce --domain certifiedhacker.com --subdomains mail --traverse 10  	# → Attempts to find adjacent subdomains near mail.certifiedhacker.com using 10 brute-force steps.
+fierce --domain certifiedhacker.com --subdomains mail --connect      	# → Checks connectivity (e.g., open ports) for mail.certifiedhacker.com.
+fierce --domain certifiedhacker.com --wide                    		# → Performs a wide/deep DNS scan on certifiedhacker.com, expanding the brute-force subdomain range.
+```
+- **DNSChecker:** 🔗Source: [https://dnschecker.org/]
+- **zdns:** 🔗Source: [https://github.com/zmap/zdns]
+- **dnsdumpster:** 🔗Source: [https://dnsdumpster.com/]
+
+## Reverse DNS Lookup
+- Attackers perform a reverse DNS lookup on IP ranges in an attempt to locate a DNS record for those IP addresses.
+- Attackers use various tools such as DNSRecon, Reverse Lookup, puredns, Reverse IP Domain Check, and Reverse IP Lookup to perform reverse DNS lookup on the target host. When we obtain an IP address or a range of IP addresses, we can use these tools to obtain the domain name.
+
+### Tools
+- **DNSRecon:** 🔗Source: [https://github.com/darkoperator/dnsrecon]
+- **Reverse Lookup:** 🔗Source: [https://mxtoolbox.com]
 
 # 🌐📬Network and Email Footprinting
 
