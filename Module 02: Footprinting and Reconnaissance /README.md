@@ -379,7 +379,7 @@ PingPlotter allows attackers to collect traceroute data for target hosts using I
 ## Email Tracking Tools 
 Email tracking tools such as IP2LOCATION's Email Header Tracer, MxToolbox, eMailTrackerPro, Holehe, DNS Checker Email Header Analyzer, and Social Catfish allow an attacker to track an email and extract information such as sender identity, mail server, sender's IP address, location, and so on. Attackers use the extracted information to track the email path from the attacker's location to the target mail server using IP addresses in the email header.
 - **eMailTrackerPro** 🔗Source: [https://www.emailtrackerpro.com]
-- **IP2LOCATION's Email Header Tracer 🔗Source: [https://www.ip2location.com]
+- **IP2LOCATION's Email Header Tracer** 🔗Source: [https://www.ip2location.com]
 
 # 🎭📞Footprinting through Social Engineering
 Social engineering is a non-technical process in which an attacker misleads a person into providing confidential information inadvertently. In other words, the target is unaware of the fact that someone is stealing confidential information. The attacker takes advantage of the gullible nature of people and their willingness to provide confidential information.
