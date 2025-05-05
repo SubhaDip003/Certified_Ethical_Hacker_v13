@@ -6,7 +6,7 @@ Attackers use search engines to **extract information about a target**, such as 
 
 Google hacking refers to the use of advanced Google search operators for creating complex search queries to extract sensitive or hidden information that helps attackers find vulnerable targets.
 
-## 🌐Popular Google advanced search operators
+## Popular Google advanced search operators
 - **site:** This operator restricts search results to the specified site or domain. For example, the [games site: www.certifiedhacker.com] query gives information on games from the certifiedhacker site. 
 - **allinurl:** This operator restricts results to only the pages containing all the query terms specified in the URL. For example, the [allinurl: google career] query returns only pages containing the words "google" and "career" in the URL. 
 - **inurl:** This operator restricts the results to only the pages containing the specified word in the URL. For example, the [inurl: copy site:www.google.com] query returns only Google pages in which the URL has the word "copy." 
@@ -28,7 +28,7 @@ Google hacking refers to the use of advanced Google search operators for creatin
 - **after:** This operator finds information that was published after a certain date. For example, [site:wikipedia.org after:2023-01-01 artificial intelligence] will retrieve Wikipedia articles about artificial intelligence published after January 1, 2023.
 
 
-## 🗺️VPN Footprinting through Google Hacking Database
+## VPN Footprinting through Google Hacking Database
 ```
 # →  Finds pages containing login portals
 inurl:"/sslvpn_logon.shtml" intitle:"User Authentication" "WatchGuard Technologies" 							
@@ -67,7 +67,7 @@ inurl:"/vpn/tmindex.html" vpn
 intitle:"SSL VPN Service" + intext:"Your system administrator provided the following information to help understand and remedy the security conditions:" 
 ```
 
-## 🗺️Footprinting through SHODAN Search Engine
+## Footprinting through SHODAN Search Engine
 🔗 Source: [https://www.shodan.io]
 
 Shodan is a search engine that enables attackers to perform footprinting at various levels. It is used to detect devices and networks with vulnerabilities. A search in Shodan for VoIP and VPN footprinting can deliver various results, which will help gather VPN- and VoIP-related information. 
@@ -435,13 +435,3 @@ Social engineering can be performed in many ways, such as eavesdropping, shoulde
 - **PenLink Cobwebs:** PenLink Cobwebs is an advanced Al-powered OSINT tool that specializes in gathering and analyzing data from various online sources. It offers comprehensive capabilities for collecting, processing, and visualizing information to support cybersecurity investigations. 🔗Source: [https://cobwebs.com]
 - **Explore Al:** Explore Al is an Al-powered YouTube search engine that uses artificial intelligence to search for and extract information from YouTube videos, making it easier to access information for ethical hacking purposes.  🔗Source: [https://exploreai.vercel.app]
 - **AnyPicker:** AnyPicker is a powerful visual web scraper and AI OSINT tool designed to extract data from websites without requiring coding skills. This tool supports scraping multiple pages simultaneously and provides a real-time preview of the extraction results, offering flexibility and efficiency in web data collection. 🔗Source: [https://app.anypicker.com] 
-
-
-
-  
-
-
-
-
-
-
