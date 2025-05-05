@@ -347,6 +347,7 @@ fierce --domain certifiedhacker.com --wide                    		# → Performs a
 
 # 🌐📬Network and Email Footprinting
 
+
 # 🎭📞Footprinting through Social Engineering
 
 # 🤖🧰Footprinting Tasks using Advanced Tools and AI
