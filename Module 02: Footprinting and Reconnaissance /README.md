@@ -346,8 +346,102 @@ fierce --domain certifiedhacker.com --wide                    		# → Performs a
 - **Reverse Lookup:** 🔗Source: [https://mxtoolbox.com]
 
 # 🌐📬Network and Email Footprinting
+## ARIN.net
+ARIN.net helps ethical hackers know who owns an IP, which is useful for mapping the target network and performing reconnaissance without touching the target system. 🔗Source: [https://www.arin.net/]
 
+## Traceroute
+Traceroute programs work on the concept of ICMP protocol and use the TTL field in the header of ICMP packets to discover the routers on the path to a target host.
+
+- **ICMP Traceroute (Windows):** Windows operating systems by default uses ICMP traceroute.
+  ```
+  tracert <target>
+  ``` 
+- **TCP Traceroute (Linux):** Many devices in any network are generally configured to block ICMP traceroute messages.
+  ```
+  sudo tcptraceroute <target>
+  ```
+- **UDP Traceroute (Windows|Linux):**
+  ```
+  traceroute <target>
+  ```
+
+## Traceroute Tools
+### NetScanTool Pro: 🔗Source: [https://www.netscantools.com]
+Attackers can use NetScan Tools Pro to trace the route packets traverse from their machine to the target device on a local area network or across the Internet. The tool offers ICMP, UDP, or TCP traceroute methods and allows attackers to identify the intermediate devices along the route. Also, it helps attackers locate the country assigned to each IPv4 address in each hop.
+
+### PingPlotter: 🔗Source: [https://www.pingplotter.com]
+PingPlotter allows attackers to collect traceroute data for target hosts using ICMP, UDP, and TCP packets. It automatically discovers the network hops and tracks latency and packet loss over time. Using this tool, attackers can visualize the traceroute data in readable graphs. This tool aids attackers in identifying bandwidth bottlenecks, WiFi interference, or hardware faults on the target network.
+
+### Others tools
+- **Traceroute NG** 🔗Source: [https://www.solarwinds.com/free-tools/traceroute-ng]
+- **tracert**
+
+## Email Tracking Tools 
+Email tracking tools such as IP2LOCATION's Email Header Tracer, MxToolbox, eMailTrackerPro, Holehe, DNS Checker Email Header Analyzer, and Social Catfish allow an attacker to track an email and extract information such as sender identity, mail server, sender's IP address, location, and so on. Attackers use the extracted information to track the email path from the attacker's location to the target mail server using IP addresses in the email header.
+- **eMailTrackerPro** 🔗Source: [https://www.emailtrackerpro.com]
+- **IP2LOCATION's Email Header Tracer 🔗Source: [https://www.ip2location.com]
 
 # 🎭📞Footprinting through Social Engineering
+Social engineering is a non-technical process in which an attacker misleads a person into providing confidential information inadvertently. In other words, the target is unaware of the fact that someone is stealing confidential information. The attacker takes advantage of the gullible nature of people and their willingness to provide confidential information.
+
+Social engineering can be performed in many ways, such as eavesdropping, shoulder surfing, dumpster diving, impersonation, tailgating, third-party authorization, piggybacking, reverse social engineering, and so on.
+
+## Collecting Information Using Eavesdropping, Shoulder Surfing, Dumpster Diving, and Impersonation 
+- **Eavesdropping:**
+  - Unauthorized listening of conversations or reading of messages
+  - It is the interception of any form of communication, such as audio, video, or text 
+- **Shoulder Surfing:**
+  - Secretly observing the target to gather critical information, such as passwords, personal identification number, account numbers, and credit card information 
+- **Dumpster Diving:**
+  - Looking for treasure in someone else's trash 
+  - It involves the collection of phone bills, contact information, financial information, operations-related information, etc. from the target company's trash bins, printer trash bins, user desk for sticky notes, etc. 
+- **Impersonation:**
+  - Pretending to be a legitimate or authorized person and using the phone or other communication medium to mislead targets and trick them into revealing information
 
 # 🤖🧰Footprinting Tasks using Advanced Tools and AI
+- **Maltego:** Maltego can be used to determine the relationships and real world links between people, groups of people, organizations, websites, Internet infrastructure, documents, etc. 🔗Source: [https://www.maltego.com]
+- **Recon-ng:** Recon-ng is a Web Reconnaissance framework with independent modules and database interaction, which provides an environment in which open source, web-based reconnaissance can be conducted. 🔗Source: [https://github.com/lanmaster53/recon-ng]
+- **FOCA:** **Fingerprinting Organizations with Collected Archives** (FOCA) is a tool used mainly to find metadata and hidden information in the documents that its scans. FOCA is capable of scanning and analyzing a wide variety of documents, with the most common ones being Microsoft Office, Open Office, or PDF files. 🔗Source: [https://www.elevenpaths.com]
+- **SubFinder:** subfinder is a subdomain discovery tool that helps attackers find valid subdomains for websites. 🔗Source: [https://github.com/projectdiscovery/subfinder]
+- **OSINT Framework:** OSINT Framework is an open source intelligence gathering framework that helps security professionals in performing automated footprinting and reconnaissance, OSINT research, and intelligence gathering. It is focused on gathering information from free tools or resources. This framework includes a simple web interface that lists various OSINT tools arranged by category, and it is shown as an OSINT tree structure on the web interface. 🔗Source: [https://osintframework.com ]
+  - (T) - Indicates a link to a tool that must be installed and run locally
+  - (D) - Google dork
+  - (R) - Requires registration
+  - (M) - Indicates a URL that contains the search term and the URL itself must be edited manually
+- **Recon-Dog:** Recon-Dog is an all-in-one tool for all basic information gathering needs. It uses APIs to collect information about the target system. 🔗Source: [https://github.com/s0md3v/ReconDog]
+- **BillCipher:** BillCipher is an information gathering tool for a website or IP address. It can work on any operating system that supports Python 2, Python 3, and Ruby. This tool includes various options such as DNS lookup, Whois lookup, port scanning, zone transfer, host finder, and reverse IP lookup, which help to gather critical information. 🔗Source: [https://github.com/bahatiphill/BillCipher]
+
+### Some additional footprinting tools are listed below: 
+- Sudomy 🔗Source:[https://github.com/screetsec/Sudomy]
+- theHarvester 🔗Source: [https://www.edge-security.com]
+- whatweb 🔗Source: [https://github.com/urbanadventurer/WhatWeb]
+- Raccoon 🔗Source: [https://github.com/evyatarmeged/Raccoon]
+- Orb 🔗Source: [https://github.com/orb-community/orb]
+- Web Check 🔗Source: [https://web-check.xyz]
+- OSINT.SH 🔗Source:[https://osint.sh]
+
+## Al-Powered OSINT Tool: 
+- **Taranis AI:** Taranis Al is an advanced OSINT tool uses Al to enhance information gathering and situational analyses. It uses NLP and Al to improve the quality of data received from data sources, such as websites, to gather unstructured news articles. Analysts then transform these Al-enhanced articles into organized reports that are used as the basis for deliverables such as PDF files that are eventually published. 🔗Source: [https://taranis.ai]
+- **OSS Insight:** OSS Insight leverages Al to delve deep into the GitHub ecosystem by analyzing an extensive dataset of over five billion GitHub events. This capability enables it to offer comprehensive insights and tools to enhance the understanding and navigation of the open-source world. From detailed repository analytics encompassing metrics such as stars, forks, and commits to insights into developer productivity and collaboration patterns, OSS Insight is equipped with powerful resources for informed decision-making and strategic planning in open-source software development. 🔗Source: [https://ossinsight.io]
+
+## Additional AI-Powered OSINT Tools
+- **DorkGPT:** DorkGPT is an Al-powered tool designed to assist Google Dorking, a technique used to find information that is not easily accessible through regular search queries. It leverages the capabilities of GPT (Generative Pre-trained Transformer) models to generate and refine search queries, helping users uncover sensitive information, hidden pages, and other data that may be relevant to cybersecurity, ethical hacking, or research purposes. 🔗Source: [https://dorkgpt.com]
+- **DorkGenius:** DorkGenius is an Al-powered tool that automates Google Dorking and helps users generate advanced search queries to find specific information on the internet. It is useful for uncovering hidden files, directories, sensitive information, and security vulnerabilities, particularly in the case of ethical hackers. 🔗Source: [https://dorkgenius.com ]
+- **Google Word Sniper:** Google Word Sniper helps to refine search queries for more effective Google results. It identifies targeted keywords and phrases, making it easier to find specific information, hidden content, and niche data. This tool is valuable for researchers, marketers, and cybersecurity professionals, as it enhances their ability to uncover valuable buried information in search results. 🔗Source: [https://googlewordsniper.eu ]
+- **Cylect.io:**  Cylect.io is an advanced Al-powered OSINT tool that integrates multiple databases into a user-friendly interface, providing a vast collection of resources for ethical hackers and enabling efficient and confident OSINT investigations. Developed to address the inefficiencies of traditional search engines, Cylect.io simplifies the search process and enhances the speed and accuracy of data collection in investigative contexts. 🔗Source: [https://cylect.io]
+- **ChatPDF:** ChatPDF is an OSINT tool that leverages Al to analyze and extract information from PDF documents through a conversational interface. Users can upload PDF files and interact with the tool to quickly retrieve specific data, summaries, and insights, making it a valuable resource for ethical hacking. 🔗Source: [https://chatpdf.com]
+- **Bardeen.ai:** Bardeen.ai is an automation tool that can be used for OSINT by enabling users to streamline and automate data collection and analysis processes from various online sources. This enhances the speed and accuracy of OSINT activities, making them useful assets for cybersecurity professionals, researchers, and investigators.  🔗Source: [https://www.bardeen.ai]
+- **DarkGPT:** DarkGPT is an Al assistant that uses GPT-4-200K to query leaked databases, aiding in efficient and targeted searches within compromised data sources. This enables users to extract vital information and insights, enhancing the OSINT capabilities of cybersecurity analysts and researchers. 🔗Source: [https://github.com/luijait/DarkGPT]
+- **PenLink Cobwebs:** PenLink Cobwebs is an advanced Al-powered OSINT tool that specializes in gathering and analyzing data from various online sources. It offers comprehensive capabilities for collecting, processing, and visualizing information to support cybersecurity investigations. 🔗Source: [https://cobwebs.com]
+- **Explore Al:** Explore Al is an Al-powered YouTube search engine that uses artificial intelligence to search for and extract information from YouTube videos, making it easier to access information for ethical hacking purposes.  🔗Source: [https://exploreai.vercel.app]
+- **AnyPicker:** AnyPicker is a powerful visual web scraper and AI OSINT tool designed to extract data from websites without requiring coding skills. This tool supports scraping multiple pages simultaneously and provides a real-time preview of the extraction results, offering flexibility and efficiency in web data collection. 🔗Source: [https://app.anypicker.com] 
+
+
+
+  
+
+
+
+
+
+
