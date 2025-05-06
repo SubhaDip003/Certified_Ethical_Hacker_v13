@@ -1,7 +1,7 @@
-# Footprinting and Reconnaissance
+# 🔍📝Footprinting and Reconnaissance
 Footprinting and Reconnaissance is the process of collecting information about a target system or network to identify potential security weaknesses, typically done in the early phase of a cyberattack or penetration test.
 ## Types of Reconnaissance 
-## Passive 
+### Passive 
 Gathering information about the target without direct interaction 
 It involves: 
 - Open-source Intelligence (OSINT) gathering 
