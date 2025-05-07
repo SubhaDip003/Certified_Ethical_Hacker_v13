@@ -53,7 +53,78 @@ NetScanTools Pro is a tool used to collect detailed information about networks a
 - PRTG Network Monitor 🔗Source: [https://www.paessler.com]
 
 # 🖥️Host Discovery 
+Host Discovery is the process of finding out which devices (hosts) are active and connected to a network. It's often the first step in network scanning or penetration testing, helping identify live systems that can be further analyzed or tested.
+## Host Discovery Techniques 
+Host discovery techniques can be adopted to discover the active/live hosts in the network.
+
+```
+nmap -sn -PR <target>        # → ARP Ping Scan: Sends ARP requests to detect live hosts.
+nmap -sn -PU 53 <target>     # → UDP Ping Scan: Sends empty UDP packets to port 53 (DNS) to check if host is alive.
+nmap -sn -PE <target>        # → ICMP Echo Ping Scan: Sends ICMP Echo Request (like "ping") to detect live hosts.
+nmap -sn -PE -PS80 <target>  # → ICMP Echo Ping Sweep: Combines ICMP Echo with SYN ping to scan multiple hosts.
+nmap -sn -PP <target>        # → ICMP Timestamp Ping Scan: Sends ICMP timestamp request to find responsive hosts.
+nmap -sn -PM <target>        # → ICMP Address Mask Ping Scan: Sends ICMP address mask request to check for active hosts.
+nmap -sn -PS80 <target>      # → TCP SYN Ping Scan: Sends TCP SYN to port 80 to determine if host is up.
+nmap -sn -PA443 <target>     # → TCP ACK Ping Scan: Sends TCP ACK to port 443 to bypass firewalls and find live hosts.
+nmap -sn -PO <target>        # → IP Protocol Ping Scan: Sends IP packets with different protocol numbers to detect live hosts.
+```
+> #### Note: -sn is the Nmap command to disable the port scan. Since Nmap uses ARP ping scan as the default ping scan, to disable it and perform other desired ping scans, you can use --disable-arp-ping.
+> ```
+> nmap -sn --disable-arp-ping -PE <target>
+> ```
+
+## Ping Sweep Tools
+Ping sweep tools ping an entire range of network IP addresses to identify the live systems. The following are ping sweep tools that enable one to determine live hosts on the target network by sending multiple ICMP ECHO requests to various hosts on the network at a time.
+
+- **Angry IP Scanner:** 🔗Source: [https://angryip.org]
+- **SolarWinds Engineer’s Toolset:**  🔗Source: [https://www.solarwinds.com]
+- **NetScanTools Pro:** 🔗Source: [https://www.netscantools.com]
+- **Colasoft Ping Tool:** 🔗Source: [https://www.colasoft.com]
+- **Advanced IP Scanner:** 🔗Source: [https://www.advanced-ip-scanner.com]
+- **OpUtils:** 🔗Source: [https://www.manageengine.com]
+
 # 🚪Port and Service Discovery
+Port and Service Discovery is the process of finding which ports are open on a target system and what services are running on those ports. This helps ethical hackers or penetration testers understand what software or services are exposed to the network and potentially exploitable.
+
+```
+================================================================================================================================================================================================================================================
+Name		Port/Protocol		Description		|	Name		Port/Protocol		Description				|	Name		Port/Protocol		Description
+====		=============		===========		|	====		=============		===========				|	====		=============		===========
+echo		7/tcp, udp		echo			|	netbios-dgm     138/tcp, udp          	netbios datagram service		|	ntalk           518/udp               	sunos talkd
+discard		9/tcp, udp		sink null		|	netbios-ssn     139/tcp, udp          	netbios session service			|	netnews         532/tcp, udp          	readnews
+systat		11/tcp			users			|	imap            143/tcp, udp          	internet message access protocol	|	uucp            540/tcp, udp          	uucpd
+daytime		13/tcp, udp 		daytime			|	sql-net         150/tcp, udp          	sql-net					|	klogin          543/tcp, udp          	kerberos login					
+netstat		15/tcp, udp		netstat			|	sqlsrv          156/tcp, udp          	sql service				|	kshell          544/tcp, udp          	kerberos shell
+qotd            17/tcp, udp          	quote			|	snmp            161/tcp, udp          	snmp					|	ekshell         545/tcp               	krcmd kerberos encrypted remote shell
+chargen         19/tcp, udp          	ttytst source		|	snmp-trap       162/tcp, udp          	snmp-trap				|	pcserver        600/tcp               	ecd integrated pc board server
+ftp-data        20/tcp               	ftp data transfer	|	cmip-man        163/tcp, udp          	cmip/tcp manager			|	mount           635/udp               	nfs mount service
+ftp             21/tcp               	ftp command		|	cmip-agent      164/tcp, udp          	cmip/tcp agent				|	pcnfs           640/udp               	pc-nfs dos authentication
+ssh             22/tcp               	secure shell		|	irc             194/tcp, udp          	internet relay chat			|	bwnfs           650/udp               	bw-nfs dos authentication
+telnet          23/tcp               	telnet			|	at-rtmp         201/tcp, udp          	appletalk routing maintenance		|	flexlm          744/tcp, udp          	flexible license manager
+smtp            25/tcp               	email server		|	at-nbp          202/tcp, udp          	appletalk name binding			|	kerberos-adm    749/tcp, udp          	kerberos administration
+time            37/tcp, udp          	timeserver		|	at-3            203/tcp, udp          	appletalk				|	kerberos-master 751/tcp, udp          	kerberos authentication
+rlp             39/tcp, udp          	resource location	|	at-echo         204/tcp, udp          	appletalk echo				|	krb_prop        754/tcp               	kerberos slave propagation
+domain          53/tcp, udp          	domain name server	|	at-5            205/tcp, udp          	appletalk				|	applix          999/udp               	applixware
+sql*net         66/tcp, udp          	Oracle SQL*net		|	at-zis          206/tcp, udp          	appletalk zone information		|	socks           1080/tcp, udp         	socks proxy
+bootps          67/udp                	bootp server		|	at-7            207/tcp, udp          	appletalk				|	kpop            1109/tcp              	pop with kerberos
+bootpc          68/udp                	bootp client		|	at-8            208/tcp, udp          	appletalk				|	ms-sql-s        1433/tcp, udp         	microsoft sql server
+tftp            69/udp                	trivial file transfer	|	ipx             213/tcp, udp          	novell					|	ms-sql-m        1434/tcp, udp         	microsoft sql monitor
+gopher          70/tcp                	gopher server		|	imap3           220/tcp, udp          	interactive mail access protocol v3	|	pptp            1723/tcp, udp         	pptp
+finger          79/tcp                	finger			|	aurp            387/tcp, udp          	appletalk update-based routing		|	nfs             2049/tcp, udp         	network file system
+www-http        80/tcp, udp           	www			|	netware-ip      396/tcp, udp          	novell netware over IP			|	eklogin         2105/tcp              	kerberos encrypted rlogin
+www-https       443/tcp               	https			|	rmt             411/tcp, udp          	remote mt				|	rkninit         2108/tcp              	kerberos remote kinit
+kerberos        88/tcp, udp           	kerberos		|	kerberos-ds     445/tcp, udp          	microsoft ds				|	kx              2111/tcp              	x over kerberos
+pop2            109/tcp               	postoffice v.2		|	isakmp          500/udp               	isakmp/ike				|	kauth           2120/tcp              	remote kauth
+pop3            110/tcp               	postoffice v.3		|	fcp             510/tcp               	first class server			|	lyskom          4894/tcp              	lyskom (conference system)
+sunrpc          111/tcp, udp          	rpc 4.0 portmapper	|	exec            512/tcp               	bsd rexecd				|	sip             5060/tcp, udp         	session initiation protocol
+auth/ident      113/tcp, udp          	authentication service	|	comsat/biff     512/udp               	notify users				|	x11             6000-6063/tcp, udp    	x window system
+audionews       114/tcp, udp          	audio news multicast	|	login           513/tcp               	bsd rlogind				|	irc              6667/tcp              	internet relay chat
+nntp            119/tcp               	usenet news		|	who             513/udp               	whod/rwhod				|
+ntp             123/udp               	network time protocol	|	shell           514/tcp               	cmd bsd rshd				|	
+netbios-ns      137/tcp, udp          	netbios name service	|	syslog          514/udp               	bsd syslogd				|
+								|	printer         515/tcp, udp          	spooler bsd lpd				|
+								|	talk            517/tcp, udp          	bsd talkd				|
+```
 # 🧠OS Discovery (Banner Grabbing/OS Fingerprinting) 
 # 🕵️Scanning Beyond IDS and Firewall  
 # 🛡️Network Scanning Countermeasures 
