@@ -86,6 +86,7 @@ Ping sweep tools ping an entire range of network IP addresses to identify the li
 # 🚪Port and Service Discovery
 Port and Service Discovery is the process of finding which ports are open on a target system and what services are running on those ports. This helps ethical hackers or penetration testers understand what software or services are exposed to the network and potentially exploitable.
 
+## Lists of common Ports and Services
 ```
 ================================================================================================================================================================================================================================================
 Name		Port/Protocol		Description		|	Name		Port/Protocol		Description				|	Name		Port/Protocol		Description
@@ -125,6 +126,55 @@ netbios-ns      137/tcp, udp          	netbios name service	|	syslog          51
 								|	printer         515/tcp, udp          	spooler bsd lpd				|
 								|	talk            517/tcp, udp          	bsd talkd				|
 ```
-# 🧠OS Discovery (Banner Grabbing/OS Fingerprinting) 
+Nmap Commands to Port and Service Discovery
+```
+# => TCP Connect/Full-Open Scan → Performs a full TCP three-way handshake
+nmap -sT <target>
+
+# => Stealth Scan (Half-Open Scan) → Sends SYN and waits for SYN-ACK (no full handshake)
+nmap -sS <target>
+
+# => Inverse TCP Flag Scan → Sends TCP packets with FIN, URG, and PSH flags to evade detection
+nmap -sN <target>      # => TCP Null Scan
+nmap -sF <target>      # => FIN Scan
+nmap -sX <target>      # => Xmas Scan
+
+# => TCP Maimon Scan → Exploits TCP stack behavior by sending FIN/ACK flagged packets
+nmap -sM <target>
+
+# => ACK Flag Probe Scan → Used to map firewall rulesets
+nmap -sA <target>
+
+# => TTL-Based ACK Flag Probe scanning → Reveals filtered vs unfiltered via TTL values (advanced script)
+nmap -sA --ttl 128 <target>       # Adjust TTL as needed
+
+# => Window-Based ACK Flag Probe scanning → Reveals stateful vs stateless filtering via TCP window size
+nmap -sA --reason <target>
+
+# => IDLE/IPID Header Scan → Stealth scan using a zombie host to avoid detection
+nmap -sI <zombie_ip> <target>
+
+# => UDP Scan → Sends UDP packets to detect open/filtered/closed UDP ports
+nmap -sU <target>
+
+# => SCTP INIT Scan → Performs an SCTP scan using INIT chunks (similar to TCP SYN)
+nmap -sY <target>
+
+# => SCTP COOKIE ECHO Scan → Sends COOKIE-ECHO chunks to detect open SCTP ports (more stealthy)
+nmap -sZ <target>
+
+# => SSDP and List Scan → SSDP is useful for IoT enumeration, list scan shows resolved hostnames
+nmap -sL --script=ssdp-discover <target>
+
+# => IPv6 Scan → Scans targets using IPv6 addresses
+nmap -6 <ipv6-address>
+
+# => Service Version Discovery → Detects running services and their versions
+nmap -sV <target>
+```
+> #### Note: Replace <target> with the IP address or hostname of the system you want to scan. Replace <zombie_ip> with a suitable idle host for IPID scans.
+
+# 🧠OS Discovery (Banner Grabbing/OS Fingerprinting)
+
 # 🕵️Scanning Beyond IDS and Firewall  
 # 🛡️Network Scanning Countermeasures 
