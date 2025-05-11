@@ -326,5 +326,3 @@ Some additional anonymizers are listed below:
 ### Censorship Circumvention Tools 
 - **AstrillVPN:** AstrillVPN is a VPN software that enables attackers to bypass Internet censorship and access geo-blocked websites, apps, and services by hiding their IP and location. It offers data encryption and transmission technology and avoids logging traffic data and DNS queries to prevent tracking of browsing activity and metadata. 🔗Source: [https://www.astrill.com]
 - **Tails:** Tails is a live OS that users can run on any computer from a USB stick or SD card. It uses state-of-the-art cryptographic tools to encrypt files, emails, and instant messaging. It allows attackers to use the Internet anonymously and circumvent censorship. It leaves no trace on the computer. 🔗Source: [https://tails.net]
-
-# 🛡️Network Scanning Countermeasures 
