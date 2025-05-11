@@ -208,4 +208,126 @@ nmap --script <script> <target> 	# → Custom NSE Scipt
 unicornscan -Iv <target_ip>
 ```
 # 🕵️Scanning Beyond IDS and Firewall  
+Though firewalls and IDSs can prevent malicious traffic (packets) from entering a network, attackers can manage to send intended packets to the target by evading an IDS or firewall through the following techniques:
+## Packet Fragmentation
+- Packet fragmentation refers to the splitting of a probe packet into several smaller packets (fragments) while sending it to a network
+- It is not a new scanning method but a modification of the previous techniques
+- The TCP header is split into several packets so that the packet filters are not able to detect what the packets are intended to do
+```
+nmap -sS -T4 -A -f -v <target>
+```
+## Source Routing
+- As the packet travels through the nodes in the network, each router examines the destination IP address and chooses the next hop to direct the packet to the destination
+- Source routing refers to sending a packet to the intended destination with a partially or completely specified route (without firewall-/IDS-configured routers) in order to evade an IDS or firewall
+- In source routing, the attacker makes some or all of these decisions on the router
+## Source Port Manipulation
+- Source port manipulation refers to manipulating actual port numbers with common port numbers in order to evade an IDS or firewall 
+- It occurs when a firewall is configured to allow packets from well-known ports like HTTP, DNS, FTP, etc. 
+- Nmap uses the -g or --source-port options to perform source port manipulation
+```
+nmap -g 80 <target>
+nmap --source-port 21 <target>
+```
+## IP Address Decoy
+- IP address decoy technique refers to generating or manually specifying the IP addresses of decoys in order to evade an IDS or firewall 
+- It appears to the target that the decoys as well as the host(s) are scanning the network 
+- This technique makes it difficult for the IDS or firewall to determine which IP address was actually scanning the network and which IP addresses were decoys
+### Decoy Scanning using Nmap 
+Nmap has two options for decoy scanning: 
+```
+nmap -D RND: 10 [target] 			# → Generates a random number of decoys
+nmap -D decoyl, decoy2, decoy3,... <target> 	# → Manually specify the IP addresses of the decoys
+```
+## IP Address Spoofing
+- IP spoofing refers to changing the source IP addresses so that the attack appears to be coming from someone else 
+- When the victim replies to the address, it goes back to the spoofed address rather than the attacker's real address 
+- Attackers modify the address information in the IP packet header and the source address bits field in order to bypass the IDS or firewall
+IP spoofing using Hping3:
+```
+Hping3 <target> -a <spoofed_IP>
+```
+## MAC Address Spoofing
+- The MAC address spoofing technique involves spoofing a MAC address with the MAC address of a legitimate user on the network 
+- Attackers use the --spoof-mac Nmap option to set a specific MAC address for the packets to evade firewalls
+```
+nmap -sT -Pn --spoof-mac 0 <target>		# → --spoof-mac 0 represents the randomization of the MAC address.
+nmap -sT -Pn --spoof-mac <Vendor> <target>	# → --spoof-mac [vendor] represents the randomization of the MAC address based on the specified vendor (DELL, HP, CISCO, etc).
+nmap -sT -Pn --spoof-mac <new MAC> <target>	# → --spoof-mac [new MAC] represents manually setting the MAC address.
+```
+## Creating Custom Packets
+The attacker creates and sends custom packets to scan the intended target beyond the IDS/firewalls. Various techniques are used to create custom packets. Some of them are mentioned below:
+### Creating Custom Packets by using Packet Crafting Tools 
+Attackers create custom TCP packets to scan the target by bypassing the firewalls. Attackers use various packet crafting tools such as Colasoft packet builder [https://www.colasoft.com], NetScanTools Pro [https://www.netscantools.com], etc., to scan the target that is beyond the firewall. Packet crafting tools craft and send packet streams (custom packets) using different protocols at different transfer rates.
+- Colasoft Packet Builder
+🔗Source: [https://www.colasoft.com]
+
+Colasoft Packet Builder is a tool that allows an attacker to create custom network packets and helps security professionals assess the network. The attacker can select a TCP packet from the provided templates and change the parameters in the decoder, hexadecimal, or ASCII editor to create a packet. In addition to building packets, Colasoft Packet Builder supports saving packets to packet files and sending packets to the network.
+
+![Colasoft](https://github.com/user-attachments/assets/378d2182-9ea0-4486-bb50-07441e93e8a7)
+
+
+There are three views in the Packet Builder: Packet List, Decode Editor, and Hex Editor.
+- **Packet List** displays all the constructed packets. When you select one or more packets in Packet List, the first highlighted packet is displayed in both Decode Editor and Hex Editor for editing.
+- In **Hex Editor**, the data of the packet are represented as hexadecimal values and ASCII characters; nonprintable characters are represented by a dot (".") in the ASCII section. You can edit either the hexadecimal values or the ASCII characters.
+- **Decode Editor** allows the attacker to edit packets without remembering the value length, byte order, and offsets. You can select a field and change the value in the edit box.
+
+For creating a packet, you can use the add or insert packet command in the Edit menu or the Toolbar to create a new packet.
+
+## Randomizing Host Order
+Attackers scan the number of hosts in the target network in random order to scan an intended target that is behind a firewall 
+
+```
+nmap --randomize-hosts <target>
+```
+## Sending Bad Checksums
+Attackers send packets with bad or bogus TCP/UPD checksums to the intended target to avoid certain firewall rulesets 
+```
+nmap --badsum <target>
+```
+## Proxy Servers
+Proxy server is an application that can serve as an intermediary for connecting with other computers.
+
+### Proxy Tools 
+Proxy tools are intended to allow users to surf the Internet anonymously by keeping their IP hidden through a chain of SOCKS or HTTP proxies. These tools can also act as HTTP, mail, FTP, SOCKS, news, telnet, and HTTPS proxy servers.
+- **Proxy Switcher** 🔗Source: [https://www.proxyswitcher.com]
+
+Proxy Switcher allows attackers to surf the Internet anonymously without disclosing their IP address. It also helps attackers to access various blocked sites in the organization. In addition, it avoids all sorts of limitations imposed by target sites.
+
+![ProxySwitcher](https://github.com/user-attachments/assets/db3f1af7-7b45-4e28-9013-cb2a203f08a7)
+
+- **CyberGhost VPN** 🔗Source: [https://www.cyberghostvpn.com]
+
+CyberGhost VPN hides the attacker's IP and replaces it with a selected IP, allowing him or her to surf anonymously and access blocked or censored content. It encrypts the connection and does not keep logs, thus securing data.
+
+![CyberGhostVPN](https://github.com/user-attachments/assets/f4f05732-e135-4c4a-b21b-f58bdd14f896)
+
+Some additional proxy tools are listed below:
+- **Burp Suite** [https://www.portswigger.net]
+- **Tor** [https://www.torproject.org]
+- **Hotspot Shield** [https://www.hotspotshield.com]
+- **Proxifier** [https://www.proxifier.com]
+- **IPRoyal Residential Proxy** [https://iproyal.com]
+
+## Anonymizers
+An anonymizer is a tool or service that hides your identity when you browse the internet. It works like a middleman between you and the website you’re visiting. Instead of the website seeing your real IP address, it sees the anonymizer’s address, which helps keep your activities private and lets you bypass internet restrictions. Anonymizers can also encrypt your data so your ISP can’t see what you're doing. People use anonymizers to stay anonymous online, but attackers might misuse them to hide their malicious actions.
+
+Anonymizer tools use various techniques such as SSH, VPN, and HTTP proxies, which allow access to blocked or censored content on the Internet with advertisements omitted. 
+
+- **Whonix** 🔗Source: [https://www.whonix.org]
+
+Whonix is a desktop OS designed for advanced security and privacy. It mitigates the threat of common attack vectors while maintaining usability. Online anonymity is realized via fail-safe, automatic, and desktop-wide use of the Tor network. It consists of a heavily reconfigured Debian base that is run inside multiple virtual machines, providing a substantial layer of protection from malware and IP address leaks.
+
+Some additional anonymizers are listed below:
+- **Psiphon** [https://psiphon.ca]
+- **TunnelBear** [https://www.tunnelbear.com]
+- **Invisible Internet Project (I2P)** [https://geti2p.net]
+- **Bright Data Proxy API** [https://brightdata.com]
+
+### Censorship Circumvention Tools 
+- **AstrillVPN:** AstrillVPN is a VPN software that enables attackers to bypass Internet censorship and access geo-blocked websites, apps, and services by hiding their IP and location. It offers data encryption and transmission technology and avoids logging traffic data and DNS queries to prevent tracking of browsing activity and metadata. 🔗Source: [https://www.astrill.com]
+- **Tails:** Tails is a live OS that users can run on any computer from a USB stick or SD card. It uses state-of-the-art cryptographic tools to encrypt files, emails, and instant messaging. It allows attackers to use the Internet anonymously and circumvent censorship. It leaves no trace on the computer. 🔗Source: [https://tails.net]
+- 
+
+ 
+
 # 🛡️Network Scanning Countermeasures 
