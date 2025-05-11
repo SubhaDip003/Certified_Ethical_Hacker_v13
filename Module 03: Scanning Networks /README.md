@@ -175,6 +175,37 @@ nmap -sV <target>
 > #### Note: Replace <target> with the IP address or hostname of the system you want to scan. Replace <zombie_ip> with a suitable idle host for IPID scans.
 
 # 🧠OS Discovery (Banner Grabbing/OS Fingerprinting)
+OS Discovery (also known as Banner Grabbing or OS Fingerprinting) is the process of identifying the operating system running on a target machine during a scan.
+- **Banner Grabbing:** Collects text (banners) shown by services like FTP, HTTP, or SSH, which often includes the OS name or version.
+- **OS Fingerprinting:** Analyzes how a system responds to specific network traffic to guess its operating system (like Linux, Windows, etc.).
 
+## Types of Banner Grabbing
+1. **Active banner grabbing** means sending special or unusual network packets to a target computer to see how it responds. Every operating system (like Windows or Linux) handles these packets a bit differently because each has its own way of implementing network rules (TCP/IP stack). By looking at these responses and comparing them to a known database, we can guess what OS the target is using.
+2. **Passive Banner Grabbing** is a way to find out the operating system of a device without directly sending any packets to it. Instead of scanning the device, it just watches (sniffs) the network traffic coming from the device and studies how it communicates. Different operating systems have unique ways of responding to network traffic, and passive tools use those small differences to guess the OS—quietly and without alerting the target. 🔗Source: [https://www.broadcom.com]
+
+## TTL & Window size values for difference OS's
+![CEH_Tools png](https://github.com/user-attachments/assets/b3257f8d-5996-42ba-8660-be0aa02cce97)
+
+## OS Discovery using Wireshark 
+🔗Source: [https://www.wireshark.org]
+
+OS discovery using Wireshark works by capturing network traffic between your system and the target. When the target responds to your request, you can look at specific details in the response—like the TTL (Time To Live) and TCP Window Size—in the first TCP packet it sends back. Different operating systems use different default values for TTL and window size, so by comparing those values with known standards, you can guess which OS the target is using.
+
+![WinOS](https://github.com/user-attachments/assets/de5cfe01-9036-4a1a-b0ec-7d31ac386017)
+
+👉 For example, a TTL of 128 might suggest Windows, while 64 might suggest Linux.
+## OS Discovery using Nmap & NSE Script
+🔗Source: [https://nmap.org]
+```
+nmap -O <target>	# → Operating system detection
+nmap -sC <target>	# → To run Nmap NSE Script
+nmap -6 -O <target>	# → OS Discovery using IPv6 Fingerprinting
+nmap --script <script> <target> 	# → Custom NSE Scipt
+```
+## OS Discovery using Unicornscan 
+🔗Source: [https://sourceforge.net]
+```
+unicornscan -Iv <target_ip>
+```
 # 🕵️Scanning Beyond IDS and Firewall  
 # 🛡️Network Scanning Countermeasures 
