@@ -1,5 +1,13 @@
 # 🔍🌐Scanning Networks
+Network scanning is the process of gathering additional detailed information about the target by using highly complex and aggressive reconnaissance techniques. The purpose of scanning is to discover exploitable communication channels, probe as many listeners as possible, and keep track of the responsive ones.
+
 Network scanning refers to a set of procedures used for identifying hosts, ports, and services in a network. Network scanning is one of the components of information gathering which can be used by an attacker to create a profile of the target organization. Attackers use tools such as **Nmap**, **Hping3**, **Metasploit**, and **NetScan** Tools Pro to perform network scanning. 
+
+### Types of scanning:
+- **Port Scanning:** Lists open ports and services
+- **Network Scanning:** Lists the active hosts and IP addresses
+- **Vulnerability Scanning:** Shows the presence of known weaknesses
+
 ## Objectives of Network Scanning 
 - To discover live hosts, IP address, and open ports of live hosts
 - To discover operating systems and system architecture 
@@ -11,7 +19,7 @@ Scanning tools are used to scan and identify live hosts, open ports, running ser
 ## Nmap 
 🔗Source: [https://nmap.org]
 
-Nmap (Network Mapper) is a open-source tool used for network discovery and security auditing. It also assists in the exploration of network hosts and services, providing information about open ports, operating systems, and other details.
+Nmap (Network Mapper) is a utility used for network discovery, network administration, and security auditing. It is also used to perform tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime.
 ### Command Syntax
 ```
 nmap <option> <target>
