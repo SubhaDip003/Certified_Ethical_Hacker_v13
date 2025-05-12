@@ -39,7 +39,10 @@ Used for accessing directory services like user and group data.
 Used to access files over a network as if they are local. Can be exploited for remote access.
 
 **Port 25 (TCP): Simple Mail Transfer Protocol (SMTP)**
-Used for sending emails. Attackers may use it to gather info or spam.
+Used for sending emails. Attackers may use it to gather info or spam. Below table lists some commands used by SMTP and their respective syntaxes.
+
+![SMTP](https://github.com/user-attachments/assets/7a966ffd-faab-46b2-909a-ae0dc7a57b67)
+
 
 **Port 162 (TCP/UDP): SNMP Trap**
 Used to send alerts from SNMP agents to managers.
