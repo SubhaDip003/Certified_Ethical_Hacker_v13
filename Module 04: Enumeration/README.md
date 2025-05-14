@@ -200,6 +200,7 @@ net use \\10.10.10.5\ShareName /user:Administrator  	# → Connects to a share u
 net share NewShare=c:\folder /grant:everyone,full  	# → Creates a new share and gives full access to everyone (use with caution).
 ```
 # 📡 SNMP Enumeration
+
 # 🗂️ LDAP Enumeration 
 # ⏱️ NTP Enumeration
 # 📁 NFS Enumeration
