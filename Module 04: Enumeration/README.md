@@ -269,23 +269,23 @@ nmap -sU -p 161 --script=snmp-win32-software <Target IP Address>	# → Lists ins
 
 snmpcheck is a tool used to gather information from devices on a network using the SNMP (Simple Network Management Protocol) service. It helps security testers or attackers extract valuable details like system information, network settings, running processes, open ports, and user accounts from a device that has SNMP enabled and misconfigured. The tool works by sending SNMP requests to a target and reading the responses, which can reveal sensitive data if SNMP is not properly secured. It's especially useful during enumeration in penetration testing.
 ```
-snmp-check 10.10.10.10					# → Performs default enumeration using community string "public" on SNMPv1.
-snmp-check -c private 10.10.10.10			# → Uses the community string "private" instead of the default "public".
-snmp-check -v1 -c public 10.10.10.10			# → Forces SNMP version 1 explicitly for compatibility with older devices.
-snmp-check -v2c -c public 10.10.10.10			# → Uses SNMP version 2c for better performance and more detailed results.
-snmp-check -p 161 10.10.10.10				# → Specifies a custom SNMP port (default is 161).
-snmp-check -t 10.10.10.10 -w				# → Enables verbose output, including raw SNMP request/response packets.
-snmp-check -t 10.10.10.10 -o output.txt			# → Saves the output to a text file for offline analysis.
-snmp-check -t 10.10.10.10 --os				# → Only queries OS-related information (like system name, uptime, etc.).
-snmp-check -t 10.10.10.10 --hardware			# → Extracts hardware details (CPU, memory, storage).
-snmp-check -t 10.10.10.10 --software			# → Lists installed software (if exposed).
-snmp-check -t 10.10.10.10 --processes			# → Lists currently running processes.
-snmp-check -t 10.10.10.10 --tcp-connections		# → Displays active TCP connections (like netstat over SNMP).
-snmp-check -t 10.10.10.10 --network-interfaces		# → Lists network interfaces and their statuses.
-snmp-check -t 10.10.10.10 --firewall-rules		# → Attempts to retrieve firewall or routing rules (depends on SNMP config).
-snmp-check -t 10.10.10.10 --users			# → Enumerates local users (if accessible).
-snmp-check -t 10.10.10.10 --routing-table		# → Displays routing table entries on the remote device.
-snmp-check -t 10.10.10.10 --all				# → Runs full enumeration (OS, processes, interfaces, users, etc.) – default behavior.
+snmp-check <Target IP Address>					# → Performs default enumeration using community string "public" on SNMPv1.
+snmp-check -c private <Target IP Address>			# → Uses the community string "private" instead of the default "public".
+snmp-check -v1 -c public <Target IP Address>			# → Forces SNMP version 1 explicitly for compatibility with older devices.
+snmp-check -v2c -c public <Target IP Address>			# → Uses SNMP version 2c for better performance and more detailed results.
+snmp-check -p 161 <Target IP Address>				# → Specifies a custom SNMP port (default is 161).
+snmp-check -t <Target IP Address> -w				# → Enables verbose output, including raw SNMP request/response packets.
+snmp-check -t <Target IP Address> -o output.txt			# → Saves the output to a text file for offline analysis.
+snmp-check -t <Target IP Address> --os				# → Only queries OS-related information (like system name, uptime, etc.).
+snmp-check -t <Target IP Address> --hardware			# → Extracts hardware details (CPU, memory, storage).
+snmp-check -t <Target IP Address> --software			# → Lists installed software (if exposed).
+snmp-check -t <Target IP Address> --processes			# → Lists currently running processes.
+snmp-check -t <Target IP Address> --tcp-connections		# → Displays active TCP connections (like netstat over SNMP).
+snmp-check -t <Target IP Address> --network-interfaces		# → Lists network interfaces and their statuses.
+snmp-check -t <Target IP Address> --firewall-rules		# → Attempts to retrieve firewall or routing rules (depends on SNMP config).
+snmp-check -t <Target IP Address> --users			# → Enumerates local users (if accessible).
+snmp-check -t <Target IP Address> --routing-table		# → Displays routing table entries on the remote device.
+snmp-check -t <Target IP Address> --all				# → Runs full enumeration (OS, processes, interfaces, users, etc.) – default behavior.
 ```
 > #### 📘Notes:
 > - snmp-check uses SNMPv1 and v2c, but does not support SNMPv3 (which is encrypted and authenticated).
@@ -306,7 +306,88 @@ SoftPerfect Network Scanner is a powerful tool used to gather information about 
 - **PRTG Network Monitor** [https://www.paessler.com]
 - **Engineer’s Toolset** [https://www.solarwinds.com]
 
-# 🗂️ LDAP Enumeration 
+# 🗂️ LDAP Enumeration
+LDAP (Lightweight Directory Access Protocol) is a protocol used to access and manage directory services like Active Directory. It works like a digital phonebook or company structure, storing organized information such as user names, emails, and departments. LDAP runs over TCP port 389 and uses a special format Basic Encoding Rules (BER) to exchange data between a client and a server. It often uses DNS to quickly find and respond to queries. If not secured properly, attackers can connect to LDAP and collect sensitive details like usernames, addresses, and server info without needing to log in, which they can then use for further attacks.
+
+## Manual and Automated LDAP Enumeration
+Attackers can use both manual and automated approaches for LDAP enumeration. Some of the commands that can be used for LDAP enumeration are as follows:
+### Manual LDAP Enumeration
+```
+# Manual LDAP Enumeration using Python and ldap3 library:
+# 1. Scan the target to check if LDAP (389) or LDAPS (636) is open using Nmap.
+# 2. Install ldap3 library.
+pip3 install ldap3
+
+# 3. Open Python and connect to the LDAP server.
+python3
+>>> import ldap3
+>>> server = ldap3.Server('Target_IP', port=389, get_info=ldap3.ALL)  # use_ssl=True for LDAPS
+>>> connection = ldap3.Connection(server)
+>>> connection.bind()  # Returns True if connection is successful
+
+# 4. Get domain info and naming context.
+>>> server.info
+
+# 5. Search and list all directory entries.
+>>> connection.search(search_base='DC=example,DC=com', search_filter='(&(objectClass=*))', search_scope='SUBTREE', attributes='*')
+>>> connection.entries
+
+# 6. Dump specific LDAP data like usernames and passwords.
+>>> connection.search(search_base='DC=example,DC=com', search_filter='(&(objectClass=person))', search_scope='SUBTREE', attributes='userPassword')
+>>> connection.entries
+```
+### Automated LDAP Enumeration
+```
+nmap -p 389 --script ldap-brute --script-args ldap.base='"cn=users,dc=CEH,dc=com"' <Target IP Address> 
+```
+## LDAP Enumeration Tools
+There are many LDAP enumeration tools that access directory listings within Active Directory (AD) or other directory services. Using these tools, attackers can enumerate information such as valid usernames, addresses, and departmental details from different LDAP servers.
+### Softerra LDAP Administrator 
+🔗Source: https://www.ldapadministrator.com
+
+Softerra LDAP Administrator is a powerful and user-friendly Windows application used to manage and browse LDAP (Lightweight Directory Access Protocol) directories. It provides a graphical interface that makes it easier for administrators, developers, and security professionals to connect to LDAP servers, view and edit directory objects, manage users and groups, and perform searches and queries. Instead of using command-line tools or writing code, you can interact with LDAP data visually, which simplifies tasks like troubleshooting, testing, and maintaining directory services such as Microsoft Active Directory or OpenLDAP.
+
+![Softerra](https://github.com/user-attachments/assets/cfcefaa3-29d6-4c7c-aeb3-e80b69c4b676)
+
+### ldapsearch 
+Source: [https://linux.die.net]
+
+ldapsearch is a command-line tool used to search and extract data from an LDAP directory, like Active Directory. It connects to the LDAP server, logs in (binds), and then performs a search based on the filters you give. If no filter is provided, it defaults to showing everything. You can choose what kind of attributes you want to see—like user details or system info. The results are shown in a readable format called LDIF. Attackers often use ldapsearch to find users and other directory information during an enumeration phase.
+```
+💡 Common Flags Breakdown:
+-x → Simple bind (no SASL)
+-h → Target host/IP
+-H → Full URI (ldap:// or ldaps://)
+-D → Bind DN (used for authenticated access)
+-w → Password for bind DN
+-b → Base DN (Distinguished Name) to start searching
+-s base|one|sub → Scope: base, one-level, or full subtree
+-LLL → Clean output without comments or version info
+==========================================================================================================================================================================================
+ldapsearch -x -h <Target IP Address> -s base						# → Basic anonymous LDAP query to check if the server is responding.
+ldapsearch -x -h <Target IP Address> -s base namingcontexts				# → Lists base DNs (important to scope future searches).
+ldapsearch -x -h <Target IP Address> -b "dc=example,dc=com"				# → Performs anonymous bind and retrieves entries under the given base DN.
+ldapsearch -x -h <Target IP Address> -b "dc=example,dc=com" "(objectClass=*)"		# → Full enumeration of all objects under the domain.
+ldapsearch -x -h <Target IP Address> -b "dc=example,dc=com" "(objectClass=person)"	# → Lists all user-type objects (useful for user enumeration).
+
+ldapsearch -x -h <Target IP Address> -b "dc=example,dc=com" "(objectClass=group)"	# → Lists groups present in the directory.
+ldapsearch -x -h <Target IP Address> -b "dc=example,dc=com" "(cn=*)" cn			# → Extracts all common names.
+ldapsearch -x -h <Target IP Address> -b "dc=example,dc=com" -LLL dn			# → Clean output showing only DNs of objects (for scripting or chaining).
+ldapsearch -x -h <Target IP Address> -b "dc=example,dc=com" "(!(objectClass=computer))"	# → Filter out computer objects, list only human users/groups.
+ldapsearch -x -h <Target IP Address> -b "dc=example,dc=com" "(userAccountControl=512)"	# → Finds enabled user accounts in AD (512 = NORMAL_ACCOUNT).
+ldapsearch -x -h <Target IP Address> -b "dc=example,dc=com" "(adminCount=1)"		# → Lists privileged user accounts (often members of Domain Admins).
+ldapsearch -x -h <Target IP Address> -b "dc=example,dc=com" "(servicePrincipalName=*)"	# → Enumerates service accounts (used in Kerberoasting attacks).
+
+ldapsearch -x -h <Target IP Address> -b "dc=example,dc=com" "(&(objectClass=person)(memberOf=CN=Domain Admins,CN=Users,DC=example,DC=com))"	# → Lists all domain admin users.
+ldapsearch -x -H ldap://<Target IP Address> -D "CN=user,DC=example,DC=com" -w 'Password123' -b "dc=example,dc=com" "(objectClass=*)"		# → Authenticated LDAP bind for full directory enumeration.
+ldapsearch -x -h <Target IP Address> -b "dc=example,dc=com" "(sAMAccountName=*)" sAMAccountName							# → Extracts usernames in Active Directory environments.
+```
+## The following are some additional LDAP enumeration tools:
+- **AD Explorer** [https://docs.microsoft.com]
+- **LDAP Admin Tool** [https://www.ldapsoft.com]
+- **LDAP Account Manager** [https://www.ldap-account-manager.org]
+- **LDAP Search** [https://securityxploded.com]
+
 # ⏱️ NTP Enumeration
 # 📁 NFS Enumeration
 # ✉️ SMTP Enumeration
