@@ -200,6 +200,111 @@ net use \\10.10.10.5\ShareName /user:Administrator  	# → Connects to a share u
 net share NewShare=c:\folder /grant:everyone,full  	# → Creates a new share and gives full access to everyone (use with caution).
 ```
 # 📡 SNMP Enumeration
+SNMP (Simple Network Management Protocol) is a protocol used to manage and monitor network devices like routers, switches, servers, printers, and more. It allows network administrators to collect information about these devices, configure them, and detect issues in real-time. 
+
+- Attackers use SNMP default community strings to extract information about a device
+- Attackers enumerate SNMP to extract information about network resources, such as hosts, routers, devices, and shares, and network information, such as ARP tables, routing tables, and traffic
+
+## SNMP Enumeration Tools
+SNMP enumeration tools are used to scan a single IP address or a range of IP addresses of SNMP-enabled network devices to monitor, diagnose, and troubleshoot security threats.
+
+### Enumerating SNMP using SnmpWalk 
+🔗Source: [https://ezfive.com]
+SnmpWalk is a command-line tool used to gather detailed information from network devices like routers, switches, printers, and servers using the SNMP (Simple Network Management Protocol). It works by walking through or querying the SNMP "tree" on a target device to retrieve data such as system information, running processes, network interfaces, and more.
+
+In simple terms, SnmpWalk is like a scanner that asks a device, “What do you know?” and the device responds with everything it’s allowed to share—one piece of information after another. This is very useful for system administrators and attackers alike, as it can reveal a lot about how a device is configured and what it's doing, especially if SNMP is not secured properly.
+
+📘 Glossary of Key OIDs:
+---
+| OID                  | Purpose                                                   |
+| -------------------- | --------------------------------------------------------- |
+| `1.3.6.1.2.1.1`      | System Information (sysName, sysDescr, sysLocation, etc.) |
+| `1.3.6.1.2.1.2.2`    | Network Interfaces                                        |
+| `1.3.6.1.2.1.4.20`   | IP Addresses                                              |
+| `1.3.6.1.2.1.25.4.2` | Running Processes                                         |
+| `1.3.6.1.2.1.25.6.3` | Installed Software                                        |
+| `1.3.6.1.2.1.6.13`   | TCP Connections                                           |
+---
+
+```
+# These snmpwalk commands are used to gather or change information from a device using SNMP:
+# -v1 or -v2c: SNMP version
+# -c public: Community string (like a password)
+# <Target IP Address>: The device you’re targeting
+
+snmpwalk -v1 -c public <Target IP Address>                		# → Get all SNMP info using SNMPv1
+snmpwalk -v2c -c public <Target IP Address>               		# → Get all SNMP info using SNMPv2c
+snmpwalk -v2c -c public <Target IP Address> hrSWInstalledName   	# → List installed software
+snmpwalk -v2c -c public <Target IP Address> hrMemorySize        	# → Show memory size of the device
+snmpwalk -v2c -c public <Target IP Address> <OID> <New Value>   	# → (Incorrect syntax) Not used to set values
+snmpwalk -v2c -c public <Target IP Address> sysContact <New Value> 	# → **(Incorrect syntax) snmpwalk can't set values
+
+snmpwalk -v2c -c public <Target IP Address>				# → Enumerates all available SNMP objects on the target (default OID).
+snmpwalk -v2c -c public <Target IP Address> 1.3.6.1.2.1.1		# → Queries the "system" OID for system information (sysDescr, sysName, etc.).
+snmpwalk -v2c -c public <Target IP Address> 1.3.6.1.2.1.25.1.1		# → Shows system uptime (host UCD-SNMP-MIB).
+snmpwalk -v2c -c public <Target IP Address> 1.3.6.1.2.1.25.4.2		# → Enumerates running processes on the remote system.
+snmpwalk -v2c -c public <Target IP Address> 1.3.6.1.2.1.25.6.3		# → Lists installed software (helpful for service discovery or vuln assessment).
+snmpwalk -v2c -c public <Target IP Address> 1.3.6.1.4.1			# → Walks through the private enterprise-specific MIB tree.
+snmpwalk -v2c -c public <Target IP Address> 1.3.6.1.2.1.6.13		# → Shows active TCP connections (like netstat via SNMP).
+snmpwalk -v2c -c public <Target IP Address> 1.3.6.1.2.1.4.20		# → Shows IP addresses configured on interfaces.
+snmpwalk -v2c -c public <Target IP Address> 1.3.6.1.2.1.2.2.1.2		# → Displays network interface names.
+snmpwalk -v2c -c public -t 5 -r 2 <Target IP Address>			# → Customizes timeout and retries (useful for unstable targets).
+snmpwalk -v1 -c public <Target IP Address>				# → Use SNMPv1 instead of v2c (older devices may only support v1).
+snmpwalk -v2c -c private <Target IP Address>				# → Attempts walk with a different community string (if public fails).
+snmpwalk -v2c -c public -O e <Target IP Address>			# → Output numeric OIDs instead of translated names (useful for scripting).
+snmpwalk -v2c -c public -On -Oq <Target IP Address>			# → Minimalist output for parsing: numeric OIDs with only values.
+snmpwalk -v2c -c public <Target IP Address> 1.3.6.1.2.1.1.6		# → Queries physical location of device (if configured).
+snmpwalk -v2c -c public <Target IP Address> hrSWRunName			# → Enumerates human-readable process names using MIB labels (if MIBs are installed).
+snmpwalk -v2c -c public -m ALL <Target IP Address>			# → Loads all available MIBs for best output (needs MIBs installed).
+```
+### Enumerating SNMP using Nmap 
+🔗Source: [https://nmap.org]
+```
+nmap -sU -p 161 --script=snmp-processes <Target IP Address>		# → Lists running processes on the target
+nmap -sU -p 161 --script=snmp-sysdescr <Target IP Address>		# → Retrieves system description (like OS info)
+nmap -sU -p 161 --script=snmp-win32-software <Target IP Address>	# → Lists installed software on Windows systems
+```
+###  snmp-check (snmp_enum Module) 
+🔗Source: [https://www.nothink.org]
+
+snmpcheck is a tool used to gather information from devices on a network using the SNMP (Simple Network Management Protocol) service. It helps security testers or attackers extract valuable details like system information, network settings, running processes, open ports, and user accounts from a device that has SNMP enabled and misconfigured. The tool works by sending SNMP requests to a target and reading the responses, which can reveal sensitive data if SNMP is not properly secured. It's especially useful during enumeration in penetration testing.
+```
+snmp-check 10.10.10.10					# → Performs default enumeration using community string "public" on SNMPv1.
+snmp-check -c private 10.10.10.10			# → Uses the community string "private" instead of the default "public".
+snmp-check -v1 -c public 10.10.10.10			# → Forces SNMP version 1 explicitly for compatibility with older devices.
+snmp-check -v2c -c public 10.10.10.10			# → Uses SNMP version 2c for better performance and more detailed results.
+snmp-check -p 161 10.10.10.10				# → Specifies a custom SNMP port (default is 161).
+snmp-check -t 10.10.10.10 -w				# → Enables verbose output, including raw SNMP request/response packets.
+snmp-check -t 10.10.10.10 -o output.txt			# → Saves the output to a text file for offline analysis.
+snmp-check -t 10.10.10.10 --os				# → Only queries OS-related information (like system name, uptime, etc.).
+snmp-check -t 10.10.10.10 --hardware			# → Extracts hardware details (CPU, memory, storage).
+snmp-check -t 10.10.10.10 --software			# → Lists installed software (if exposed).
+snmp-check -t 10.10.10.10 --processes			# → Lists currently running processes.
+snmp-check -t 10.10.10.10 --tcp-connections		# → Displays active TCP connections (like netstat over SNMP).
+snmp-check -t 10.10.10.10 --network-interfaces		# → Lists network interfaces and their statuses.
+snmp-check -t 10.10.10.10 --firewall-rules		# → Attempts to retrieve firewall or routing rules (depends on SNMP config).
+snmp-check -t 10.10.10.10 --users			# → Enumerates local users (if accessible).
+snmp-check -t 10.10.10.10 --routing-table		# → Displays routing table entries on the remote device.
+snmp-check -t 10.10.10.10 --all				# → Runs full enumeration (OS, processes, interfaces, users, etc.) – default behavior.
+```
+> #### 📘Notes:
+> - snmp-check uses SNMPv1 and v2c, but does not support SNMPv3 (which is encrypted and authenticated).
+> - Many switches, routers, printers, and IoT devices expose SNMP data if poorly configured.
+> - The default community string is "public" – always try "private" and "admin" as well.
+> - **⚡Pro Tip:** Use snmp-check first for quick high-level enumeration, then pivot to snmpwalk for deep OID-specific brute-forcing and onesixtyone for community string discovery.
+
+### SoftPerfect Network Scanner 
+🔗Source: [https://www.softperfect.com]
+
+SoftPerfect Network Scanner is a powerful tool used to gather information about computers and devices on a network. It can find open ports, shared folders, running services, and detailed information using methods like SNMP, WMI, HTTP, SSH, and PowerShell. It can also ping devices, scan files, read registry entries, and monitor performance. The tool allows users to filter results and export them in formats like XML and JSON. It can detect IP ranges, resolve hostnames, check if specific ports are open, and even perform remote shutdowns or Wake-on-LAN. Attackers may misuse this tool to collect data about shared folders and other network devices.
+
+![SoftPerfectNetworkScanner](https://github.com/user-attachments/assets/77c09ef0-277d-4b3f-b5e9-2cf1c82cfe40)
+
+### The following are some additional SNMP enumeration tools:
+- **Network Performance Monitor** [https://www.solarwinds.com]
+- **OpUtils** [https://www.manageengine.com]
+- **PRTG Network Monitor** [https://www.paessler.com]
+- **Engineer’s Toolset** [https://www.solarwinds.com]
 
 # 🗂️ LDAP Enumeration 
 # ⏱️ NTP Enumeration
