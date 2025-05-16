@@ -484,6 +484,125 @@ NTP enumeration tools are used to monitor the working of NTP and SNTP servers in
 - **PRTG Network Monitor** [https://www.paessler.com]
 
 # 📁 NFS Enumeration
+NFS stands for Network File System. It is a protocol that allows computers to access and share files over a network as if they were on their own local drives. Security professionals perform NFS enumeration to find out what shared files or directories are available on a target system. This helps them check for weak permissions or misconfigurations that could allow unauthorized access to sensitive data. If NFS is not properly secured, attackers might use it to read, write, or even execute files on the target system.
+- Common ports used by NFS are port 111 and 2049 tcp/udp
+
+## NFS Enumeration Tools 
+NFS enumeration tools scan a network within a given range of IP addresses or a single IP address to identify the NFS services running on it. These tools also assist in obtaining a list of RPC services using portmap, a list of NFS shares, and a list of directories accessible through NFS; further, they allow downloading a file shared through the NFS server. Attackers use tools such as RPCScan and SuperEnum to perform NFS enumeration.
+
+### Enumerate using RPCScan 
+🔗Source: [https://github.com/hegusung/RPCScan]
+
+RPCScan is a tool used to scan systems that offer Remote Procedure Call (RPC) services, such as NFS. It helps identify which RPC services are running on a target machine and what ports they are using. Security professionals use RPCScan for NFS enumeration because NFS relies on RPC to function. By scanning for RPC services, they can discover active NFS services, gather information about shared directories, and check for misconfigurations that could lead to unauthorized access or exploitation.
+```
+python3 rpc-scan.py <host/host_range> --rpc			# → Listing RPC services
+python3 rpc-scan.py <host/host_range> --mounts			# → Listing mountpoints
+python3 rpc-scan.py <host/host_range> --nfs --recurse 3		# → Recursing listing of NFS shares
+```
+### Enumerate using SuperEnum
+🔗Source: [https://github.com/p4pentest/SuperEnum]
+
+SuperEnum is a tool used by security professionals to automate the process of service enumeration during penetration testing. It helps gather important information about services running on a target system. When it comes to NFS enumeration, SuperEnum is useful because it can quickly check for misconfigured NFS shares, list available exports, and try mounting them to see what files or directories can be accessed. This helps security professionals find weaknesses in NFS setups that attackers might exploit to access or modify sensitive files.
+
 # ✉️ SMTP Enumeration
+SMTP, or Simple Mail Transfer Protocol, is a communication protocol used to send emails between servers over the internet. Security professionals perform SMTP enumeration to gather information about valid email addresses, usernames, and server configurations on a target system. By interacting with the mail server, they can check which users exist, understand how the server handles email delivery, and identify potential vulnerabilities. This information helps in planning further attacks or strengthening security, depending on whether the person is an attacker or a defender.
+
+Mail systems commonly use SMTP with POP3 and IMAP, which enable users to save messages in the server mailbox and download them from the server when necessary. SMTP uses mail exchange (MX) servers to direct mail via DNS. It runs on TCP port 25, 2525, or 587.
+
+### SMTP provides the following three built-in commands:
+---
+	🔹VRFY: It is used to validate the user on the server.
+	🔹EXPN: It is used to find the delivery address of mail aliases
+	🔹RCPT TO: It points to the recipient’s address.
+---
+## SMTP Enumeration using Nmap 
+🔗Source: [https://nmap.org]
+```
+nmap --script smtp-brute -p 25 <target>			# → To performs brute-force attack on SMTP authentication.
+nmap --script smtp-commands -p 25 <target>		# → Lists supported SMTP commands, useful for fingerprinting.
+nmap --script smtp-enum-users -p 25 <target>		# → Enumerates SMTP users by sending the VRFY command.
+nmap --script smtp-ntlm-info -p 25 <target>		# → Extracts NTLM authentication information from SMTP.
+nmap --script smtp-open-relay -p 25 <target>		# → Checks if the SMTP server allows open relay (can be used for spamming).
+nmap --script smtp-strangeport -p <port> <target>	# → Detects SMTP services running on non-standard ports.
+nmap --script smtp-vuln-cve2010-4344 -p 25 <target>	# → Detects a remote buffer overflow vulnerability in Exim.
+nmap --script smtp-vuln-cve2011-1720 -p 25 <target>	# → Checks for Postfix SMTP server memory corruption vulnerability.
+nmap --script smtp-vuln-cve2011-1764 -p 25 <target>	# → Detects a Denial of Service (DoS) vulnerability in Exim.
+```
+## SMTP Enumeration using Metasploit
+```
+# Enumerates valid email users via SMTP:
+use auxiliary/scanner/smtp/smtp_enum
+set RHOSTS <target_ip>
+run
+
+# Detects the SMTP server version for fingerprinting:
+use auxiliary/scanner/smtp/smtp_version
+set RHOSTS <target_ip>
+run
+
+# Checks if the server allows open relay (can be misused for spamming):
+use auxiliary/scanner/smtp/smtp_open_relay
+set RHOSTS <target_ip>
+run
+
+# Extracts NTLM authentication details from SMTP:
+use auxiliary/scanner/smtp/smtp_ntlm_info
+set RHOSTS <target_ip>
+run
+
+# Uses the VRFY command to validate user accounts:
+use auxiliary/scanner/smtp/smtp_vrfy
+set RHOSTS <target_ip>
+run
+
+# Performs brute-force attacks on SMTP authentication:
+use auxiliary/scanner/smtp/smtp_brute
+set RHOSTS <target_ip>
+set USER_FILE <path_to_userlist>
+set PASS_FILE <path_to_passlist>
+run
+```
+## SMTP Enumeration Tools
+SMTP enumeration tools are used to perform username enumeration. Attackers can use the usernames obtained from this enumeration to launch further attacks on other systems in the network. 
+### NetScanTools Pro 
+🔗Source: [https://www.netscantools.com]
+
+NetScanTools Pro is a network information and diagnostic software used by security professionals to gather detailed information about networks, servers, and services. It includes many tools for tasks like pinging, port scanning, DNS lookups, and more. Security professionals use NetScanTools Pro for SMTP enumeration because it allows them to connect to mail servers and interact with them using SMTP commands. This helps them identify valid email addresses, server configurations, and possible vulnerabilities in the mail service that could be used for further attacks like spoofing or spamming.
+
+![NETScanToolProForSMTP](https://github.com/user-attachments/assets/894671f3-5662-4fb2-bcde-f3639fbfd40e)
+
+### smtp-user-enum 
+🔗Source: [https://pentestmonkey.net]
+
+`smtp-user-enum` is a command-line tool used to find valid usernames on an SMTP (Simple Mail Transfer Protocol) mail server. Security professionals use this tool during SMTP enumeration to check if the server reveals whether a specific email address or username exists. This helps identify valid user accounts, which can then be used in further attacks like brute-force or phishing. It works by sending commands to the mail server and analyzing the responses to see which usernames are accepted or rejected.
+
+mtp-user-enum has the following options:
+---
+- **-m n:** Maximum number of processes (default: 5)
+- **-M mode:** Specify the SMTP command to use for username guessing from among EXPN, VRFY, and RCPT TO (default: VRFY)
+- **-u user:** Check if a user exists on the remote system
+- **-f addr:** Specify the from email address to use for "RCPT TO" guessing (default: user@example.com)
+- **-D dom:** Specify the domain to append to the supplied user list to create email addresses (default: none)
+- **-U file:** Select the file containing usernames to check via the SMTP service
+- **-t host:** Specify the server host running the SMTP service
+- **-T file:** Select the file containing hostnames running the SMTP service
+- **-p port:** Specify the TCP port on which the SMTP service runs (default: 25)
+- **-d:** Debugging output
+- **-t n:** Wait for a maximum of n seconds for the reply (default: 5)
+- **-v:** Verbose
+- **-h:** Help message
+---
+```
+smtp-user-enum -M VRFY -U users.txt -t <target_ip>        	# → Uses VRFY command to enumerate users from list on target SMTP server.
+smtp-user-enum -M EXPN -U users.txt -t <target_ip>            	# → Uses EXPN command to expand mailing lists or validate users.
+smtp-user-enum -M RCPT -U users.txt -t <target_ip>           	# → Uses RCPT TO command to check valid recipients.
+smtp-user-enum -M VRFY -u alice -t <target_ip>                 	# → Enumerates a single user (alice) using VRFY.
+smtp-user-enum -M VRFY -U users.txt -t <target_ip> -p 587      	# → Enumerates users via VRFY on non-standard SMTP port 587.
+smtp-user-enum -M VRFY -U users.txt -t <target_ip> -s 25       	# → Forces SMTP HELO handshake on port 25 before enumeration.
+smtp-user-enum -M VRFY -U users.txt -t <target_ip> -v          	# → Verbose mode showing detailed response from SMTP server.
+smtp-user-enum -M VRFY -U users.txt -t <target_ip> --delay 2   	# → Adds 2 seconds delay between requests to evade IDS/IPS.
+smtp-user-enum -M VRFY -U users.txt -t <target_ip> -x 5        	# → Stops after 5 invalid user responses (failsafe).
+```
+
 # 🌐 DNS Enumeration
 # 🧪 Other Enumeration Techniques
