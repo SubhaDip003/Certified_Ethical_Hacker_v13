@@ -389,6 +389,100 @@ ldapsearch -x -h <Target IP Address> -b "dc=example,dc=com" "(sAMAccountName=*)"
 - **LDAP Search** [https://securityxploded.com]
 
 # ⏱️ NTP Enumeration
+NTP (Network Time Protocol) is a protocol used to keep the clocks of computers and devices in sync over a network. It makes sure that all systems show the correct and same time by connecting to time servers. This is important for tasks like logging events, running scheduled jobs, or maintaining security across systems. NTP usually works over UDP port 123 and can adjust even tiny differences in system time.
+
+The following are some pieces of information an attacker can obtain by querying an NTP server:
+- List of hosts connected to the NTP server
+- Clients’ IP addresses in the network, their system names, and OSs
+- Internal IPs, if the NTP server is in the demilitarized zone (DMZ)
+
+NTP enumeration commands such as `ntpdate`, `ntptrace`, `ntpdc`, and `ntpq` are used to query an NTP server for valuable information.
+
+## Enumerate using ntpdate
+`ntpdate` is a command-line tool used to quickly synchronize the system time with a remote Network Time Protocol (NTP) server. It sends a time request to the server and adjusts the local machine's clock based on the response. Security professionals use `ntpdate` during NTP enumeration to check if the NTP service on a target is active, reachable, and leaking system information like the server’s IP, time settings, or even the internal network time sources. This information can help in mapping the network or identifying potential misconfigurations.
+
+### ntpdate parameters and their respective functions
+![ntpdate](https://github.com/user-attachments/assets/94e333e2-20c5-430c-9de3-95343976d170)
+```
+sudo apt install ntpdate		# → Install
+
+ntpdate -q <Target>			# → Queries the NTP server without setting the time; displays time offset and delay.
+ntpdate -d <Target>			# → Debug mode; shows detailed NTP packet exchange and clock sync info.
+ntpdate -u <Target>			# → Uses unprivileged ports (for bypassing firewall rules that block privileged ports).
+ntpdate -q pool.ntp.org			# → Queries a public NTP pool server to get its current time and offset info.
+ntpdate -s <Target>			# → Logs the time adjustment via syslog (useful for background system logs).
+ntpdate -b <Target>			# → Forces time update via step (instead of gradual slew) when syncing system time.
+ntpdate -q -t 10 <Target>		# → Sets the timeout to 10 seconds for the NTP request.
+ntpdate -q -p 4 <Target>		# → Sends 4 NTP packets (default is 8); helps with analyzing response consistency.
+ntpdate -q -a user:pass <Target>	# → Uses authentication (if required by target NTP server; rarely used in public).
+ntpdate -q -v <Target>			# → Verbose output; displays more detailed clock data (requires patched version).
+
+# Example of adjusting system time to match NTP server (must be run as root)
+sudo ntpdate <Target>			# → Synchronizes system time with target NTP server.
+
+# Example of chaining with grep to extract offsets or delay
+ntpdate -q <Target> | grep offset	# → Filters the output to show only offset values (for scripting or monitoring).
+```
+## Enumerate using ntptrace
+`ntptrace` is a command-line tool that shows the chain of Network Time Protocol (NTP) servers that a system uses to get the correct time. It traces the path from your system to the main time source, step by step, showing each NTP server in the chain and how accurate they are.
+
+Security professionals use `ntptrace` for NTP enumeration to find and map out NTP servers connected to a target system. This helps them understand the time synchronization setup and identify misconfigured or vulnerable NTP servers, which could be exploited in certain attacks like spoofing or amplification.
+
+Its syntax is as follows: 
+```
+ntptrace [-n] [-m maxhosts] [servername/IP_address]
+
+-n 		# → Do not print host names and show only IP addresses; may be useful if a name server is down
+-m  maxhosts 	# → Set the maximum number of levels up the chain to be followed
+```
+## Enumeration using ntpdc
+`ntpdc` is a command-line tool used to interact with NTP (Network Time Protocol) servers. It allows users to send queries and commands to the server to get detailed status and configuration information. Security professionals use `ntpdc` for NTP enumeration to discover important details about a target system, such as its time settings, peers, and version. This information can help identify vulnerabilities or misconfigurations in the NTP service that could be exploited in a cyberattack.
+### ntpdc parameters and their respective functions
+
+![ntpdc](https://github.com/user-attachments/assets/5af4d6ce-38be-41ac-8191-8a27e08054ea)
+```
+ntpdc -n -c monlist <Target>      # → Retrieves the list of recent clients that connected to the NTP server (potential DDoS amplification vector).
+ntpdc -n -c peers <Target>        # → Displays a list of peers the NTP server is connected to along with state and reachability.
+ntpdc -n -c listpeers <Target>    # → Shows a summary of peers similar to 'peers' but in a more readable format.
+ntpdc -n -c showpeer <Target>     # → Displays detailed information for a specific peer (requires additional peer address input).
+ntpdc -n -c version <Target>      # → Retrieves the NTP software version running on the server.
+ntpdc -n -c sysinfo <Target>      # → Displays system information including system peer, stratum, precision, and root distance.
+ntpdc -n -c iostats <Target>      # → Provides input/output statistics of the server such as received packets and errors.
+ntpdc -n -c reslist <Target>      # → Lists the server's restriction list (access control), helpful for understanding security posture.
+ntpdc -n -c loopinfo <Target>     # → Shows loop filter information used in time correction (drift stats).
+ntpdc -n -c kerninfo <Target>     # → Displays kernel timekeeping info including estimated errors and status.
+ntpdc -n -c clockstat <Target>    # → Queries the reference clock’s status, useful when server is using hardware time source.
+ntpdc -n -c showstats <Target>    # → Returns protocol statistics like packets sent, received, and bad formats.
+ntpdc -n -c host <Target>         # → Sets the target host for subsequent commands (used in interactive mode).
+ntpdc -n -c help                  # → Lists all available ntpdc commands with a short description for each.
+```
+## Enumerate using ntpq
+`ntpq` is a command-line tool used to monitor and control Network Time Protocol (NTP) servers. Security professionals use `ntpq` for NTP enumeration because it can help them gather valuable information about the NTP server, such as its version, current time settings, connected peers, and server status. This information can reveal vulnerabilities, misconfigurations, or outdated versions that attackers might exploit. Since NTP runs on many systems by default, it becomes a useful target during network assessments or penetration tests.
+
+### ntpq parameters and their respective functions
+![ntpq](https://github.com/user-attachments/assets/8129c116-e2b1-44d7-bb7c-207197d235e7)
+```
+ntpq -p 10.10.10.10                    # → Displays a list of peers known to the NTP server, showing reachability, delay, offset, and jitter.
+ntpq -c rv 10.10.10.10                 # → Retrieves system variables from the NTP server, including time, version, and stats.
+ntpq -c "rv 0" 10.10.10.10             # → Displays detailed runtime variables for the NTP daemon itself.
+ntpq -c peers 10.10.10.10              # → Same as `-p`, shows known peers and their sync stats.
+ntpq -c assoc 10.10.10.10              # → Lists association IDs of peers; used with other queries to request specific peer data.
+ntpq -c "readvar associd" 10.10.10.10  # → Reads peer variables for the given association ID.
+ntpq -c monstat 10.10.10.10            # → Displays monitoring statistics; shows how many packets received, sent, dropped, etc.
+ntpq -c lpassociations 10.10.10.10     # → Lists all available associations with more verbose details.
+ntpq -c ifstats 10.10.10.10            # → Shows interface statistics including packet counts and errors.
+ntpq -c sysinfo 10.10.10.10            # → Provides a summary of system info like system uptime, stratum, offset, and precision.
+```
+> #### Note: In many Linux distributions, the NTP daemon ntpd has been joined with Chrony, chronyd. Both the daemons synchronize the local system’s time with a remote time server.
+
+## NTP Enumeration Tools
+NTP enumeration tools are used to monitor the working of NTP and SNTP servers in the network and help in the configuration and verification of connectivity from the time client to the NTP servers. The following are some NTP enumeration tools:
+- **Nmap** [https://nmap.org]
+- **Wireshark** [https://www.wireshark.org]
+- **udp-proto-scanner** [https://labs.portcullis.co.uk]
+- **NTP Server Scanner** [http://www.bytefusion.com]
+- **PRTG Network Monitor** [https://www.paessler.com]
+
 # 📁 NFS Enumeration
 # ✉️ SMTP Enumeration
 # 🌐 DNS Enumeration
