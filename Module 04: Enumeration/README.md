@@ -605,4 +605,111 @@ smtp-user-enum -M VRFY -U users.txt -t <target_ip> -x 5        	# → Stops afte
 ```
 
 # 🌐 DNS Enumeration
+DNS zone transfer is a process where a DNS server shares its zone file (a database of domain names and IP addresses) with a backup server for redundancy. However, if this setting is not properly secured, attackers can take advantage of it. By pretending to be a legitimate client, an attacker can request this zone file from the DNS server. If the server allows it, the attacker can get valuable information like hostnames, IP addresses, and usernames of the target domain. This process is called DNS zone transfer enumeration. Tools like `nslookup`, `dig`, or `DNSRecon` are used to try this. If the server is secure, the request will be denied; otherwise, it may give away sensitive internal network details.
+
+## Dig Utility
+`dig`, which stands for Domain Information Groper, is a command-line tool used to query DNS servers and gather detailed information about domain names. Security professionals, ethical hackers, and penetration testers use `dig` during DNS enumeration to collect data like IP addresses, mail servers, name servers, and other DNS records. This helps them understand how a domain is structured, identify potential vulnerabilities, and discover internal systems or subdomains that may be exposed to the internet. It’s a powerful and reliable tool for gathering DNS information quickly and accurately.
+```
+dig example.com				           # → Performs a standard DNS lookup for A record (default).
+dig example.com ANY			           # → Queries all available DNS records (A, MX, TXT, NS, etc.).
+dig example.com MX			           # → Retrieves the mail exchange (MX) records of the domain.
+dig example.com NS			           # → Gets the authoritative name servers for the domain.
+dig example.com SOA			           # → Displays Start of Authority record including primary NS, email, and serial number.
+dig example.com TXT			           # → Retrieves TXT records (commonly used for SPF, DKIM, etc.).
+dig example.com CNAME		                   # → Shows the canonical name record for alias domains.
+dig example.com A +short		           # → Returns only the IPv4 address of the domain (clean output).
+dig example.com AAAA +short	                   # → Gets the IPv6 address of the domain.
+dig @8.8.8.8 example.com		           # → Queries a specific DNS server (Google DNS in this case) for the domain.
+dig -x 93.184.216.34			           # → Performs a reverse DNS lookup (PTR) for an IP address.
+dig example.com +trace		                   # → Traces the path of DNS resolution from root servers to the domain.
+dig +noall +answer example.com	                   # → Displays only the final answer section of the response.
+dig example.com AXFR @ns1.example.com	           # → Attempts a DNS Zone Transfer using specified nameserver.
+dig @ns1.example.com example.com AXFR	           # → Alternate syntax for zone transfer attempt.
+dig example.com +nssearch		           # → Checks each authoritative nameserver for SOA record consistency.
+dig example.com +multi +nocomments +noquestion	   # → Outputs compact multicolumn result, suppressing comments and query section.
+```
+## nslookup Command 
+🔗Source: [https://docs.microsoft.com]
+
+`nslookup` is a command-line tool used to query Domain Name System (DNS) servers and get information about domain names and IP addresses. Security professionals, ethical hackers, and penetration testers use `nslookup` during DNS enumeration to find out details about a target domain, such as its IP address, mail servers, and name servers. This helps them understand the target’s network structure and identify possible weaknesses. It's a simple yet powerful tool for gathering publicly available DNS information during the information-gathering phase of an assessment.
+```
+nslookup google.com	# → Basic forward DNS lookup to resolve domain to IP.
+
+nslookup                # → Launches interactive nslookup shell for advanced queries.
+server <dns_ip>         # → (inside interactive mode) Sets the DNS server to query.
+set type=any            # → (inside interactive mode) Queries for all available DNS record types.
+set type=mx             # → (inside interactive mode) Queries Mail Exchange (MX) records for domain.
+set type=ns             # → (inside interactive mode) Queries Name Server (NS) records for domain.
+set type=txt            # → (inside interactive mode) Queries TXT records, useful for SPF/DKIM info.
+set type=soa            # → (inside interactive mode) Gets the Start of Authority (SOA) record.
+ls -d domain.com        # → (inside interactive mode, if zone transfer is allowed) Lists all domain records via DNS zone transfer.
+
+# → (inside interactive mode) Gets A record (IPv4 address) of the domain.
+set type=a                                   
+google.com              
+
+# → (inside interactive mode) Gets AAAA record (IPv6 address) of the domain.
+set type=aaaa                                
+google.com              
+
+ls domain.com > output.txt	# → (inside interactive mode) Saves the zone transfer output to a file.
+exit                            # → Exits the interactive nslookup shell.
+```
+💡 Tip: To attempt DNS zone transfer from the command line directly (non-interactive), use:
+```
+nslookup -type=any domain.com <dns_server_ip>    # → Non-interactive query for all record types from a specific DNS server.
+
+nslookup                                        # → Start interactive mode for zone transfer:
+> server <dns_server_ip>
+> ls -d domain.com                              # → Attempts DNS zone transfer (AXFR).
+```
+## DNSRecon
+🔗Source: [https://github.com/darkoperator/dnsrecon]
+
+DNSRecon is a powerful Python-based tool used by security professionals, ethical hackers, and penetration testers to gather detailed information about DNS records of a target domain. It helps in performing DNS enumeration by identifying hostnames, IP addresses, name servers, mail servers, and performing zone transfer checks. DNSRecon automates various DNS queries and can find misconfigurations or exposed data that could help attackers in mapping out the target’s network. It is commonly used during the information gathering phase of a penetration test to uncover valuable details about the domain’s structure and possible attack points.
+```
+dnsrecon -h                                       # → Displays the help menu with all available options and usage guidance.
+dnsrecon -d example.com                           # → Basic DNS enumeration for the domain using default records (NS, A, AAAA, MX, etc.).
+dnsrecon -d example.com -t std                    # → Performs a standard record enumeration (A, AAAA, MX, NS, SOA, SRV, TXT).
+dnsrecon -d example.com -t brt                    # → Performs a brute-force of subdomains using the built-in wordlist.
+dnsrecon -d example.com -t axfr                   # → Attempts a DNS zone transfer on all identified nameservers.
+dnsrecon -d example.com -n 8.8.8.8                # → Uses a custom nameserver (Google DNS here) for queries.
+dnsrecon -d example.com -t srv                    # → Attempts to enumerate common SRV (Service) records (VoIP, AD, etc.).
+dnsrecon -d example.com -t zonewalk               # → Attempts DNSSEC zone walking if NSEC records are available.
+dnsrecon -d example.com -t rvl                    # → Performs reverse lookup of IP ranges based on the domain's records.
+dnsrecon -d example.com -t goo                    # → Uses Google search for domain name harvesting.
+dnsrecon -d example.com -t snoop                  # → Performs cache snooping against DNS servers (if they allow it).
+dnsrecon -d example.com -a                        # → Performs a full sweep: standard enumeration, zone transfer, reverse lookup, Google scraping, SRV, cache snooping, and brute-force.
+dnsrecon -d example.com -j output.json            # → Outputs results in JSON format for integration with other tools or analysis.
+dnsrecon -d example.com -t std -c output.csv      # → Saves standard enumeration results to a CSV file.
+
+dnsrecon -d example.com -t axfr -n ns1.example.com # → Attempts zone transfer specifically against ns1.example.com.
+dnsrecon -d example.com -D /path/to/wordlist.txt -t brt  # → Performs brute-force subdomain enumeration using a custom wordlist.
+```
+## DNSSEC Zone Walking
+DNSSEC Zone Walking is a method used to gather hidden DNS records from a domain that has DNSSEC enabled but not properly configured. DNSSEC is meant to secure DNS by using digital signatures to verify DNS data, but older versions like NSEC can accidentally expose a list of all domain records. Security professionals, ethical hackers, and penetration testers perform DNSSEC Zone Walking during DNS enumeration to find out internal hostnames, services, and network structure of the target domain. This helps them understand what parts of the system are exposed and could be at risk, especially if attackers use the same method to plan attacks.
+### DNSSEC Zone Walking Tools
+DNSSEC zone walking tools are used to enumerate the target domain’s DNS record files. These tools can also perform zone enumeration on NSEC and NSEC3 record files and further use the gathered information to launch attacks such as denial-of-service (DoS) attacks and phishing attacks. 
+
+#### LDNS
+🔗Source: [https://www.nlnetlabs.nl] 
+
+`ldns-walk` is a command-line tool used to perform DNSSEC zone walking. It tries to list all the DNS records in a domain by exploiting a weakness in older DNSSEC configurations that use NSEC records. Security professionals, ethical hackers, and penetration testers use `ldns-walk` to discover hidden subdomains, hostnames, and services within a DNS zone. This helps them map out the target’s network structure during assessments and identify areas that may be vulnerable to attacks.
+```
+ldns-walk example.com                         # → Attempts a DNSSEC zone walk of 'example.com' using NSEC records.
+ldns-walk -v example.com                      # → Verbose output; displays each DNS record retrieved during the walk.
+ldns-walk -f output.txt example.com           # → Saves the walked DNS records into 'output.txt' for offline analysis.
+ldns-walk -d example.com                      # → Shows only domain names (without full resource record details).
+ldns-walk -z example.com                      # → Displays zone output format compatible with zone files (includes TTL and class).
+ldns-walk -t MX example.com                   # → Filters and displays only MX records during the zone walk.
+ldns-walk -t A -t AAAA example.com            # → Retrieves only A and AAAA records while walking the DNSSEC zone.
+ldns-walk -S example.com                      # → Performs a strict walk; halts on any error (useful for accurate recon).
+ldns-walk -n 8.8.8.8 example.com              # → Uses Google DNS (8.8.8.8) instead of default resolver for the zone walk.
+ldns-walk -k /path/to/trust-anchor.key example.com  # → Verifies DNSSEC using a specific trust anchor file.
+```
+As shown in the screenshot, attackers use the following query to enumerate a target domain iana.org using the DNS server 8.8.8.8 to obtain DNS record files:`ldns-walk @<IP of DNS Server> <Target domain>`
+
+![DNSSEC zone walking](https://github.com/user-attachments/assets/a29c6ff5-eccd-485e-99e3-148b5d674c39)
+
+
 # 🧪 Other Enumeration Techniques
