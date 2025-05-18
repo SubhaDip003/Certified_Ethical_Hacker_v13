@@ -711,5 +711,327 @@ As shown in the screenshot, attackers use the following query to enumerate a tar
 
 ![DNSSEC zone walking](https://github.com/user-attachments/assets/a29c6ff5-eccd-485e-99e3-148b5d674c39)
 
+## DNS Enumeration using OWASP Amass
+🔗Source: [https://github.com/owasp-amass/amass]
+
+OWASP Amass is an advanced open-source tool used for gathering information about domain names and related assets during security testing. Security professionals, ethical hackers, and penetration testers use Amass for DNS enumeration to discover subdomains, map network infrastructure, and find exposed services of a target organization. It helps them identify potential attack surfaces by collecting data from public sources, DNS records, and other internet databases in an automated and efficient way.
+```
+amass enum -passive -d <Target Domain> -src        # → Performs passive subdomain enumeration and shows the source of each discovery.
+amass db -dir amass4owasp -list                    # → Lists all domains stored in the local Amass database under the specified directory.
+amass viz -d3 -dir amass4owasp                     # → Generates and serves a D3.js-based interactive graph visualization of the discovered domain data.
+
+amass enum -active -d <Target Domain> -brute -w /usr/share/wordlists/amass/all.txt   		# → Performs active enumeration with brute force using a custom wordlist.
+amass track -config /root/amass/config.ini -dir amass4owasp -d <Target Domain> -last 2   	# → Tracks differences in subdomains discovered across the last 2 runs using a custom config and data directory.
+```
+### Some Others amass Commands for DNS Enumeration
+```
+amass enum -d example.com                          # → Performs passive and active subdomain enumeration on example.com.
+amass enum -d example.com -passive                 # → Performs passive-only enumeration; avoids active probing (stealthier).
+amass enum -d example.com -active                  # → Enables active reconnaissance including DNS brute forcing and probing.
+amass enum -d example.com -brute                   # → Performs brute-force DNS enumeration using a wordlist.
+amass enum -d example.com -min-for-recursive 2     # → Filters out names without enough recursive DNS support.
+amass enum -d example.com -r 8.8.8.8,1.1.1.1       # → Uses specified recursive DNS resolvers for name resolution.
+amass enum -d example.com -src                     # → Displays the data source for each discovered name.
+amass enum -d example.com -ip                      # → Prints discovered subdomains with associated IP addresses.
+amass enum -d example.com -asn                     # → Adds ASN information (Autonomous System Number) for discovered IPs.
+amass enum -d example.com -o subdomains.txt        # → Outputs discovered subdomains to a file named subdomains.txt.
+amass enum -df domains.txt                         # → Performs enumeration on all domains listed in the file domains.txt.
+amass enum -d example.com -w wordlist.txt -brute   # → Uses a custom wordlist to brute-force subdomains.
+amass intel -d example.com                         # → Performs intelligence gathering such as discovering related domains and netblocks.
+amass track -d example.com                         # → Compares results from different runs to track changes in discovered assets.
+amass db -names -d example.com                     # → Lists all names discovered for the domain from the local Amass database.
+amass viz -d3 -g                                   # → Launches a local graph-based visualization (D3) of the enumeration results.
+```
+## DNS Enumeration Using Nmap
+```
+nmap --script=broadcast-dns-service-discovery <Target Domain>     # → Discovers services using DNS-SD (Bonjour/mDNS) on the local network via broadcast.
+nmap -T4 -p 53 --script dns-brute <Target Domain>                 # → Performs brute-force DNS subdomain enumeration using a built-in wordlist.
+nmap -Pn -sU -p 53 --script=dns-recursion <Target>                # → Checks if the DNS server allows recursive queries to external domains (may be vulnerable to DNS amplification).
+```
+### Some Others Nmap commands for DNS Enumeration
+```
+nmap -p 53 <target>                                    # → Checks if DNS (UDP port 53) is open on the target.
+nmap -sU -p 53 <target>                                # → Performs a UDP scan on port 53 to detect DNS services.
+nmap -sV -p 53 <target>                                # → Attempts version detection on DNS service.
+nmap -sU -p 53 --script=dns-recursion <target>         # → Checks if DNS server allows recursive queries (may be abused for amplification).
+nmap -T4 -p 53 --script=dns-brute <target>             # → Performs brute-force DNS subdomain enumeration using a wordlist.
+nmap --script=dns-zone-transfer <target>               # → Attempts a DNS zone transfer (AXFR) from the target DNS server.
+nmap --script=dns-nsid -p 53 <target>                  # → Queries for the DNS NSID (Name Server Identifier) option to fingerprint the DNS server.
+nmap --script=dns-service-discovery <target>           # → Attempts to enumerate DNS SRV records to identify common services on the domain.
+nmap --script=broadcast-dns-service-discovery          # → Discovers services via multicast DNS (mDNS) on the local network.
+nmap -sU -p 53 --script=dns-check-zone <target>        # → Checks zone configuration for common misconfigurations and security issues.
+
+nmap --script=dns-brute --script-args dns-brute.domain=example.com <target>  		# → Brute-forces subdomains of example.com using custom domain input.
+nmap --script=dns-srv-enum --script-args 'dns-srv-enum.domain=example.com' <target>  	# → Enumerates common DNS SRV records for given domain.
+nmap --script=dns-cache-snoop --script-args='dns-cache-snoop.domains={example.com,www.example.com}' <target>  # → Checks if DNS server is caching responses (can be used for info leak).
+```
+## DNS Security Extensions (DNSSEC) Enumeration using Nmap
+```
+nmap -sU -p 53 --script dns-nsec-enum --script-args dns-nsec-enum.domains=eccouncil.org <target>   # → Uses the dns-nsec-enum script to enumerate DNS records by exploiting NSEC record chains on UDP port 53, targeting the eccouncil.org domain.
+
+nmap -p 53 --script=dns-nsec-enum <target>               # → Enumerates DNS zone records using NSEC-walking (if zone-walking is possible via DNSSEC).
+nmap -p 53 --script=dns-nsec3-enum <target>              # → Attempts to enumerate DNS zone records protected by NSEC3 (less effective than NSEC).
+nmap -p 53 --script=dns-check-zone <target>              # → Checks for misconfigurations in DNS zone including DNSSEC-related issues.
+nmap -p 53 --script=dns-zone-transfer <target>           # → Attempts a zone transfer (AXFR); helpful in DNSSEC testing if zone transfer is permitted.
+nmap -p 53 --script=dns-recursion,dns-nsec-enum <target> # → Checks for recursion support and performs NSEC-based enumeration if possible.
+nmap -p 53 --script=dns-nsec-enum --script-args='dns-nsec-enum.domains={example.com}' <target>  # → Performs targeted NSEC zone-walking on specified domain.
+```
+## The following are some of the additional DNS enumeration tools:
+- **Knock** [https://github.com/guelfoweb/knock]
+- **Raccoon** [https://github.com/evyatarmeged/Raccoon]
+- **Subfinder** [https://github.com/projectdiscovery/subfinder]
+- **Turbolist3r** [https://github.com/fleetcaptain/Turbolist3r]
 
 # 🧪 Other Enumeration Techniques
+## IPsec Enumeration
+IPsec is a common technology used to secure communication in VPNs, either between two networks or between a remote user and a network. It protects data using features like Encapsulating Security Payload (ESP), Authentication Header (AH), and Internet Key Exchange (IKE). Most IPsec VPNs rely on a protocol called Internet Security Association Key Management Protocol 
+(ISAKMP) to manage security settings and keys. Security professionals or attackers can scan for ISAKMP on UDP port 500 using tools like Nmap to check if a VPN gateway is active and gather related information.
+### IPsec Enumeration using Nmap
+```
+nmap -sU -p 500 <target_ip>                                # → Scans for IKE (Internet Key Exchange) service on UDP port 500 (used by IPsec).
+nmap -sU -p 500 --script ike-version <target_ip>           # → Detects the IKE version (IKEv1 or IKEv2) supported by the IPsec VPN server.
+nmap -sU -p 500 --script ike-scan <target_ip>              # → Attempts to discover IKE hosts, supported transforms, and key exchange parameters.
+nmap -sU -p 500,4500 <target_ip>                           # → Scans for both IKE (500) and NAT-T (4500) ports used in IPsec VPN setups.
+nmap -sU -p 500 --script ike-fingerprint <target_ip>       # → Attempts to fingerprint the IPsec VPN implementation and configuration details.
+
+nmap -sU -p 500 --script ike-scan --script-args=ike-scan.sendcookie=true <target_ip>  	# → Sends IKEv2 cookies to bypass DoS protection and enumerate transforms.
+nmap -sU -p 500 --script ike-version --script-args=ike-force=yes <target_ip>   		# → Forces IKE version detection even if the service does not respond properly.
+```
+### IPsec Enumeration using ike-scan
+🔗Source: [https://github.com/royhills/ike-scan]
+
+`ike-scan` is a tool used to discover and gather information about VPN systems that use the IPsec protocol with IKE (Internet Key Exchange). Security professionals, ethical hackers, and penetration testers use `ike-scan` to find out if IKE services are running on a system, what kind of authentication and encryption methods they support, and whether the system leaks any useful information. This helps them understand how secure or vulnerable a VPN setup might be before attackers can exploit any weaknesses.
+```
+ike-scan <target_ip>                                	# → Sends IKE packets to detect VPN servers; shows IKE responder if found.
+ike-scan -M <target_ip>                             	# → Performs Main Mode scan; enumerates IKE responder and its supported transforms.
+ike-scan -A <target_ip>                             	# → Performs Aggressive Mode scan; attempts to capture hash of the VPN pre-shared key.
+ike-scan -M --trans=0,1,2,3 <target_ip>              	# → Scans using custom transform set to test for supported encryption/auth algorithms.
+ike-scan -A --id=examplegroup <target_ip>           	# → Sends Aggressive Mode request with specified group name to provoke a hash response.
+ike-scan -A --id=examplegroup --pskcrack <target_ip> 	# → Captures Aggressive Mode PSK hash in format compatible with pskcrack tool.
+ike-scan --sport=500 --dport=500 -M <target_ip>     	# → Specifies source and destination ports for Main Mode scanning (default is 500).
+ike-scan -M -n 5 <target_ip>                         	# → Sends 5 IKE requests (retries) per target to improve scan reliability.
+ike-scan -A -v <target_ip>                           	# → Enables verbose mode for Aggressive Mode scan; shows payload details.
+ike-scan -A --multiline <target_ip>                 	# → Displays response data in multi-line format for better readability.
+ike-scan --showbackoff --nodns <target_ip>          	# → Disables DNS lookups and shows retry backoff behavior during scan.
+```
+## VoIP Enumeration 
+VoIP is a modern technology that allows people to make voice or video calls over the Internet instead of using traditional phone lines or public switched telephone network (PSTN). It uses a protocol called Session Initiation Protocol (SIP) to manage these calls, which usually runs on  UDP/TCP ports 2000, 2001, 5060, and 5061. Because VoIP works over the Internet, it can be targeted by hackers using tools like Svmap or Metasploit. Through VoIP enumeration, attackers can gather sensitive information such as VoIP gateway/servers, IP-private branch exchange (PBX) systems, and User-Agent IP addresses and user extensions of client software (softphones) or VoIP phones. This information can then be used to launch attacks such as call hijacking, fake caller ID, listening in on calls, or sending spam calls.
+
+### VoIP Enumeration using svmap
+🔗Source: [https://github.com/EnableSecurity/sipvicious/wiki/SVMap-Usage]
+
+`svmap` is a tool that is part of the SIPVicious suite, which is used to scan for SIP (Session Initiation Protocol) devices on a network. SIP is commonly used in VoIP (Voice over IP) systems for voice communication. Security professionals, ethical hackers, and penetration testers use `svmap` to find VoIP phones, servers, or gateways by sending SIP requests and identifying which systems respond. This helps them check for exposed or vulnerable VoIP devices that attackers might target in order to eavesdrop, hijack calls, or access internal phone systems.
+
+Attackers use Svmap to perform the following:
+- Identify SIP devices and PBX servers on default and non-default ports
+- Scan large ranges of networks
+- Scan one host on different ports for an SIP service on that host or multiple hosts on multiple ports
+- Ring all the phones on a network simultaneously using the INVITE method
+```
+svmap 192.168.1.0/24                       # → Scans the subnet to identify live SIP (VoIP) devices using default port 5060.
+svmap -v 192.168.1.0/24                    # → Enables verbose output; shows more details about each discovered SIP device.
+svmap -p 5060 192.168.1.0/24               # → Specifies custom SIP port (default is 5060); useful if SIP service is running on non-standard ports.
+svmap -r 1000 192.168.1.0/24               # → Limits rate to 1000 packets per second; helpful to avoid detection or network saturation.
+svmap -o results.txt 192.168.1.0/24        # → Saves the output of the scan to a file named results.txt.
+svmap -v -p 5061 192.168.1.0/24            # → Scans for SIP devices over TLS (commonly used on port 5061).
+```
+### VoIP Enumeration using Metasploit
+```
+# Scans for open SIP ports (UDP 5060) on the target network:
+use auxiliary/scanner/sip/options
+set RHOSTS <target_ip_range>
+set THREADS 10
+run
+
+# Enumerates valid SIP usernames by sending SIP REGISTER requests:
+use auxiliary/scanner/sip/enumerator
+set RHOSTS <target_ip>
+set USER_FILE /path/to/userlist.txt
+set THREADS 10
+run
+
+# Attempts to brute-force SIP user credentials via REGISTER requests:
+use auxiliary/scanner/sip/sip_brute
+set RHOSTS <target_ip>
+set USERNAME <sip_user>
+set PASS_FILE /path/to/passlist.txt
+run
+
+# Identifies SIP endpoints and gathers SIP banner information:
+use auxiliary/scanner/sip/sip_options
+set RHOSTS <target_ip>
+run
+
+# Tests for SIP INVITE message handling (VoIP DoS and fuzzing potential):
+use auxiliary/fuzzers/sip/invite
+set RHOSTS <target_ip>
+run
+
+# Sends crafted INVITE messages to discover active calls or devices:
+use auxiliary/voip/sip_invite_spoof
+set RHOSTS <target_ip>
+set RPORT 5060
+set FROM <spoofed_user>
+set TO <target_user>
+run
+
+# Checks for SIP digest authentication and leaks in the challenge response:
+use auxiliary/voip/sip_digest_leak
+set RHOSTS <target_ip>
+set USERNAME <known_user>
+run
+```
+## RPC Enumeration
+The remote procedure call (RPC) is a technology used for creating distributed client/server programs. RPC allows clients and servers to communicate in distributed client/server programs. It is an inter-process communication mechanism, which enables data exchange between different processes. In general, RPC consists of components such as a client, a server, an endpoint, an endpoint mapper, a client stub, and a server stub, along with various dependencies. 
+
+RPC uses a special service called the portmapper, which runs on port 111 and keeps track of all available RPC services. Security professionals and attackers perform RPC enumeration to discover which services are available and if any of them have security weaknesses. If the RPC ports are open and unprotected, attackers might find vulnerable services that can be exploited.
+### RPC Enumeration using Nmap
+```
+nmap -sV -p 111 <target_ip>                                   # → Scans port 111 (rpcbind) to detect RPC services and versions.
+nmap -p 111 --script=rpcinfo <target_ip>                      # → Queries rpcbind to list registered RPC programs and versions.
+nmap -p 111 --script=rpc-grind <target_ip>                    # → Enumerates registered RPC services via the rpc.grind procedure.
+nmap -p 111 --script=rpc-loc <target_ip>                      # → Attempts to locate specific RPC services on the target.
+nmap -p 111 -sU --script=rpc-stat <target_ip>                 # → Retrieves RPC statistics from the target (UDP).
+nmap -p 111 -sT --script=rpcdump <target_ip>                  # → Dumps RPC information over TCP.
+nmap -p 111 -sV --script=rpc-auth <target_ip>                 # → Checks for RPC authentication weaknesses or misconfigurations.
+nmap -p 111 --script=default,safe -sV <target_ip>             # → Runs default and safe scripts including RPC enumeration and version detection.
+nmap -p 111 -sV --script=rpcinfo,rpc-grind,rpc-loc <target_ip> # → Combined advanced enumeration of RPC services and versions.
+```
+Also you can use **NetScanTool Pro** [https://www.netscantools.com] for RPC Enumeration 
+
+![rpc](https://github.com/user-attachments/assets/cab5cb99-326b-46dc-9aff-31317da2d36a)
+
+## Unix/Linux User Enumeration 
+One of the important steps for enumeration is to perform Unix/Linux user enumeration.
+Unix/Linux user enumeration provides a list of users along with details such as the username, host name, and start date and time of each session
+
+The following command-line utilities can be used to perform Unix/Linux user enumeration.
+### rusers
+🔗Source: [https://github.com/wageningen/RUsers]
+
+`rusers` is a Unix/Linux command-line tool that shows which users are currently logged in on a remote system that has the rstatd or rusersd service running. Ethical hackers and penetration testers use rusers during user enumeration to discover active usernames on a target network. This helps them identify potential accounts to investigate or attempt access, especially when looking for weak or misconfigured systems that allow remote access without proper security controls.
+```
+The options are as follows:
+-a: Gives a report for a machine even if no users are logged in
+-h: Sorts alphabetically by host name
+-l: Gives a longer listing similar to the who command
+-u: Sorts by the number of users
+-i: Sorts by idle time
+
+rusers <target_ip>            # → Lists users logged in on remote machines via the rusersd service.
+rusers -l <target_ip>         # → Shows detailed user information including idle time and login time.
+rusers -a <target_ip>         # → Lists all users including those on hosts that are currently down.
+rusers -h <target_ip>         # → Displays only hostnames with logged in users.
+rusers -u <target_ip>         # → Shows host uptime information (some implementations).
+rusers -n <target_ip>         # → Displays numerical addresses instead of resolving hostnames.
+rusers -l -n <target_ip>      # → Detailed user list with IPs instead of hostnames.
+rusers -al <target_ip>        # → Combines all options to list all users with full details.
+```
+### rwho
+🔗Source: [https://github.com/grawity/rwho]
+
+`rwho` is a command-line tool in Unix/Linux systems that shows which users are currently logged in to the local network, along with information like their login time and machine name. Security professionals, ethical hackers, and penetration testers use rwho for user enumeration because it helps them discover active users and systems on the network, which can reveal potential targets for further analysis or exploitation. It’s useful for mapping the environment during the early stages of a security assessment.
+```
+rwho                                       # → Lists all users currently logged into the network via rwhod.
+rwho -a                                    # → Displays all users logged in, including those on hosts that have been idle for more than an hour.
+rwho -h                                    # → Prints only hostnames that have users logged in.
+rwho -u                                    # → Shows the uptime of each host along with logged-in users.
+rwho | grep <username>                     # → Filters the rwho output to locate a specific user on the network.
+rwho | awk '{print $1, $2, $6}'            # → Extracts and displays user, host, and idle time from rwho output.
+rwho | sort -k6                            # → Sorts the output based on idle time (6th column).
+rwho | cut -d ' ' -f1 | sort | uniq        # → Lists unique usernames found across the network via rwho.
+rwho | grep -v "idle" | wc -l              # → Counts the number of currently active (non-idle) users across the network.
+rwho -a | grep -E 'tty[0-9]+'              # → Extracts terminal information of logged-in users.
+```
+### finger
+🔗Source: [https://github.com/bketelsen/finger]
+
+finger displays information about system users such as the user’s login name, real name, terminal name, idle time, login time, office location, and office phone numbers.
+```
+finger <username>@<target_ip>                                 # → Queries the specified user on the remote system using the Finger service (port 79).
+finger @<target_ip>                                           # → Enumerates all currently logged-in users on the remote system if allowed by the service.
+finger -l <username>@<target_ip>                              # → Provides a long format output with more detailed information about the specified user.
+finger -m <username>@<target_ip>                              # → Matches the exact username (useful when partial names return multiple entries).
+finger -s <username>@<target_ip>                              # → Displays short user info such as login name, terminal, and idle time (useful for quick enumeration).
+finger -p <username>@<target_ip>                              # → Suppresses plan and project files in the output (limits information leakage).
+finger -f <username>@<target_ip>                              # → Disables printing of the header line (can help in scripting output parsing).
+finger -q <username>@<target_ip>                              # → Quiet mode – prints minimal info (useful when trying to avoid detection).
+finger -l <username>@<target_ip> | grep -i 'plan\|project'    # → Extracts and inspects potential sensitive info from user's .plan or .project files.
+finger -l <username>@<target_ip> > enum_output.txt            # → Saves detailed enumeration info to a file for offline analysis or reporting.
+```
+> #### 🛡️ Note: The Finger service (port 79) is largely deprecated and rarely enabled on modern systems due to security risks, but if available, it can be a powerful tool for OSINT and internal recon.
+
+## SMB Enumeration
+SMB (Server Message Block) is a network protocol used for sharing files, printers, and other resources between computers, especially in Windows environments. Security professionals, ethical hackers, or penetration testers perform SMB enumeration to gather valuable information like shared folders, usernames, and system details from a target system. This helps them identify potential vulnerabilities or misconfigurations that could be exploited during a security assessment.
+
+SMB runs directly on TCP port 445 or via the NetBIOS API on UDP ports 137 and 138 and TCP ports 137 and 139. 
+
+Attackers can also use SMB enumeration tools such as **Nmap**, **SMBMap**, **enum4linux**, **nullinux**, **SMBeagle** and **NetScanTool Pro** to perform a directed scan on the SMB service running on port 445.
+
+### SMB Enumeration Using Nmap
+```
+nmap -p 445 <target_ip>                                               # → Checks if SMB port 445 is open.
+nmap -p 139 <target_ip>                                               # → Checks if SMB over NetBIOS (port 139) is open.
+nmap -sV -p 139,445 <target_ip>                                       # → Detects SMB service versions on ports 139 and 445.
+nmap --script=smb-os-discovery -p 445 <target_ip>                     # → Enumerates OS information via SMB.
+nmap --script=smb-protocols -p 445 <target_ip>                        # → Enumerates supported SMB protocols (e.g., SMBv1, SMBv2, SMBv3).
+nmap --script=smb-security-mode -p 445 <target_ip>                    # → Checks SMB security settings such as signing and authentication.
+nmap --script=smb2-security-mode -p 445 <target_ip>                   # → Retrieves SMB2 security mode configuration.
+nmap --script=smb2-capabilities -p 445 <target_ip>                    # → Lists supported SMB2 capabilities like encryption, leasing, etc.
+nmap --script=smb-enum-shares -p 445 <target_ip>                      # → Enumerates available SMB shares (including hidden/admin shares).
+nmap --script=smb-enum-users -p 445 <target_ip>                       # → Attempts to enumerate SMB users.
+nmap --script=smb-enum-groups -p 445 <target_ip>                      # → Enumerates local groups from the target via SMB.
+nmap --script=smb-enum-domains -p 445 <target_ip>                     # → Attempts to enumerate Windows domains.
+nmap --script=smb-ls --script-args share=IPC$ -p 445 <target_ip>      # → Lists contents of the IPC$ share if accessible.
+nmap --script=smb-brute -p 445 <target_ip>                            # → Performs brute-force username/password guessing against SMB.
+nmap --script=smb-check-vulns -p 445 <target_ip>                      # → Checks for known SMB vulnerabilities (MS08-067, MS17-010, etc).
+nmap --script=smb-vuln-ms17-010 -p 445 <target_ip>                    # → Checks specifically for EternalBlue (MS17-010) vulnerability.
+nmap --script=smb-vuln-ms08-067 -p 445 <target_ip>                    # → Checks for MS08-067 vulnerability in Windows SMB.
+nmap --script=smb-vuln-cve2009-3103 -p 445 <target_ip>                # → Detects CVE-2009-3103 vulnerability in SMB2.
+nmap --script=smb-vuln-* -p 445 <target_ip>                           # → Runs all SMB vulnerability detection scripts.
+nmap -p 139,445 --script=default,safe,vuln -sV <target_ip>            # → Runs default, safe, and vulnerability scripts for SMB services.
+nmap --script "smb-*" -p 139,445 <target_ip>                          # → Runs all available SMB enumeration scripts.
+```
+> #### 💡 Pro Tip: You can append -Pn to skip host discovery or -n to skip DNS resolution for faster scans when needed.
+
+### Using SMBMap
+```
+smbmap -H <target_ip>                                              # → Lists SMB shares on the target host (basic enumeration).
+smbmap -H <target_ip> -u <user> -p <password>                      # → Authenticated enumeration using valid credentials.
+smbmap -H <target_ip> -u <user> -p ''                              # → Attempts to authenticate with a blank password (null sessions).
+smbmap -H <target_ip> -u '' -p ''                                  # → Tries anonymous login to enumerate accessible shares.
+smbmap -H <target_ip> -u <user> -p <password> -d <domain>          # → Authenticated scan with domain-specified credentials.
+smbmap -H <target_ip> -u <user> -p <password> --shares             # → Lists available shares and their access levels.
+smbmap -H <target_ip> -u <user> -p <password> --depth 5            # → Recursively enumerates directories within shares up to 5 levels deep.
+smbmap -H <target_ip> -u <user> -p <password> -R                   # → Recursively lists directories and files in shares.
+smbmap -H <target_ip> -u <user> -p <password> -r <share_name>      # → Lists contents of a specific share.
+smbmap -H <target_ip> -u <user> -p <password> -r <share> --depth 3 # → Enumerates a specific share with directory depth of 3.
+smbmap -H <target_ip> -u <user> -p <password> -R | grep -i ".txt"  # → Searches for .txt files in all accessible shares.
+smbmap -H <target_ip> -u <user> -p <password> --download           # → Downloads files the user has access to from shares.
+smbmap -H <target_ip> -u <user> -p <password> --upload <file>      # → Uploads a local file to writable shares.
+smbmap -H <target_ip> -u <user> -p <password> --all                # → Displays all options including shares, recursion, and permissions.
+smbmap -H <target_ip> -u <user> -p <password> --log smbmap.log     # → Logs all output to a file for documentation and offline analysis.
+
+smbmap -H <target_ip> -u <user> -p <password> --execute 'cmd.exe /c whoami' 			# → Executes a command on the remote system (if permissions allow).
+smbmap -H <target_ip> -u <user> -p <password> -R | grep -i "password" 				# → Looks for potentially sensitive files like password files.
+smbmap -H <target_ip> -u <user> -p <password> --upload <file> --dir <remote_path> 		# → Uploads to a specific directory on the share.
+smbmap -H <target_ip> -u <user> -p <password> -r <share> --download --target <directory> 	# → Downloads from a specific share to a target local directory.
+```
+> #### 🛡️ Tip: SMBMap is incredibly useful for lateral movement and privilege escalation in post-exploitation scenarios.
+### Using enum4linux
+```
+enum4linux <target_ip>                                        # → Performs basic SMB enumeration (users, shares, OS info, etc.) on the target.
+enum4linux -U <target_ip>                                     # → Enumerates users via SMB (RID cycling, SAMR, and NetUserEnum).
+enum4linux -S <target_ip>                                     # → Enumerates shared resources (SMB shares) on the target.
+enum4linux -P <target_ip>                                     # → Enumerates password policy settings from the target.
+enum4linux -G <target_ip>                                     # → Enumerates groups defined on the target system.
+enum4linux -N <target_ip>                                     # → Performs NetBIOS information enumeration.
+enum4linux -L <target_ip>                                     # → Enumerates domain/workgroup information and server listings.
+enum4linux -a <target_ip>                                     # → Runs all enumeration modules (users, shares, group, OS info, etc.) — most comprehensive.
+enum4linux -u <username> -p <password> <target_ip>            # → Authenticated enumeration using valid SMB credentials.
+enum4linux -d <domain> -u <user> -p <pass> <target_ip>        # → Domain-authenticated enumeration if part of a domain environment.
+enum4linux -r <target_ip>                                     # → RID cycling to brute-force user/group SIDs on the target (if guest access allowed).
+enum4linux -A <target_ip>                                     # → Same as -a but skips NetBIOS share enumeration (faster full sweep).
+enum4linux -o output.txt <target_ip>                          # → Outputs the enumeration results to a specified file for later analysis.
+```
+> #### 🛡️Tip: Use -a or -A for the most thorough scan, but for stealth or segmented enumeration, invoke specific flags like -U or -S.
