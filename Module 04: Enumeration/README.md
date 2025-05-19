@@ -110,6 +110,18 @@ nbtstat -S                     	# → Lists current NetBIOS sessions with IP add
 <interval> 			# → Re-displays selected statistics, pausing at each display for the number of seconds specified in Interval
 -?				# → Display Help
 ```
+### net use utility
+
+`net use` is a Windows command-line utility that allows users to connect to shared resources like network drives or printers over a network. Security professionals, ethical hackers, and penetration testers use `net use` during NetBIOS enumeration to discover and access shared folders or drives on target systems. By checking which shares are available and if they are accessible without authentication, they can identify potential weaknesses or misconfigurations that could allow unauthorized access to sensitive files or resources.
+```
+net use                                         # → Displays a list of all current network connections and mapped drives.
+net use \\<ip_or_hostname>\share                # → Connects to a shared folder on a remote machine (authentication may be required).
+net use \\<ip_or_hostname>\share /user:<user>   # → Connects to a share using a specific username.
+net use Z: \\<ip_or_hostname>\share             # → Maps the remote share to drive letter Z:.
+net use /delete Z:                              # → Disconnects the mapped drive Z:.
+net use * /delete                               # → Disconnects all active network connections.
+net use \\<ip_or_hostname>\IPC$ /user:<user>    # → Connects to the hidden IPC$ share (often used for enumeration or exploits).
+```
 ### NetBIOS Enumerator
 🔗Source: [https://nbtenum.sourceforge.net]
 
@@ -202,6 +214,8 @@ net share NewShare=c:\folder /grant:everyone,full  	# → Creates a new share an
 # 📡 SNMP Enumeration
 SNMP (Simple Network Management Protocol) is a protocol used to manage and monitor network devices like routers, switches, servers, printers, and more. It allows network administrators to collect information about these devices, configure them, and detect issues in real-time. 
 
+As a professional ethical hacker or penetration tester, your next step is to carry out SNMP enumeration to extract information about network resources (such as hosts, routers, devices, and shares) and network information (such as ARP tables, routing tables, device-specific information, and traffic statistics).
+
 - Attackers use SNMP default community strings to extract information about a device
 - Attackers enumerate SNMP to extract information about network resources, such as hosts, routers, devices, and shares, and network information, such as ARP tables, routing tables, and traffic
 
@@ -210,6 +224,7 @@ SNMP enumeration tools are used to scan a single IP address or a range of IP add
 
 ### Enumerating SNMP using SnmpWalk 
 🔗Source: [https://ezfive.com]
+
 SnmpWalk is a command-line tool used to gather detailed information from network devices like routers, switches, printers, and servers using the SNMP (Simple Network Management Protocol). It works by walking through or querying the SNMP "tree" on a target device to retrieve data such as system information, running processes, network interfaces, and more.
 
 In simple terms, SnmpWalk is like a scanner that asks a device, “What do you know?” and the device responds with everything it’s allowed to share—one piece of information after another. This is very useful for system administrators and attackers alike, as it can reveal a lot about how a device is configured and what it's doing, especially if SNMP is not secured properly.
