@@ -701,6 +701,21 @@ dnsrecon -d example.com -t std -c output.csv      # → Saves standard enumerati
 dnsrecon -d example.com -t axfr -n ns1.example.com # → Attempts zone transfer specifically against ns1.example.com.
 dnsrecon -d example.com -D /path/to/wordlist.txt -t brt  # → Performs brute-force subdomain enumeration using a custom wordlist.
 ```
+## Perform DNS Enumeration using Zone Transfer
+DNS zone transfer is the process of transferring a copy of the DNS zone file from the primary DNS server to a secondary DNS server. In most cases, the DNS server maintains a spare or secondary server for redundancy, which holds all information stored in the main server.
+
+If the DNS transfer setting is enabled on the target DNS server, it will give DNS information; if not, it will return an error saying it has failed or refuses the zone transfer.
+### DNS Zone Transfer using dig command
+```
+dig ns <domain>		# → Check the Name Server
+dig @<NS> <domain> axfr # → Zone Transfer
+```
+### DNS Zone Transfer using nslookup command
+```
+nslookup
+> set querytype=soa		# → To sets the query type to SOA (Start of Authority) record to retrieve administrative information about the DNS zone.
+> ls -d <NS>			# → To requests a zone transfer of the specified name server.
+```
 ## DNSSEC Zone Walking
 DNSSEC Zone Walking is a method used to gather hidden DNS records from a domain that has DNSSEC enabled but not properly configured. DNSSEC is meant to secure DNS by using digital signatures to verify DNS data, but older versions like NSEC can accidentally expose a list of all domain records. Security professionals, ethical hackers, and penetration testers perform DNSSEC Zone Walking during DNS enumeration to find out internal hostnames, services, and network structure of the target domain. This helps them understand what parts of the system are exposed and could be at risk, especially if attackers use the same method to plan attacks.
 ### DNSSEC Zone Walking Tools
