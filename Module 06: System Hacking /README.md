@@ -35,7 +35,14 @@ pwdump7 is an application that dumps the password hashes (one-way functions or O
 - **PyCrack** [https://github.com/saurabhwadekar/pycrack]
 > #### Note: The use of the above tools requires administrative privileges on the remote system.
 
-
+## Password Spraying Attack
+Password spraying is a type of brute force attack which involves a malicious actor attempting to use the same password on multiple accounts before moving on to try another one.
+### The following are some additional password-spraying attack tools:
+- **thc-hydra** [https://github.com/vanhauser-thc/thc-hydra]
+- **Metasploit** [https://www.metasploit.com]
+- **Rubeus** [https://github.com/GhostPack/Rubeus]
+- **adfsbrute** [https://github.com/ricardojoserf/adfsbrute]
+- **CrackMapExec** [https://github.com/byt3bl33d3r/CrackMapExec]
 
 # 📶 Escalating Privileges
 
