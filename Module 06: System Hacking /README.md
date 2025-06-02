@@ -244,6 +244,42 @@ Steps involved in LLMNR/NBT-NS poisoning:
 **LLMNR/NBT-NS Poisoning Tools**
 - **Responder** 🔗Source: [https://github.com/SpiderLabs/Responder] - Responder is an LLMNR, NBT-NS, and MDNS poisoner. It responds to specific NBT-NS (NetBIOS Name Service) queries based on their name suffix. By default, the tool only responds to a File Server Service request, which is for SMB.
 
+### Internal Monologue Attack
+An Internal Monologue Attack is a technique where an attacker tricks a Windows system into revealing password hashes from memory without sending any data over the network, allowing them to capture and crack the hashes locally.
+
+
+#### 🧠 **Internal Monologue Attack – Step-by-Step:**
+
+![Internal Monologue Attack](https://github.com/user-attachments/assets/87d23173-765f-408e-af4e-78f0d0ec3119)
+
+1. **Turn Off Security Settings:**
+
+   * The attacker temporarily **disables protections** (like `LMCompatibilityLevel`, etc.) to make Windows use a weaker login method (NetNTLMv1).
+
+2. **Grab Login Info:**
+
+   * The attacker collects **login tokens** from programs running on the system. These are used to act like real users.
+
+3. **Ask Windows to Generate Hashes:**
+
+   * Using Windows' own system (`NTLM SSP`), the attacker **asks for authentication responses** (NetNTLMv1 hashes) pretending to be each user.
+
+4. **Put Settings Back:**
+
+   * Once the hashes are collected, the attacker **restores the original security settings** to avoid being detected.
+
+5. **Crack the Hash:**
+
+   * The attacker uses **rainbow tables** (precomputed password-hash maps) to **crack the NetNTLMv1 hash** and get the real password.
+
+6. **Login with Cracked Password:**
+
+   * Finally, the attacker uses that cracked password to **log in as the victim** and gain **system-level access**.
+
+#### 💡In Short:
+
+The attacker **tricks Windows into giving NTLM hashes without touching LSASS**, then **cracks them offline** to steal passwords — even in secure environments where tools like Mimikatz don’t work.
+
 
 
 # 📶 Escalating Privileges
