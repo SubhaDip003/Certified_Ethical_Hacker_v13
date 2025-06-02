@@ -277,9 +277,52 @@ An Internal Monologue Attack is a technique where an attacker tricks a Windows s
    * Finally, the attacker uses that cracked password to **log in as the victim** and gain **system-level access**.
 
 #### 💡In Short:
-
 The attacker **tricks Windows into giving NTLM hashes without touching LSASS**, then **cracks them offline** to steal passwords — even in secure environments where tools like Mimikatz don’t work.
 
+### Cracking Kerberos Password
+Cracking Kerberos passwords is a way for attackers to exploit weaknesses in the Kerberos authentication system, which is widely used in networks to verify users. Because it's so commonly used, attackers look for ways to break it. Two popular methods are Kerberoasting and AS-REP Roasting.
+In Kerberoasting, the attacker gets service tickets (TGS) from Kerberos and tries to crack them offline to recover service account passwords. In AS-REP Roasting, the attacker looks for accounts that don’t require pre-authentication and requests TGTs (tickets), which can then be cracked offline to reveal the user's password. Both techniques help attackers steal credentials and move deeper into the network.
+
+#### AS-REP Roasting Attack (Cracking TGT)
+
+![AS-PER](https://github.com/user-attachments/assets/db01514c-171d-4f62-b8bd-68df0badc13a)
+
+AS-REP Roasting is a Kerberos attack where an attacker targets user accounts that don’t require preauthentication. Normally, Kerberos uses preauthentication to protect against password-guessing, but if this protection is turned off for a user, the attacker can simply ask the domain controller for a Ticket Granting Ticket (TGT) for that user. The domain controller sends back an encrypted ticket (AS-REP), which is encrypted using the user’s password hash. The attacker then captures this encrypted ticket and tries to crack it offline to reveal the user's actual password. Once cracked, the attacker can log in as that user and move around the network or escalate privileges if the user has high access.
+
+#### Kerberoasting Attack (Cracking TGS)
+Kerberoasting is an attack where a hacker uses a normal user account to request and steal encrypted service tickets, then cracks them offline to get the service account's password.
+
+![Kerberoasting](https://github.com/user-attachments/assets/caa27a38-4c94-4d46-8f97-7296143a98cd)
+
+#### Kerberoasting Methodology
+1. At first, the attacker authenticates within the Kerberos network domain using their legitimate user account to obtain a valid ticket granting ticket (TGT).
+2. Next, they can use this TGT to request ticket granting service (TGS) tickets for specific service accounts, which are encrypted with the password hash of the respective service account.
+3. Once the tickets are issued, attackers can use tools such as Rubeus to extract these TGS tickets from the system memory.
+4. After successfully extracting the password hash from the TGS tickets, the attacker can perform an offline brute-force attack using password-cracking tools such as hashcat or John the Ripper.
+
+### Pass-the-Ticket Attack
+A Pass-the-Ticket attack is a method where an attacker uses stolen **Kerberos tickets** (instead of a password) to access systems in a network. Normally, users use Kerberos tickets to access services without typing their password every time. In this attack, the attacker dumps tickets like **TGT (Ticket Granting Ticket)** or **ST (Service Ticket)** from the memory of a legitimate user’s computer using tools. Then, the attacker reuses these tickets to pretend to be that user and gain access to services.
+
+If the attacker gets a **Silver Ticket**, they can access a specific service like a file server. If they get a **Golden Ticket**, created using the **KRBTGT hash** from the domain controller, they can act as **any user** in the domain, even as a domain admin. This gives them full control over the network. The attacker doesn’t need the password — just the ticket is enough to move around the system like a legitimate user.
+
+Attackers use tools such as Mimikatz, Rubeus, Windows Credentials Editor, etc. to launch pass-the-ticket attacks: 
+- **Mimikatz** 🔗Source: [https://github.com/ParrotSec/mimikatz] - Mimikatz allows attackers to pass Kerberos TGT to other computers and sign in using the victim’s ticket. The tool also helps in extracting plaintext passwords, hashes, PIN codes, and Kerberos tickets from memory. It is an open-source tool that enables anyone to see and store authentication data such as Kerberos tickets. Attackers can leverage this for privilege escalation and credential stealing.
+
+### NTLM Relay Attack
+An NTLM Relay Attack is when an attacker intercepts and forwards authentication messages between a user and a server to trick the server into giving access without knowing the user’s password.
+
+#### Steps To Perform an NTLM Relay Attack
+1. The attacker first runs Responder on their machine using `./Responder -I eth0`. This makes it listen to and poison LLMNR, NBT-NS, and mDNS traffic, tricking victims into sending NTLM authentication to the attacker.
+2. Next, the attacker sets up ntlmrelayx (from the Impacket toolkit) with a command like `impacket-ntlmrelayx.py -of <path_to/SAM-NTLMv2dump file> -tf <path_to/relaytargets> -smb2support`, which tells it to capture the NTLM hashes from incoming sessions and relay them to a target SMB server.
+3. When a victim system tries to access a shared folder (SMB share), their NTLM credentials are intercepted and relayed. If the attack is successful, the attacker can dump password hashes (like LM and NTLM) from the victim’s system.
+
+These captured hashes can then be cracked or reused to gain unauthorized access to systems and data.
+
+## Other Active Online Attacks 
+
+- **Combinator Attack** - A Combinator attack is a password-cracking method that tries different combinations of two or more words from a wordlist to guess the correct password.
+- **Fingerprint Attack** - A fingerprint attack is a method where an attacker breaks passwords into small letter chunks or patterns to rebuild and crack them more efficiently than guessing whole passwords.
+- 
 
 
 # 📶 Escalating Privileges
