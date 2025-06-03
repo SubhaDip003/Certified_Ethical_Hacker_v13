@@ -35,7 +35,7 @@ pwdump7 is an application that dumps the password hashes (one-way functions or O
 - **PyCrack** [https://github.com/saurabhwadekar/pycrack]
 > #### Note: The use of the above tools requires administrative privileges on the remote system.
 
-## 🔐 Types of Password Attacks
+## Types of Password Attacks
 
 * **Non-Electronic Attack:**
   Involves physical or social tactics like **shoulder surfing** or **dumpster diving** to obtain passwords without using technical tools.
@@ -58,7 +58,7 @@ pwdump7 is an application that dumps the password hashes (one-way functions or O
 * **Dumpster Diving**: Searching through trash to find sensitive data (e.g., discarded company reports or employee login details).
 
 ---
-## 🔐 **Active Online Attacks**
+## **Active Online Attacks**
 
 ### **Dictionary Attack**: 
 Tries known/common passwords from a pre-built list against a target (e.g., trying `password123`, `letmein` on SSH login).
@@ -248,7 +248,7 @@ Steps involved in LLMNR/NBT-NS poisoning:
 An Internal Monologue Attack is a technique where an attacker tricks a Windows system into revealing password hashes from memory without sending any data over the network, allowing them to capture and crack the hashes locally.
 
 
-#### 🧠 **Internal Monologue Attack – Step-by-Step:**
+#### **Internal Monologue Attack – Step-by-Step:**
 
 ![Internal Monologue Attack](https://github.com/user-attachments/assets/87d23173-765f-408e-af4e-78f0d0ec3119)
 
@@ -322,7 +322,41 @@ These captured hashes can then be cracked or reused to gain unauthorized access 
 
 - **Combinator Attack** - A Combinator attack is a password-cracking method that tries different combinations of two or more words from a wordlist to guess the correct password.
 - **Fingerprint Attack** - A fingerprint attack is a method where an attacker breaks passwords into small letter chunks or patterns to rebuild and crack them more efficiently than guessing whole passwords.
-- 
+- **Markov-Chain Attack**
+- **GPU-based Attack**
+
+## Passive Online Attacks 
+- **Wire Sniffing** - Wire sniffing is a way attackers secretly capture and read data (like passwords) traveling over a network without the user knowing.
+- **Man-in-the-Middle/Manipulator-in-the-Middle and Replay Attacks** - A Man-in-the-Middle (MITM) attack is when a hacker secretly intercepts and possibly alters the communication between two people or systems without them knowing.
+
+## Offline Attacks
+Offline attacks are when an attacker steals password data and tries to crack it on their own computer without interacting with the system.
+
+Two examples of offline attacks are as follows: 
+1. **Rainbow table attack** - A rainbow table attack is a hacking method where attackers use a pre-made list of passwords and their hash values to quickly crack encrypted passwords.
+    - **Tool to Create Rainbow Tables:**
+      - **rtgen** [http://project-rainbowcrack.com] (**Note:** RainbowCrack supports up to Windows 10 only.)
+2. **Distributed Network Attack** - A Distributed Network Attack is a method of cracking passwords by using the combined unused power of many computers across a network to speed up the process.
+
+## Password Recovery Tools
+Password recovery tools allow attackers to break complex passwords, recover strong encryption keys, and unlock several documents. 
+- **Elcomsoft Distributed Password Recovery** [https://www.elcomsoft.com]
+- **Passware Kit Forensic** [https://www.passware.com]
+- **hashcat** [https://hashcat.net]
+- **PCUnlocker** [https://www.top-password.com]
+- **Lazesoft Recover My Password** [https://www.lazesoft.com]
+- **Passper WinSenior** [https://passper.imyfone.com]
+
+ ## Password-Cracking Tools
+Password-cracking tools allow you to reset unknown or lost Windows local administrator, domain administrator, and other user account passwords. In the case of forgotten passwords, it even allows users instant access to their locked computer without reinstalling Windows. Attackers can use password-cracking tools to crack the passwords of the target system. Some password-cracking tools are listed as follows:
+- **L0phtCrack** [https://github.com/Brute-f0rce/l0phtcrack]
+- **THC-Hydra** [https://github.com/vanhauser-thc/thc-hydra]
+- **RainbowCrack** [http://project-rainbowcrack.com]
+- **hashID** [https://pypi.org]
+- **Patator** [https://github.com/lanjelot/patator]
+- **brutus** [https://github.com/exbotanical/brutus]
+- **BruteX** [https://github.com/1N3/BruteX/blob/master/README.md]
+- **Secure Shell Bruteforcer** [https://pkg.go.dev/github.com/tolgatd/ssh-brute-forcer#section-readme]
 
 
 # 📶 Escalating Privileges
