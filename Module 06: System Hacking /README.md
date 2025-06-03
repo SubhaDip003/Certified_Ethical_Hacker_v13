@@ -4,7 +4,7 @@ System hacking is the process of gaining unauthorized access to computer systems
 # 🔑 Gaining Access
 Gaining access in system hacking means breaking into a computer or system by using stolen passwords, exploiting software bugs, or tricking users. The goal is to take control of the system so the hacker can view, change, or steal data. It's one of the key steps in hacking after finding system weaknesses.
 
-## Cracking Passwords
+## 🔐Cracking Passwords
 Explanation of the three Microsoft authentication mechanisms:
 
 1. **Security Accounts Manager (SAM) Database**: This is a database on Windows systems that stores usernames and hashed passwords for local user accounts. It’s used to verify login attempts on the same computer. The SAM file is stored at `%SystemRoot%\system32\config\SAM` in Windows systems, and Windows mounts it in the registry under the `HKEY_LOCAL_MACHINE\SAM` registry hive. It stores LM or NTLM hashed passwords.
@@ -358,6 +358,16 @@ Password-cracking tools allow you to reset unknown or lost Windows local adminis
 - **BruteX** [https://github.com/1N3/BruteX/blob/master/README.md]
 - **Secure Shell Bruteforcer** [https://pkg.go.dev/github.com/tolgatd/ssh-brute-forcer#section-readme]
 
+## Password Salting 
+Password salting is a way to make passwords more secure by adding a random string of characters (called a "salt") to them before they are turned into hashes. This extra randomness makes it much harder for hackers to guess or crack the password, even if they use pre-made lists of common hashes. The longer and more random the salt, the better the protection it gives.
+
+## Tools to Detect LLMNR/NBT-NS Poisoning 
+Network administrators and cybersecurity professionals use tools such as Vindicate, got-responded, and Respounder to detect LLMNR/NBT-NS poisoning attacks.
+- **Vindicate** [https://github.com/Rushyo/VindicateTool]
+- **got-responded** [https://github.com/joda32/got-responded]
+- **Respounder** [https://github.com/codeexpress/respounder]
+
+## 💥Vulnerability Exploitation
 
 # 📶 Escalating Privileges
 
