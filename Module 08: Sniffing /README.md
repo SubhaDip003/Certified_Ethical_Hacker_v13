@@ -65,6 +65,69 @@ The following protocols are vulnerable to sniffing. The main reason for sniffing
 - **IMAP (Internet Message Access Protocol)** - Used to read emails from a server. It has weak security, so attackers can easily access email content and login info.
 - **TFTP (Trivial File Transfer Protocol)**: A lightweight file transfer protocol with **no authentication or encryption**. Anyone on the same network can access the files being transferred.
 
+---
+## Sniffing in the Data Link Layer of the OSI Model 
+**Sniffing in the Data Link Layer** happens at Layer 2 of the OSI model, where data is turned into bits for transmission. **Sniffers** work at this layer to capture network packets as they move across devices. Since OSI layers work independently, higher layers (like the application or transport layer) don’t detect this activity, making sniffing at the data link layer stealthy and hard to notice.
+
+![image](https://github.com/user-attachments/assets/e2e1db8f-d8f0-44c2-ad75-c91c4f9ff1bc)
+
+---
+## Hardware Protocol Analyzers
+**Hardware Protocol Analyzers** are physical devices used to monitor and analyze network traffic without affecting it. They capture, decode, and inspect data packets to detect unusual or malicious activity. Unlike software tools, they handle large amounts of data without dropping packets, even during heavy traffic.
+
+These analyzers support various networks like LAN, WAN, wireless, and telecom lines, and can detect low-level events such as transmission errors and signal changes. They also provide precise timestamps for every packet. While powerful and accurate, they are costly and usually not accessible to individual users or hobbyists.
+
+**Hardware protocol analyzers from different manufacturers include the following:**
+
+####  Xgig 1000 32/128 G FC & 25/50/100 GE Analyzer 
+🔗Source: [https://www.viavisolutions.com]
+
+The **VIAVI Xgig 1000** is a portable hardware tool used to analyze high-speed **Fiber Channel (FC)** and **Ethernet (GE)** networks. It supports speeds up to **128G FC** and **100G Ethernet**, and allows non-intrusive data capture, analysis, and even error injection (jamming) without disrupting the network. It uses a unique analog pass-through adapter to maintain signal quality and provides deep visibility into the physical layer with features like **auto negotiation**, **link training**, and **forward error correction (FEC)**.
+
+![image](https://github.com/user-attachments/assets/9b741474-8a22-4b84-9395-e8aeb0521c98)
+
+#### SierraNet M1288 
+🔗Source: [https://www.teledynelecroy.com]
+
+**SierraNet M1288** is a high-performance hardware tool used for testing and analyzing **Ethernet** and **Fiber Channel** networks. It captures and manipulates traffic to test how applications and links behave. It can record up to **256GB of traffic** at full speed and supports features like **128G/256G buffers**, **dynamic memory use**, and **Fiber Channel fabrics (64/128GFC PAM4)**. It also works with **1, 2, and 4 Ethernet lanes**, making it ideal for advanced network testing and troubleshooting.
+
+![image](https://github.com/user-attachments/assets/6458705a-6bad-4f9d-93f3-68f0a622a951)
+
+**Some examples of hardware protocol analyzers are listed below:**
+- **PTW60** [https://www.globalspec.com]
+- **P5551A PCIe 5.0 Protocol Exerciser** [https://www.keysight.com]
+- **Voyager M4x** [https://www.teledynelecroy.com]
+- **N2X N5540A Agilent Protocol Analyzer** [https://www.valuetronics.com]
+- **Xgig 16-Lane PCI Express 4.0 Chassis** [https://www.viavisolutions.com]
+
+---
+## SPAN Port
+**SPAN (Switched Port Analyzer)**, also known as **port mirroring**, is a Cisco switch feature used to monitor network traffic. It copies all the data from one or more **source ports** and sends it to a single **destination port**. This destination port is connected to a network analyzer, which helps in checking traffic, finding errors, or investigating suspicious activity. SPAN is useful for analyzing traffic from multiple ports or even entire VLANs, but it only sends the mirrored data to one destination port.
+
+![image](https://github.com/user-attachments/assets/a8cc3b40-c115-45cc-861b-abb1097853a7)
+
+---
+## Wiretapping
+**Wiretapping** is the secret monitoring of phone or internet conversations by an attacker. The attacker targets a person or device and connects a **listening tool**—either hardware, software, or both—to the communication line. By capturing a small part of the electrical signal, the attacker can **listen in**, **intercept**, and **record** the data being shared, all without the victim knowing.
+
+### Types of Wiretapping
+There are two types of wiretapping that an attacker can use to monitor, record, and even alter the data flow in the communication system.
+
+#### Active Wiretapping
+In hacking terminology, active wiretapping is an MITM attack. This allows an attacker to monitor and record the traffic or data flow in a communication system. The attacker can also alter or inject data into communication or traffic.
+
+#### Passive Wiretapping
+Passive wiretapping is snooping or eavesdropping. This allows an attacker to monitor and record traffic. By observing the recorded traffic flow, the attacker can snoop for a password or other information.
+
+> Note: Wiretapping without a warrant or the consent of the people conducting the conversation is a criminal offense in most countries, and is punishable depending on the country’s law.
+
+---
+## Lawful Interception 
+**Lawful Interception (LI)** is the legal process of monitoring private communications like calls, emails, and internet activity for security and investigation purposes. Carried out by law enforcement agencies (LEAs), it allows access to data through telecom or internet service providers when users are suspected of illegal activity.
+
+A typical setup includes a **tap/access switch** that collects and sorts network traffic by IP domain. This data is then sent to tools like **E-Detective (ED)** systems, which decode and reconstruct it using protocols like **POP3, SMTP, FTP, and Telnet**. A **Centralized Management Server (CMS)** controls and manages all the ED systems. This helps authorities monitor suspicious communication legally and effectively.
+
+![image](https://github.com/user-attachments/assets/7343fe43-2ea4-465a-aef6-bc939a9d4759)
 
 
 # 🧰 Sniffing Tools
