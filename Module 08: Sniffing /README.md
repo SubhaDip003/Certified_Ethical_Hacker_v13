@@ -131,3 +131,109 @@ A typical setup includes a **tap/access switch** that collects and sorts network
 
 
 # 🧰 Sniffing Tools
+System administrators use automated tools to monitor their network, but attackers misuse these tools to sniff network data. This section describes tools that an attacker can use for sniffing.
+
+---
+## Wireshark 
+🔗Source: [https://www.wireshark.org]
+
+**Wireshark** is a powerful network analysis tool that captures and lets you view live network traffic in detail. It uses **WinPcap** to grab packets from supported networks like Ethernet, IEEE 802.11, PPP/HDLC, ATM, Bluetooth, USB, Token Ring, Frame Relay, and FDDI networks. You can apply **filters** to focus on specific data and even edit captured traffic using the command line. It’s widely used by ethical hackers and network professionals to inspect and troubleshoot network activity.
+
+As shown in the screenshot, attackers use Wireshark to sniff and analyze the packet flow in the target network and extract critical information about the target.
+
+![image](https://github.com/user-attachments/assets/20a4ca17-75e0-49f0-a485-5cc3900aeae5)
+
+---
+## Follow TCP Stream in Wireshark
+**Follow TCP Stream** is a feature in **Wireshark** that lets you view the full conversation between two systems over a **TCP connection**, just like how it appears to the application. This is useful for analyzing data transfers, finding passwords in **telnet sessions**, or understanding any data exchange.
+
+To use it, select a **TCP packet** from the list, then go to **Analyze ➔ Follow ➔ TCP Stream**. Wireshark will show the entire stream in order, using formats like **ASCII, hex dump, C array**, or **raw data**, making it easier to study the communication.
+
+As shown in the screenshot, attackers can capture network traffic and gain the credentials of a target machine. They attempt to capture its remote interface and monitor the traffic generated from a user’s browsing activities to extract confidential user information.
+
+![image](https://github.com/user-attachments/assets/8742ad70-7f66-4478-87c1-f4b4a0057016)
+
+![image](https://github.com/user-attachments/assets/fd9a83d5-2a09-4b3d-a4c3-16d29a660cc9)
+
+---
+## Display Filters in Wireshark
+**Display Filters in Wireshark** help you view specific types of network traffic from captured data. You can filter packets by **protocol** (like TCP, HTTP, DNS), **IP address**, **port**, and more. Just type the filter (e.g., `http`, `tcp`, `ip`) into the filter box to see only those packets. You can also combine multiple filters for more precise results. This makes analyzing network data faster and easier.
+
+Some of the display filters in Wireshark are listed below:
+- Display Filtering by Protocol Example: Type the protocol in the filter box: arp, http, tcp, udp, dns, ip
+- Monitoring the Specific Ports
+  ```bash
+  tcp.port==23
+  ```
+  ```bash
+  ip.addr==192.168.1.100 machine ip.addr==192.168.1.100 && tcp.port==23
+  ```
+- Filtering by Multiple IP Addresses
+  ```bash
+  ip.addr == 10.0.0.4 or ip.addr == 10.0.0.5
+  ```
+- Filtering by IP Address
+  ```bash
+  ip.addr == 10.0.0.4
+  ```
+- Other Filters
+  ```bash
+  ip.dst == 10.0.1.50 && frame.pkt_len > 400
+  
+  ip.addr == 10.0.1.12 && icmp && frame.number > 15 && frame.number < 30
+  
+  ip.src==205.153.63.30 or ip.dst==205.153.63.30
+  ```
+
+Some examples of additional Wireshark filters are listed below:
+```bash
+# Show all TCP reset packets
+tcp.flags.reset == 1  
+# → Useful for identifying broken or forcefully closed TCP connections.
+
+# Filter UDP packets that contain specific hex values (0x33 0x27 0x58)
+udp contains 33:27:58  
+# → Helps detect protocol-specific patterns or payloads in UDP.
+
+# Show only HTTP GET requests
+http.request  
+# → Focus on incoming web requests (useful in web traffic analysis).
+
+# Display TCP retransmissions
+tcp.analysis.retransmission  
+# → Detects possible network issues or dropped packets.
+
+# Show TCP packets that contain the word "traffic"
+tcp contains traffic  
+# → Finds specific content in TCP streams (e.g., malware keywords).
+
+# Exclude ARP, ICMP, and DNS traffic
+!(arp or icmp or dns)  
+# → Removes noisy background traffic to focus on relevant data.
+
+# Show any TCP packet with port 4000 (source or destination)
+tcp.port == 4000  
+# → Analyzes services or malware communicating over port 4000.
+
+# Display only SMTP (port 25) and ICMP traffic
+tcp.port eq 25 or icmp  
+# → Filters email and ping traffic for analysis.
+
+# Show traffic only within LAN (192.168.x.x source and destination)
+ip.src==192.168.0.0/16 and ip.dst==192.168.0.0/16  
+# → Focus on internal LAN communications, no external (Internet) traffic.
+
+# Filter SIP protocol but exclude traffic from specific IPs
+ip.src != 10.10.10.1 && ip.dst != 10.10.10.1 && sip  
+# → Monitor VoIP/SIP traffic while ignoring certain IPs.
+```
+
+---
+## Sniffing Tools 
+- **Capsa Portable Network Analyzer** [https://www.colasoft.com]
+- **OmniPeek** [https://www.liveaction.com]
+- **RITA (Real Intelligence Threat Analytics)** [https://github.com/activecm/rita]
+- **Observer Analyzer** [https://www.viavisolutions.com]
+- **PRTG Network Monitor** [https://www.paessler.com]
+- **Network Performance Monitor** [https://www.solarwinds.com]
+- **Xplico** [https://www.xplico.org]
