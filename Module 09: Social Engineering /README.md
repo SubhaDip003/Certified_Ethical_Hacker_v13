@@ -36,3 +36,62 @@ Social engineering does not seem like a serious threat, but it can lead to subst
 
 ---
 ## Behaviors Vulnerable to Attacks
+
+* **Authority**: Attackers pretend to be someone important (like a network admin) to trick users into giving up sensitive information like passwords.
+  
+* **Intimidation**: Attackers use pressure or threats, like saying something bad will happen unless you act quickly—this forces people to give out information.
+
+* **Consensus (Social Proof)**: People trust what others do. Attackers post fake reviews or testimonials about malware disguised as helpful software, tricking users into downloading it.
+
+* **Scarcity**: Attackers create fake urgency (like “limited time iPhone offer”) to get users to act fast, often clicking on harmful links or entering personal info.
+
+* **Urgency**: Similar to scarcity, attackers rush victims into action (like ransomware with countdown timers), so users panic and fall into the trap.
+
+* **Familiarity or Liking**: People trust those they like or know. Attackers act friendly or familiar to bypass security, like getting someone to let them in or peek over their shoulder.
+
+* **Trust**: Attackers build fake trust by pretending to be experts or company reps, then guide victims into actions like downloading malware.
+
+* **Greed**: Attackers offer fake rewards or money (like fake contests or bribes) to get victims to reveal confidential information.
+
+---
+## Factors that Make Companies Vulnerable to Attacks
+Many factors make companies vulnerable to social engineering attacks; some of them are as follows:
+
+* **Insufficient Security Training**: If employees don’t know about social engineering tricks, they can be easily fooled into giving away sensitive information. Training them helps reduce this risk.
+
+* **Unregulated Access to Information**: When too many people can access sensitive data without limits, it increases the chances of misuse or leakage. Only trained and trusted staff should have such access.
+
+* **Several Organizational Units**: Companies with offices in many locations are harder to manage. This gives attackers more chances to find weak spots and steal important data.
+
+* **Lack of Security Policies**: Without strong rules for passwords, data sharing, and user access, security becomes weak. Having clear security policies protects the company from many types of attacks.
+
+---
+## Why is Social Engineering Effective?
+Like other techniques, social engineering does not deal with network security issues; instead, it deals with the psychological manipulation of a human being to extract desired information. The following are reasons why social engineering continues to be effective:
+
+- Despite various security policies, preventing social engineering is a challenge because human beings are most susceptible to variation.
+- It is challenging to detect social engineering attempts. Social engineering is the art and science of manipulating people into divulging information.
+- No method guarantees complete security from social engineering attacks.
+- No specific hardware or software is available to safeguard against social engineering attacks.
+- This approach is relatively cheap (or free) and easy to implement.
+
+---
+## Phases of a Social Engineering Attack 
+Attackers take the following steps to execute a successful social engineering attack:
+
+* **Research the Target Company**:
+  The attacker collects basic information about the organization, such as its website, business type, and employees—using methods like dumpster diving or online searches.
+
+* **Select a Target**:
+  After gathering details, the attacker chooses a specific person to target—often a disgruntled or vulnerable employee who might be easier to trick.
+
+* **Develop a Relationship**:
+  The attacker builds trust with the chosen person through conversations, posing as a friend, colleague, or trusted contact.
+
+* **Exploit the Relationship**:
+  Once trust is built, the attacker manipulates the person into sharing sensitive company data like account info, technologies used, or future plans.
+
+This process relies on **psychological manipulation** rather than technical hacking.
+
+---
+## Types of Social Engineering 
