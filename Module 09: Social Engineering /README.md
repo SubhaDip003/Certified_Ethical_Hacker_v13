@@ -96,14 +96,3 @@ This process relies on **psychological manipulation** rather than technical hack
 ---
 ## Types of Social Engineering 
 **Social Engineering Attacks** involve tricking people into giving away personal or confidential information, like credit card details, bank info, or company data. Attackers use their social skills to gain trust and then misuse the information for fraud or cyberattacks. These attacks are divided into three types: **human-based** (like phone scams), **computer-based** (like phishing emails), and **mobile-based** (like fake apps or SMS scams).
-
-
-### Mobile-based Social Engineering
-**Mobile-based Social Engineering** is when attackers create fake versions of popular mobile apps with attractive features to trick users. These malicious apps are uploaded to app stores with names similar to real ones. When users download them thinking they’re genuine, the malware gets installed and infects their devices.
-
-Listed below are some techniques attackers use to perform mobile-based social engineering:
-- Publishing malicious apps
-- Repackaging legitimate apps
-- QRLJacking
-- Using fake security applications
-- SMiShing (SMS Phishing)
