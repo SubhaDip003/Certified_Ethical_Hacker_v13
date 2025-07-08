@@ -91,6 +91,10 @@ The attacker **steals session IDs** (like cookies or tokens) to take control of 
 
 **Spoofing** is when an attacker pretends to be another user or system to start a fake session—usually by faking an IP address. It’s used to trick systems into thinking the attacker is trusted. In **IP spoofing**, attackers don’t take over an active session but create a new one using fake credentials or addresses.
 
+![image](https://github.com/user-attachments/assets/d74a4839-2ded-4554-bbe7-5f8c5ad833bd)
+
 **Session hijacking**, on the other hand, is when the attacker takes over an **already active session** between a user and a service. This often involves guessing TCP **sequence numbers** to sync with the session and act like the legitimate user. In **blind hijacking**, the attacker can’t see the responses but sends commands anyway by predicting sequence numbers.
+
+![image](https://github.com/user-attachments/assets/b4d1bd3b-699c-49fa-9a60-b9096c827bad)
 
 Hijacking is harder because it needs more control—like knowing the session’s status, sequence numbers, or displacing the real user. Both spoofing and hijacking fail if **encryption**, **packet integrity checks**, or secure protocols like **SSL** are used, since they protect session data and identity from being tampered with.
