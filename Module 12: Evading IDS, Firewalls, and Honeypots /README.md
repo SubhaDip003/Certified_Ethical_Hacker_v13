@@ -1,4 +1,4 @@
-# 🛡️⚔️ Evading IDS, Firewalls, and Honeypots 
+# 🛡️ IDS, Firewalls, and Honeypots 
 Ethical hackers should understand the function, role, placement, and design of firewalls, IDS, and IPS, as well as how attackers evade these security measures. This section provides an overview of these concepts.
 
 ## Intrusion Detection System (IDS)
