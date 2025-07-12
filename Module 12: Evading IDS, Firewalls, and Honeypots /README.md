@@ -199,3 +199,116 @@ Types of Intrusion Detection Systems There are two types of intrusion detection 
 
 ---
 ## Types of IDS Alerts 
+An IDS generates four types of alerts: True Positive, False Positive, False Negative, and True Negative. 
+
+* **True Positive (Attack - Alert):**
+  The IDS correctly detects an actual attack and raises an alert. This is the expected and accurate behavior.
+
+* **False Positive (No Attack - Alert):**
+  The IDS raises an alert, but there’s no real attack. It mistakes normal activity as malicious, which can lead to unnecessary panic or alert fatigue.
+
+* **False Negative (Attack - No Alert):**
+  The IDS fails to detect an actual attack. This is dangerous because threats go unnoticed and can cause damage.
+
+* **True Negative (No Attack - No Alert):**
+  The IDS correctly identifies normal activity and stays silent. This means the system is working properly without unnecessary alerts.
+
+---
+## Firewall 
+A **firewall** is a security system—either hardware or software—that located at the gateway between a private network and a public network like the Internet. Its main job is to monitor and filter incoming and outgoing traffic based on predefined security rules. It blocks unauthorized access while allowing safe communication.
+
+Firewalls can filter traffic by **IP address, port, or protocol type** and perform **security checks** at checkpoints. They log all access attempts, alert admins of suspicious activity, and can even detect intruders trying to access the network. When properly set up, a firewall acts like a security guard, only letting in traffic that meets the rules and protecting private network resources from external threats.
+
+<img width="752" height="215" alt="image" src="https://github.com/user-attachments/assets/ed108dc0-bcee-48a7-8bf6-ed21460dbfc0" />
+
+---
+## Firewall Architecture 
+The firewall architecture consists of the following elements: 
+
+### Bastion Host
+**Bastion Host** is a special computer set up to protect a network from external attacks. It acts as a secure bridge between the internet and the internal network. All incoming and outgoing traffic passes through it. It has two interfaces: one connects to the public internet, and the other connects to the private intranet, allowing controlled and secure access to internal systems.
+
+<img width="430" height="180" alt="image" src="https://github.com/user-attachments/assets/71c62b9d-5fcc-4e26-8d6e-09b25b6f7f00" />
+
+### Screened Subnet
+A **Screened Subnet**, also known as a **DMZ (Demilitarized Zone)**, is a separate, protected network placed between the public Internet and a private internal network. It's created using a **three-homed firewall**, where one connection goes to the Internet, one to the DMZ, and one to the internal network. The DMZ handles public requests (like web servers), but keeps the internal network hidden and secure.
+
+This setup allows users to access public services without risking the private network. However, if the single firewall is hacked, both the DMZ and internal network are at risk. A more secure approach is to use **two firewalls**—one between the Internet and DMZ, and another between the DMZ and internal network.
+
+<img width="440" height="158" alt="image" src="https://github.com/user-attachments/assets/ed03b6f5-3d97-4209-a078-2c39bb42150a" />
+
+### Multi-homed Firewall
+**Multi-homed Firewall** is a security device with multiple network interfaces (NICs) that connects to two or more networks. Each interface is linked to a different network segment, both physically and logically. This setup improves the network’s efficiency and reliability. With more than three interfaces, it can separate systems based on different security needs. While it offers strong protection, a **back-to-back firewall** provides even deeper security.
+
+<img width="408" height="167" alt="image" src="https://github.com/user-attachments/assets/565109ce-1ef0-4a5f-b03f-6aa3cda2e2f4" />
+
+---
+## Demilitarized Zone (DMZ) 
+**Demilitarized Zone (DMZ)** in networking is a security zone that sits between a company’s internal network and the public internet. It acts as a **buffer** to keep private data safe from external threats. Services like **email, web, or FTP servers** that need internet access are placed in the DMZ, while the internal network remains protected behind a firewall.
+
+A DMZ is set up using a **firewall** with multiple interfaces—one for the internal network, one for the DMZ, and one for the internet. This setup ensures that even if DMZ servers are compromised, attackers can’t directly reach the internal systems.
+
+<img width="791" height="238" alt="image" src="https://github.com/user-attachments/assets/e4337ffb-d879-46e7-bc11-69554cd1d209" />
+
+---
+## Types of Firewalls 
+There are two types of firewalls, each developed with specific features and capabilities that consider different network environments and security needs. Understanding these categories is essential for implementing effective firewall technologies to secure networks. 
+
+### Types of Firewalls Based on Configuration
+
+#### Network-based firewalls
+**Network-based firewalls** are security devices placed at the edge of a network to control incoming and outgoing traffic. They use **packet filtering** to check the source and destination of data packets against a set of rules, deciding whether to allow or block them. These firewalls can be built into routers or used as standalone systems, like **Cisco ASA** or **FortiGate**, and are mainly used to protect internal networks. While effective, they can be costly and complex to set up and maintain.
+
+#### Advantages:
+- **Security:** A network-based firewall with its operating system (OS) is considered to reduce security risks and increase the level of security controls.
+- **Speed:** network-based firewalls initiate faster responses and enable more traffic.
+- **Minimal Interference:** Since a network-based firewall is a separate network component, it enables better management and allows the firewall to shut down, move, or be reconfigured without much interference in the network.
+
+#### Disadvantages:
+- More expensive than a host-based firewall.
+- Difficult to implement and configure.
+- Consumes more space and involves cabling.
+
+#### Host-based Firewalls
+**Host-based firewalls** are security tools installed directly on a device like a PC, laptop, or server to block unauthorized access and protect against threats like Trojans and email worms. They work like filters, sitting between applications and the operating system's network functions, checking all incoming and outgoing data based on user-defined rules.
+
+These firewalls are easy to install, great for home or mobile users, and offer features like **privacy controls**, **web filtering**, and **content blocking**. While they provide strong individual protection, they use more system resources and may slow down performance. Popular examples include **Norton**, **McAfee**, and **Kaspersky** firewalls.
+
+#### Advantages:
+- Less expensive than network-based firewalls.
+- Ideal for personal or home use.
+- Easier to configure and reconfigure.
+
+#### Disadvantages:
+- Consumes system resources.
+- Difficult to uninstall.
+- Not appropriate for environments requiring faster response times.
+
+### Types of Firewalls Based on Working Mechanism 
+**Types of Firewalls Based on Working Mechanism** refer to the different ways firewalls monitor and control network traffic. Depending on where the firewall is placed and how it analyzes traffic (like by checking communication points, traffic flow, or connection states), different types are used to meet specific security needs. Each type has its own strengths, and sometimes technologies like **NAT** (normally used for routing) are combined with firewalls to enhance protection. Choosing the right firewall depends on the network setup and the level of security required.
+
+The various firewall technologies are listed below:
+- Packet Filtering
+- Circuit-Level Gateways
+- Application-Level Firewall
+- Stateful Multilayer Inspection
+- Application Proxies
+- Network Address Translation
+- Virtual Private Network
+
+The table below summarizes technologies operating at each OSI layer: 
+| **OSI Layer**   | **Firewall Technology**                                                                 |
+|----------------|------------------------------------------------------------------------------------------|
+| Application     | - Virtual Private Network (VPN)  <br> - Application Proxies                            |
+| Presentation    | - Virtual Private Network (VPN)                                                        |
+| Session         | - Virtual Private Network (VPN)  <br> - Circuit-Level Gateways                         |
+| Transport       | - Virtual Private Network (VPN)  <br> - Packet Filtering                                |
+| Network         | - Virtual Private Network (VPN)  <br> - Network Address Translation (NAT)  <br> - Packet Filtering  <br> - Stateful Multilayer Inspection |
+| Data Link       | - Virtual Private Network (VPN)  <br> - Packet Filtering                                |
+| Physical        | - Not Applicable                                                                        |
+
+The **security level of different technologies** depends on how well they work across the **OSI layers**. As data moves from the top layer to the bottom, each layer adds extra information to the packet. Then, it travels through the network, and the receiving system processes it from the bottom layer back up. By comparing how technologies handle security at each layer, we can better understand their overall protection level.
+
+---
+## Packet Filtering Firewall 
+
