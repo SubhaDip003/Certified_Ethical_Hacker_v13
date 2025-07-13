@@ -311,4 +311,19 @@ The **security level of different technologies** depends on how well they work a
 
 ---
 ## Packet Filtering Firewall 
+A **Packet Filtering Firewall** checks each network packet against a set of rules before allowing it through. It looks at details like the source and destination IP address, port number, and protocol. Based on this, it either blocks the packet, forwards it, or sends a message back. This firewall works at the **network layer (OSI)** or **internet layer (TCP/IP)** and focuses only on packet headers to decide the direction of traffic.
 
+Traditional packet filters check each packet based on specific criteria:
+* **Source IP Address**: Verifies where the packet came from.
+* **Destination IP Address**: Confirms the packet is going to the right destination.
+* **Source Port**: Checks which port on the sender's side is used.
+* **Destination Port**: Decides if the requested service (like HTTP, FTP) is allowed or blocked.
+* **TCP Flags**: Looks at connection bits like SYN or ACK to understand the connection status.
+* **Protocol Used**: Filters based on the protocol (e.g., TCP, UDP, ICMP).
+* **Direction**: Identifies if the packet is going into or out of the network.
+* **Interface**: Checks if the packet is coming from a trusted or untrusted network zone.
+
+<img width="792" height="255" alt="image" src="https://github.com/user-attachments/assets/42bc8b88-a37d-4fc8-915f-d2e22fd49a9b" />
+
+---
+## Circuit-Level Gateway Firewall 
