@@ -327,3 +327,153 @@ Traditional packet filters check each packet based on specific criteria:
 
 ---
 ## Circuit-Level Gateway Firewall 
+**Circuit-Level Gateway Firewall** is a type of firewall that works at the session (or transport) layer and controls connections between networks. It doesn’t inspect individual packets but checks if a session (like a TCP handshake) is valid before allowing data to pass. The traffic appears to come from the firewall itself, hiding the internal network’s details. It allows or blocks entire data streams, provides basic protection, and is cost-effective.
+
+<img width="816" height="245" alt="image" src="https://github.com/user-attachments/assets/6e4f01e0-101a-49cc-817f-ca3c92f32049" />
+
+---
+## Application-Level Firewall 
+**Application-Level Firewalls** (also called proxy firewalls) work at the application layer, filtering traffic based on specific services like HTTP, FTP, or Telnet. Unlike traditional firewalls that only check packet headers, these firewalls inspect the actual content of the traffic, such as **HTTP GET** or **POST** commands.
+
+They only allow traffic for supported services and block everything else, offering better protection against threats hidden in voice, video, or collaboration data. They can detect malicious content that traditional or stateful firewalls often miss, making them more effective in securing the **application layer** of a network.
+
+**Some of the features of application-level firewalls are as follows:**
+* **Smart Traffic Filtering:**
+  It checks data at the application level (like HTTP, FTP) to decide whether to allow or block it.
+
+* **User-Based Control:**
+  Works as a proxy and can allow or deny traffic based on who the user is or what process is making the request.
+
+* **Content Caching:**
+  Improves performance by saving frequently accessed data, so it doesn’t have to request the same info repeatedly from the server.
+
+**Application-layer firewalls can function in one of two modes: active or passive.**
+
+* **Active Mode:**
+  Actively checks all incoming requests (like SQL injection, XSS, etc.) and **blocks any malicious ones**. Works like a security guard that stops threats at the door.
+
+* **Passive Mode:**
+  Also detects threats in incoming requests but **doesn’t block them**. Just observes and logs, like an IDS.
+
+In short:
+* **Active = Detects & Blocks**
+* **Passive = Detects & Reports**
+
+<img width="802" height="237" alt="image" src="https://github.com/user-attachments/assets/dbb26318-bd3d-4c67-a9d5-2122eba41f3b" />
+
+---
+## Stateful Multilayer Inspection Firewall 
+**Stateful Multilayer Inspection Firewalls** are advanced firewalls that combine features of packet filtering, circuit-level, and application-level firewalls. They check both the **network-level details** (like IP, port, and protocol) and the **content of the packets** at the application level. Unlike basic firewalls, they track the **state of network sessions** to decide if the traffic is safe. This allows for **deep packet inspection** and more accurate threat detection, offering stronger security for networks.
+
+**Features of the Stateful Multilayer Inspection Firewall:**
+* **Remembers Past Traffic:**
+  It keeps track of previous packets and uses that info to decide whether new packets are safe.
+
+* **Combines Two Filters:**
+  It merges the benefits of **packet filtering** and **application-level filtering**, offering stronger protection.
+
+* **Example – Cisco PIX:**
+  Cisco PIX firewalls are a known example of this firewall type.
+
+* **Tracks & Logs Sessions:**
+  It monitors sessions (slots or translations) for better traffic control and security auditing.
+
+<img width="794" height="238" alt="image" src="https://github.com/user-attachments/assets/57f4048b-780a-4261-bb0a-1214eb89889e" />
+
+---
+## Application Proxy
+**Application Proxy** (also known as an application-level gateway) is a special type of server that sits between a user and the Internet to filter and control traffic based on specific services or protocols. For example, an **FTP proxy** only allows **FTP traffic** and blocks everything else.
+
+It acts as a middleman—users send their requests to the proxy, and the proxy forwards them to the actual Internet service. This keeps the internal network secure and hidden. Some proxies also **cache data**, meaning they store copies of requested content to speed up future access and reduce network load.
+
+To users and servers, it appears as if they are communicating directly, but everything is managed quietly by the proxy. This **transparent** setup provides both **security and performance** benefits.
+
+### Advantages of Application Proxy
+* **Better Logging:** Proxies understand application-level traffic, so they log detailed info.
+* **Reduces Network Load:** They cache frequently requested data, saving bandwidth.
+* **User Authentication:** Can verify users since they handle the connection directly.
+* **Hides IP Weaknesses:** They act as a middle layer and shield client IP vulnerabilities.
+
+### Disadvantages of Application Proxy
+* **Slower Adoption:** They may lag if proxy-compatible software isn't available.
+* **Multiple Servers Needed:** Different services may need separate proxy servers.
+* **Client Changes Required:** May need changes in client apps or configurations.
+
+---
+## Network Address Translation (NAT) 
+**Network Address Translation (NAT)** is a method used to hide a private network’s internal IP addresses by changing them into public ones when sending data outside. It works with a router to modify the source and destination addresses (and ports) of packets. This makes it seem like all traffic is coming from a single public IP. NAT helps protect internal systems by acting like a basic firewall—it allows outgoing connections from inside the network but blocks incoming ones from the outside unless requested. It also reduces the number of public IPs an organization needs.
+
+NAT systems use different schemes for translation between internal and external addresses: 
+* **One-to-One Mapping (Static NAT):**
+  Each internal device gets a dedicated external IP. It’s simple but wastes IP addresses and slows connections.
+
+* **Dynamic NAT (No Port Change):**
+  External IPs are assigned when internal devices connect. No ports are changed, but only a limited number of devices can connect based on available IPs.
+
+* **Static NAT with Port Mapping (NAPT/PAT):**
+  Multiple internal devices share one external IP using different port numbers. Saves IPs and allows many connections.
+
+* **Dynamic NAT with Port Mapping (Dynamic PAT):**
+  Most efficient method. Internal devices are assigned random IP-port pairs for each connection. Supports many devices with fewer external IPs.
+
+### Advantages of NAT
+* NAT helps control outgoing connections like a firewall.
+* It blocks unwanted incoming traffic unless it’s part of an active connection.
+* It hides internal IP addresses, making it harder for attackers to target the network.
+
+### Disadvantages of NAT
+* NAT must guess how long to keep a translation, which can be inaccurate.
+* It can interfere with encryption and authentication processes.
+* Dynamic port allocation may cause problems with packet filtering and security tools.
+
+---
+## Virtual Private Network (VPN) Firewall 
+A **Virtual Private Network (VPN)** creates a secure connection over the internet, allowing computers on different networks to communicate safely. It protects data using **encryption** and **encapsulation**, making public networks behave like private ones. Although VPNs and firewalls are different, firewalls often include VPN features to improve security.
+
+A **VPN firewall** adds an extra layer of protection by **encrypting traffic**, controlling data flow, and allowing only **authorized connections** through the VPN tunnel. It also blocks unauthorized access using firewall rules, keeping remote communication secure.
+
+All VPNs that run over the Internet adopt the following principles:
+- Encrypts the traffic
+- Checks for integrity protection
+- Encapsulates new packets, which are sent across the Internet to some destination that reverses the encapsulation
+- Checks the integrity
+- Decrypts the traffic eventually
+
+### Advantages
+- A VPN hides all the traffic that flows over it, ensures encryption, and protects data from snooping.
+- It provides remote access for protocols while avoiding attackers from the Internet at large.
+
+### Disadvantages 
+- As the VPN runs on a public network, the user will be vulnerable to an attack on the destination network.
+
+---
+## Next-Generation Firewalls (NGFWs) 
+**Next-Generation Firewalls (NGFWs)** are advanced security tools that do more than traditional firewalls. They inspect network traffic deeply, understand specific applications, block threats using built-in **IPS**, and use **cloud-based threat intelligence**. NGFWs check data across multiple OSI layers, helping detect complex attacks by analyzing packet content, app behavior, and unusual traffic. By combining several security features into one system, NGFWs offer stronger protection and easier management for modern networks.
+
+### Advantages of NGFWs
+* **All-in-One Protection:** Includes IPS, antivirus, and content filtering—strong defense against many types of threats.
+* **Better Visibility:** Gives detailed insights into traffic, users, and apps, making threat detection easier.
+* **Smart Detection:** Uses threat intelligence to block advanced attacks like ransomware or zero-day exploits.
+
+### Disadvantages of NGFWs
+* **High Cost:** More expensive than traditional firewalls, including setup and maintenance.
+* **Complex Management:** Needs expert configuration due to its advanced features.
+* **Possible Latency:** Deep inspection may slow down network performance slightly.
+
+---
+## Firewall Limitations 
+Although firewalls are essential to your security strategy, they have the following limitations:
+
+* Firewalls can block useful services like FTP or Telnet.
+* They can’t stop internal threats, like insider attacks.
+* Security is focused on one point—other parts of the network stay exposed.
+* All traffic through the firewall can slow down performance (bottleneck).
+* Firewalls can’t detect social engineering or malicious emails.
+* Infected external devices can still spread malware inside the network.
+* Zero-day attacks may bypass firewall defenses.
+* Poor network design can't be fixed by a firewall.
+* Firewalls aren’t replacements for antivirus or antimalware tools.
+* They don’t block high-level protocol attacks.
+* They can’t always detect threats on common ports or apps.
+* They don’t protect against attacks from dial-up connections.
+* Encrypted/tunneled traffic may pass through unnoticed.
