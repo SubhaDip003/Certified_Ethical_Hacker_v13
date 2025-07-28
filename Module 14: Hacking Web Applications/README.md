@@ -84,4 +84,51 @@ There are two artifacts in a web service architecture:
 <img width="568" height="274" alt="image" src="https://github.com/user-attachments/assets/6b8dfd61-122d-42e6-a79c-3fc482913baf" />
 
 ### Characteristics of Web Services 
+1. **XML-Based** → Web services use XML to share data, making them work across any OS or platform.
+2. **Coarse-Grained Services** → They provide large, useful functions by combining smaller services into one.
+3. **Loosely Coupled** → Systems connect through web APIs with XML messages, allowing flexibility and easy updates.
+4. **Synchronous & Asynchronous Support** → They can respond immediately (sync) or later (async) depending on the user’s need.
+5. **RPC Support** → They allow remote procedure calls like traditional apps, letting systems run functions on other machines.
 
+These traits make web services **interoperable, flexible, and scalable** across different platforms.
+
+### Types of Web Services 
+Web services are of two types: 
+- **SOAP web services** - The Simple Object Access Protocol (SOAP) defines the XML format. XML is used to transfer data between the service provider and the requester. It also determines the procedure to build web services and enables data exchange between different programming languages.
+- **RESTful web services** - REpresentational State Transfer (RESTful) web services are designed to make the services more productive. They use many underlying HTTP concepts to define the services. It is an architectural approach rather than a protocol like SOAP.
+
+### Components of Web Service Architecture: 
+- **UDDI:** Universal Description, Discovery, and Integration (UDDI) is a directory service that lists all the services available.
+- **WSDL:** Web Services Description Language is an XML-based language that describes and traces web services.
+- **WS-Security:** Web Services Security (WS-Security) plays an important role in securing web services. It is an extension of SOAP and aims to maintain the integrity and confidentiality of SOAP messages as well as to authenticate users.
+
+There are other important features/components of the web service architecture, such as WS-Work Processes, WS-Policy, and WS Security Policy, which play an important role in communication between applications.
+
+---
+## Vulnerability Stack 
+The **Vulnerability Stack** refers to the different layers involved in running a web application—like custom code, third-party components, databases, web servers, OS, network, and security tools. Each layer plays a role in secure access but can also introduce vulnerabilities. Organizations must secure **all layers**, as web applications are common targets for attackers.
+
+<img width="747" height="287" alt="image" src="https://github.com/user-attachments/assets/39501cb1-7e94-40fd-aee0-56dbe799682a" />
+
+Attackers exploit the vulnerabilities of one or more elements among the seven levels to gain unrestricted access to an application or the entire network. 
+
+🔹 **Layer 7 – Web Applications**
+Attackers exploit business logic flaws (e.g., XSS) in custom apps built with Java/.NET.
+
+🔹 **Layer 6 – Third-Party Components**
+Attackers use insecure third-party services (e.g., payment gateways) to enter the main site.
+
+🔹 **Layer 5 – Web Server**
+They gather server info (via Nmap/banner grabbing) and exploit known CVEs.
+
+🔹 **Layer 4 – Database**
+They use tools like **sqlmap** to exploit DB flaws and steal sensitive data.
+
+🔹 **Layer 3 – Operating System**
+Attackers find open ports and send malware/backdoors to gain full access.
+
+🔹 **Layer 2 – Network (Router/Switch)**
+They flood switches to sniff internal traffic like passwords and user data.
+
+🔹 **Layer 1 – Security Devices (IDS/IPS)**
+They use evasion techniques to bypass security alerts and stay hidden.
