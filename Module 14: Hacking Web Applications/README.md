@@ -112,23 +112,16 @@ The **Vulnerability Stack** refers to the different layers involved in running a
 
 Attackers exploit the vulnerabilities of one or more elements among the seven levels to gain unrestricted access to an application or the entire network. 
 
-🔹 **Layer 7 – Web Applications** <br>
-  Attackers exploit business logic flaws (e.g., XSS) in custom apps built with Java/.NET.
+🔹 **Layer 7 – Web Applications:** Attackers exploit business logic flaws (e.g., XSS) in custom apps built with Java/.NET.
 
-🔹 **Layer 6 – Third-Party Components** <br>
-  Attackers use insecure third-party services (e.g., payment gateways) to enter the main site.
+🔹 **Layer 6 – Third-Party Components:** Attackers use insecure third-party services (e.g., payment gateways) to enter the main site.
 
-🔹 **Layer 5 – Web Server** <br>
-  They gather server info (via Nmap/banner grabbing) and exploit known CVEs.
+🔹 **Layer 5 – Web Server:** They gather server info (via Nmap/banner grabbing) and exploit known CVEs.
 
-🔹 **Layer 4 – Database** <br>
-  They use tools like **sqlmap** to exploit DB flaws and steal sensitive data.
+🔹 **Layer 4 – Database:** They use tools like **sqlmap** to exploit DB flaws and steal sensitive data.
 
-🔹 **Layer 3 – Operating System** <br>
-  Attackers find open ports and send malware/backdoors to gain full access.
+🔹 **Layer 3 – Operating System:** Attackers find open ports and send malware/backdoors to gain full access.
 
-🔹 **Layer 2 – Network (Router/Switch)** <br>
-  They flood switches to sniff internal traffic like passwords and user data.
+🔹 **Layer 2 – Network (Router/Switch):** They flood switches to sniff internal traffic like passwords and user data.
 
-🔹 **Layer 1 – Security Devices (IDS/IPS)** <br>
-  They use evasion techniques to bypass security alerts and stay hidden.
+🔹 **Layer 1 – Security Devices (IDS/IPS):** They use evasion techniques to bypass security alerts and stay hidden.
