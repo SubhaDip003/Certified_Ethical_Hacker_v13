@@ -56,3 +56,32 @@ In short, the web application architecture connects users, code, and data — en
 
 ---
 ## Web Services 
+A web service is an application or software that is deployed over the Internet. It uses a standard messaging protocol (such as SOAP) to enable communication between applications developed on different platforms. For instance, Java-based services can interact with PHP applications. These web-based applications are integrated with SOAP, UDDI, WSDL, and REST across the network.
+
+### Web Service Architecture
+Web service architecture shows how three parts work together: **service provider**, **service requester**, and **service registry**.
+
+* The **provider** creates and shares (publishes) service details in the **registry**.
+* The **requester** searches (finds) the needed service in the registry.
+* Then, the requester connects (binds) to the **provider** to use the service.
+
+These steps—**publish**, **find**, and **bind**—help systems communicate and use web services easily.
+
+There are three roles in a web service:
+- **Service Provider:** It is a platform from where services are provided.
+- **Service Requester:** It is an application or client that is seeking a service or trying to establish communication with a service. In general, the browser is a requester, which invokes the service on behalf of a user.
+- **Service Registry:** It is the place where the provider loads service descriptions. The service requester discovers the service and retrieves binding data from the service descriptions.
+
+There are three operations in a web service architecture: 
+1. **Publish** → The service provider shares details about their service so others can find and use it.
+2. **Find** → The user (requester) searches for and retrieves the service details—first during development, and again at run-time to get connection info.
+3. **Bind** → The user connects to and uses the service in real-time using the information gathered from the find step.
+
+There are two artifacts in a web service architecture:
+- **Service:** It is a software module offered by the service provider over the Internet. It communicates with the requesters. At times, it can also serve as a requester, invoking other services in its implementation.
+- **Service Description:** It provides interface details and service implementation details. It consists of all the operations, network locations, binding details, datatypes, etc. It can be stored in a registry and invoked by the requester.
+
+<img width="568" height="274" alt="image" src="https://github.com/user-attachments/assets/6b8dfd61-122d-42e6-a79c-3fc482913baf" />
+
+### Characteristics of Web Services 
+
