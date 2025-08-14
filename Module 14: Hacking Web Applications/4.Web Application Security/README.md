@@ -275,3 +275,93 @@ Some additional application content filtering tools are as follows:
 - **FortiGuard URL Filtering Service** [https://www.fortinet.com]
 - **Barracuda Web Security Gateway** [https://www.barracuda.com]
 - **OpenDNS** [https://www.opendns.com]
+
+---
+##  How to Defend Against Web Application Attacks
+Defending against web application attacks requires a mix of secure coding and system protection. This includes using WAFs or IDS to filter traffic, keeping software updated with patches, and sanitizing user inputs to stop injections. Secure coding practices like parameterized queries and stored procedures should be applied, while error messages must be limited to avoid giving attackers hints. Databases should run with least privilege accounts, and risky commands such as `xp_cmdshell` should be disabled to reduce exposure.
+
+<p align="center">
+  <img width="792" height="355" alt="image" src="https://github.com/user-attachments/assets/98b0cdf3-5775-473e-9e3f-521caa20fc12" />
+</p>
+
+---
+## Best Practices for Securing WebSocket Connection
+Securing WebSocket connections is critical to ensure that data transmitted between clients and servers remains confidential and protected from attacks. The following are best practices for securing WebSocket connections: 
+
+Here’s the simplified explanation in layered format:
+
+1. **Use wss\:// instead of ws\://** → Encrypts WebSocket traffic with TLS/SSL to keep data safe in transit.
+2. **Validate Origin header** → Ensures only trusted domains can connect to your WebSocket.
+3. **Token-based authentication (JWT)** → Confirms user identity before starting a WebSocket session.
+4. **Role-based access control (RBAC)** → Allows only authorized users to perform specific actions.
+5. **Limit message size** → Prevents attackers from sending huge messages to crash the server.
+6. **Rate limiting** → Controls how many messages a client can send, blocking spam or abuse.
+7. **Session timeouts** → Closes inactive WebSocket connections automatically for safety.
+8. **Logging and monitoring** → Tracks all activity and alerts on suspicious behavior in real time.
+9. **Use subprotocols** → Enforces structured communication rules between client and server.
+10. **Check server certificates** → Ensures connections are secure and certificates are from trusted authorities.
+11. **Secure libraries/frameworks** → Use updated, well-maintained WebSocket tools to reduce risks.
+12. **Set security headers (CSP, X-Frame-Options)** → Adds extra browser-level protection for WebSocket connections.
+
+---
+## RASP for Protecting Web Servers 
+Runtime Application Self-Protection (RASP) is a security technology built directly into an application to monitor and block attacks in real time. It analyzes incoming traffic, validates data requests, and stops malicious activities without slowing performance. By working inside the application, RASP can detect hidden vulnerabilities, prevent zero-day attacks, and reduce false positives, offering continuous protection for both web and non-web applications.
+
+**Benefits of using RASP**
+- **Visibility:** RASP offers greater visibility and lets the user have a detailed view of the application to monitor the attacks
+- **Collaboration and DevOps:** It provides better collaboration and DevOps as it offers transparency that can provide similar and detailed information to both security professionals and developers
+- **Penetration testing:** The increased visibility of RASP helps in avoiding duplicate testing. It also provides information about successful attacks and previously tested applications
+- **Incident response:** RASP supports incident response to facilitate logging for security and compliance by letting the user report on customized events without modifying the application
+
+<p align="center">
+  <img width="742" height="341" alt="image" src="https://github.com/user-attachments/assets/9475ab17-e0ea-459b-8aec-c25f5804b7b6" />
+</p>
+
+---
+## Web Application Security Testing Tools 
+Web application security testing tools are used to scan and analyze applications for vulnerabilities. They automate the process of detecting issues like misconfigurations, insecure code, or weaknesses, helping developers understand the application’s security posture. These tools make it easier to strengthen defenses and build more secure web applications.
+
+- **N-Stalker Web App Security Scanner** [https://www.nstalker.com] <br>
+  N-Stalker Web App Security Scanner is a security tool that detects vulnerabilities like SQL injection, XSS, and other common web attacks. It combines the N-Stealth HTTP Security Scanner with a large database of over 39,000 attack signatures and uses component-based assessment to help developers, administrators, and auditors strengthen web application security.
+
+<p align="center">
+  <img width="725" height="514" alt="image" src="https://github.com/user-attachments/assets/8e7852c7-d412-4f7f-be8c-efd2881d5685" />
+</p>
+
+- **Veracode** [https://www.veracode.com] <br>
+  Veracode is a security testing platform that scans code throughout the development process using IDE, pipeline, and policy scans. It helps teams find and fix vulnerabilities early, reducing the risk of breaches while improving efficiency. Its web application scanning also performs dynamic testing to detect security issues in applications running in production.
+
+<p align="center">
+  <img width="707" height="396" alt="image" src="https://github.com/user-attachments/assets/56cb44ee-ea04-48c1-b3f6-91a81c0b57d1" />
+</p>
+
+- **Invicti** [https://www.invicti.com] <br>
+  Invicti is an application security testing tool that dramatically reduces the risk of web attacks by performing accurate, automated application security testing. The tool helps automate various security tasks. It provides a dynamic and interactive (DAST + IAST) scanning approach to find vulnerabilities in web applications.
+
+<p align="center">
+  <img width="654" height="393" alt="image" src="https://github.com/user-attachments/assets/c0bd9ac6-8e3c-441c-85ad-1c1cfcb66c39" />
+</p>
+
+Some additional web application security testing tools are as follows:
+- **Contrast Security** [https://www.contrastsecurity.com]
+- **Snyk** [https://snyk.io]
+- **CodeSonar** [https://codesecure.com]
+- **HCL AppScan** [https://www.hcl-software.com]
+
+---
+## Web Application Firewalls 
+Web application firewalls (WAFs) secure websites, web applications, and web services against known and unknown attacks. They prevent data theft and manipulation of sensitive corporate and customer information. Some of the most commonly used WAFs are as follows: 
+
+- **Cloudflare Web Application Firewall (WAF)** [https://www.cloudflare.com] <br>
+  Cloudflare Web Application Firewall (WAF) protects websites and APIs by filtering malicious traffic through custom security rules. It includes features like attack scoring, content scanning, and request rate limiting, allowing security teams to block or control harmful activity before it reaches the application.
+
+<p align="center">
+  <img width="753" height="438" alt="image" src="https://github.com/user-attachments/assets/1a86d9fe-9bf6-46ae-8102-ea93ccd53030" />
+</p>
+
+Some additional web application firewalls are as follows:
+- **Imperva's Web Application Firewall** [https://www.imperva.com]
+- **AppWall** [https://www.radware.com]
+- **Qualys WAF** [https://www.qualys.com]
+- **Barracuda Web Application Firewall** [https://www.barracuda.com]
+- **NetScaler WAF** [https://www.netscaler.com]
