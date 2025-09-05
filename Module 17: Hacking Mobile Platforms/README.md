@@ -221,11 +221,145 @@ SMS phishing is an effective attack method for several reasons:
 Pairing mobile devices on open Bluetooth or Wi-Fi networks creates serious security risks. Attackers can use these unsecured connections to spread malware, intercept unencrypted data, or trick users into accepting malicious pairing requests. Through techniques like bluesnarfing and bluebugging, they can eavesdrop, steal sensitive information, or perform man-in-the-middle attacks. This exposure may lead to identity theft and other harmful activities, especially when devices connect automatically in public or untrusted networks.
 
 ### Bluesnarfing (Stealing information via Bluetooth)
+Bluesnarfing is an attack where an attacker uses a Bluetooth connection to secretly steal data from a device. If Bluetooth is enabled and set to “discoverable,” vulnerable devices such as phones or laptops can be exploited. Attackers can then access sensitive information like contacts, messages, emails, photos, or business files without the user’s knowledge.
 
+### Bluebugging (Taking over a device via Bluetooth) 
+Bluebugging is a Bluetooth attack where an attacker secretly takes control of a victim’s device. Once connected, the attacker can access sensitive data, read or forward calls and messages, use the internet, and even view contacts, photos, or videos—all without the user’s knowledge. This turns the device into a backdoor for malicious activities.
 
+<p align="center">
+	<img width="724" height="247" alt="image" src="https://github.com/user-attachments/assets/1cacc212-6e05-4873-88b3-29f7d54e0e27" />
+</p>
 
+---
+## Agent Smith Attack 
+The Agent Smith attack spreads through malicious apps disguised as games or tools on third-party stores like 9Apps. Once installed, the hidden code replaces popular apps such as WhatsApp or SHAREit with infected versions. These fake apps flood the device with fraudulent ads for profit and can also steal sensitive data like personal details, credentials, and banking information through attacker-controlled commands.
 
+<p align="center">
+	<img width="703" height="175" alt="image" src="https://github.com/user-attachments/assets/43ed8a52-315c-4f58-990b-8cc261b4d1e4" />
+</p>
 
+---
+## Exploiting SS7 Vulnerability
+Signaling System 7 (SS7) is a communication protocol that allows mobile users to exchange communication through another cellular network (especially when roaming). Mobile devices are meant to be carried across different locations to serve their users. Changing the telecom operator or using the network of another cell tower is allowed via the SS7 protocol. This signaling mechanism is operated depending on mutual trust between the operators, without any authentication verification. Since the SS7 signaling network is not isolated, the attacker can exploit this vulnerability to perform an MITM attack by impeding text messages and calls between the communicating devices. The attacker can eavesdrop on bank credentials, OTPs and other sensitive information routed through the network. This vulnerability in SS7 can also allow the attacker to bypass two-factor authentication and end-to-end encryption via SMS. 
 
+### Threats Associated with SS7 vulnerability
+When the attacker gains access to the SS7 protocol, the victim’s device faces the following risks:
+- Exposing the subscriber’s identity
+- Revealing the network identity
+- Spying on and intercepting the network to steal personal data
+- Allowing phone tapping
+- Performing DoS attacks to damage the reputation of the target telecom operator
+- Tracking geographic locations
 
+<p align="center">
+	<img width="703" height="194" alt="image" src="https://github.com/user-attachments/assets/49f51e69-bc5a-4f6d-8bdc-a149111b743d" />
+</p>
 
+---
+## Simjacker: SIM Card Attack
+Simjacker is a SIM card attack that exploits a vulnerability in the S\@T browser, a toolkit built into many SIM cards. Attackers send a special SMS carrying hidden commands, which the SIM executes without the user’s knowledge. This allows them to track location, monitor calls, collect device details like IMEI, send premium-rate messages, redirect the browser to malicious sites, or even disable the SIM. Since the attack runs silently on the SIM card, it can take full control of the device without any user interaction.
+
+**Steps involved in Simjacker attack**
+- The attacker sends fraudulent SMS containing hidden code or instructions from a SIM Application Toolkit (STK)
+- The victim receives the malicious SMS and the S@T browser on the SIM card automatically recognizes and processes the hidden instructions or code
+- The injected code performs various activities on the device without the user’s consent
+- The accomplice device receives the user information via SMS, which an attacker can use to track live locations, exfiltrate the device information, and perform many other malicious activities.
+
+<p align="center">
+	<img width="707" height="291" alt="image" src="https://github.com/user-attachments/assets/7fa238ca-00f7-4985-a990-1e0616e3058e" />
+</p>
+
+---
+## Call Spoofing 
+Call spoofing is a method where attackers fake the caller ID to make it look like the call is coming from a trusted source, such as a bank or government agency. This tricks people into sharing sensitive details or making payments. It can also be used to hide identities while making harassing or threatening calls.
+
+The various tools that an attacker can use to perform call spoofing against a targeted phone number are discussed below: 
+- **SpoofCard** [https://www.spoofcard.com] <br>
+	SpoofCard is a tool that lets attackers hide their real phone number by using a virtual one to make calls or send texts. It also allows voice changing, adding background noise, sending calls straight to voicemail, and recording conversations for storage or sharing on cloud services. This makes it useful for concealing identity and carrying out malicious activities.
+
+<p align="center">
+	<img width="227" height="488" alt="image" src="https://github.com/user-attachments/assets/6f6f9e55-4993-48a9-9b07-bfe46c0a6dac" />
+</p>
+
+Some additional call spoofing tools are listed below:
+- **Fake Call** [https://play.google.com]
+- **SpoofTel** [https://www.spooftel.com]
+- **Fake Call and SMS** [https://play.google.com]
+- **Fake Caller ID** [https://fakecallerid.io]
+- **Phone Id- Fake Caller Buster** [https://play.google.com]
+
+---
+## OTP Hijacking/Two-Factor Authentication Hijacking 
+OTP hijacking, or two-factor authentication hijacking, happens when attackers intercept one-time passwords sent via SMS, email, or authenticator apps. They often do this by stealing personal data, tricking telecom providers into transferring SIM ownership, or using SIM jacking malware to read OTPs. Once they gain control of the OTP, attackers can log into accounts, reset passwords, and steal sensitive information, all while the victim may believe the OTP was simply not delivered.
+
+<p align="center">
+	<img width="639" height="278" alt="image" src="https://github.com/user-attachments/assets/db730951-90b1-4f59-9121-6a7ebac227c1" />
+</p>
+
+### OTP Hijacking via Lock Screen Notifications
+Attackers physically steal SMS-based OTPs from the target user’s mobile phone by monitoring the user’s actions closely. They can view the notifications on the target user’s lock screen when they request for an OTP. Attackers can hijack lock screen notifications using different methods such as eavesdropping or tricking the user into lending their phone for making an emergency call.
+
+---
+## OTP Hijacking Tools 
+- **AdvPhishing** [https://github.com/Ignitetch/AdvPhishing] <br>
+	AdvPhishing is a social media phishing tool that assists attackers in bypassing two-factor or OTP authentication. AdvPhishing can gain access to the targeted IP address and is compatible with Linux and Termux OS. Attackers deploy AdvPhishing on public networks using NGrok tunnelling and localhost tunnelling.
+
+	<p align="center">
+		<img width="371" height="332" alt="image" src="https://github.com/user-attachments/assets/8f25233e-566d-4746-b90b-991756a01b02" />
+	</p>
+
+- **mrphish** [https://github.com/noob-hackers/mrphish] <br>
+	mrphish is a bash-based script used for phishing social media accounts with port forwarding and OTP bypassing control. This tool works on both rooted and non-rooted Android devices.
+
+ 	<p align="center">
+		<img width="349" height="336" alt="image" src="https://github.com/user-attachments/assets/c7d539f0-fb41-450f-8801-9d9fd91520e5" />
+	</p>
+
+---
+## Camera/Microphone Capture Attacks 
+Camera and microphone capture attacks occur when attackers gain unauthorized access to a device’s camera or microphone to spy on users. This allows them to secretly record conversations, capture images or videos, and steal sensitive information, leading to serious privacy and security risks. The following are two different attacking methods attackers often employ to compromise camera and micro phones of the devices. 
+
+### Camfecting Attack 
+A camfecting attack happens when an attacker takes control of a device’s webcam using a remote access Trojan (RAT). This allows the attacker to secretly watch or record the victim, often disabling the camera light to avoid detection. Through this, they can steal personal photos, videos, and even location details, while controlling the camera remotely.
+
+**Steps Involved in Camfecting Attack**
+- The attacker either sends a phishing mail with a malicious link or lures the victim into visiting a malicious website.
+- When the victim clicks on the malicious link or visits the malicious website, malware is downloaded and installed on the device, providing remote access to the attacker.
+- Now, the attacker can capture personal data such as photos and videos. 
+
+<p align="center">
+	<img width="641" height="134" alt="image" src="https://github.com/user-attachments/assets/d0a42242-2c24-496f-9494-dbe64e0c3899" />
+</p>
+
+### Android Camera Hijack Attack
+Attackers attempt to leverage Google’s camera application, which is widely used in Android devices as the default camera app. An attacker can exploit Android’s multiple security bypass vulnerabilities to circumvent the required permissions and gain access to the victim’s camera and microphone. Further, the attacker can exploit this vulnerability even if the mobile device is locked. Android camera applications generally require storage permissions to store photos and videos. 
+These applications need the victim to provide permissions such as
+- `android.permission.CAMERA`
+- `android.permission.RECORD_AUDIO`
+- `android.permission.ACCESS_COARSE_LOCATION`
+- `android.permission.ACCESS_FINE_LOCATION`
+
+Such storage permissions provide unrestricted access to the entire internal storage and allow attackers to perform various activities such as capturing photos; recording videos and voice calls; and accessing stored photos, videos, GPS locations, and other sensitive information.
+
+**Steps Involved in Android Camera Hijack Attack**
+Attackers exploit various bypass vulnerabilities on the target Android device by tricking the victim into downloading a malicious app. The malicious app installs a Trojan on the victim’s device without their knowledge. When the victim starts using the infected application, a persistent connection is established between the victim and attacker. Even if the victim closes the application, the connection persists, allowing attackers to capture photos and record videos stealthily.
+
+<p align="center">
+	<img width="577" height="207" alt="image" src="https://github.com/user-attachments/assets/f1a0d90e-dbad-460f-a892-9d8f875cedd6" />
+</p>
+
+---
+## Camera/Microphone Hijacking Tools 
+- **StormBreaker** [https://github.com/xaviha/stormbreaker] <br>
+	Attackers use the StormBreaker tool for social engineering by capturing the camera/microphone. The tool can access the device’s location, webcam, and microphone without explicitly requesting any permissions.
+
+	<p align="center">
+		<img width="670" height="347" alt="image" src="https://github.com/user-attachments/assets/8ae66617-aefd-4643-9d66-3194b3e34f53" />
+	</p>
+
+The following are some additional camera/microphone hacking tools: 
+- **CamPhish** [https://github.com/techchipnet/CamPhish]
+- **HACK-CAMERA** [https://github.com/hackerxphantom/HACK-CAMERA]
+- **E-TOOL** [https://github.com/Expert-Hacker/E-TOOL]
+- **CamOver** [https://github.com/EntySec/CamOver]
+- **CAM-DUMPER** [https://github.com/AnandKatariya/Cam-Dumper]
