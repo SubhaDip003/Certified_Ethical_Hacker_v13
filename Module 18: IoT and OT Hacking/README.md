@@ -1,5 +1,7 @@
 # ⚙️ IoT and OT Hacking
+The Internet of Things (IoT) connects devices like wearables, smart vehicles, industrial machines, and sensors, generating large amounts of data across sectors such as healthcare, energy, and transportation. While IoT improves efficiency, its devices often use basic hardware and limited operating systems, making them difficult to secure. This creates risks when integrated into industrial networks, where operational technology (OT) and information technology (IT) converge. To stay protected, organizations must understand the threat landscape, identify the most critical risks, and implement strong cybersecurity policies to safeguard both IoT devices and OT infrastructure from evolving attacks.
 
+---
 ## Table of Content
 - 🔗 [IoT Hacking](https://github.com/SubhaDip003/Certified_Ethical_Hacker_v13/tree/main/Module%2018%3A%20IoT%20and%20OT%20Hacking/01.IoT%20Hacking)
    - 📡 [IoT Concepts and Attacks](https://github.com/SubhaDip003/Certified_Ethical_Hacker_v13/tree/main/Module%2018%3A%20IoT%20and%20OT%20Hacking/01.IoT%20Hacking#readme)
