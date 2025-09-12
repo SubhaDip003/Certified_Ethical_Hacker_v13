@@ -130,6 +130,185 @@ The device-to-device communication model allows connected devices to exchange da
   <img width="650" height="189" alt="image" src="https://github.com/user-attachments/assets/00635094-242f-4514-9f36-8d38e745f840" />
 </p>
 
+### Device-to-Cloud Communication Model
+In the device-to-cloud communication model, devices send data directly to a cloud service rather than connecting straight to a client. It typically uses Wi-Fi, Ethernet, or cellular links to push telemetry, video, or commands to the cloud, and clients access the device by authenticating to that cloud. For example, a home CCTV streams to a cloud server; when you log in with the correct credentials, the cloud grants you access to view the camera. This model centralizes access and control but also makes secure cloud authentication and data protection critical.
+
+<p align="center">
+  <img width="560" height="185" alt="image" src="https://github.com/user-attachments/assets/74e25288-5e5f-4b8c-8db7-918dd8630af0" />
+</p>
+
+### Device-to-Gateway Communication Model
+In the device-to-gateway model, an IoT device talks to an intermediate gateway (like a hub or a smartphone), and that gateway forwards data to the cloud. The gateway handles protocol and data translation, can provide security functions (encryption, access control), and reduces direct exposure of resource-constrained devices. Common local protocols include ZigBee and Z-Wave, while the gateway often uses standard IP-based links to reach the cloud. This setup lets simple devices (for example, a smart TV) connect securely to cloud services via a phone or hub.
+
+<p align="center">
+  <img width="549" height="221" alt="image" src="https://github.com/user-attachments/assets/78d45324-f872-4867-84fb-32373b799f39" />
+</p>
+
+### Back-End Data-Sharing Communication Model
+The back-end data-sharing communication model allows IoT devices to send their data to the cloud, where it can be accessed and analyzed by authorized third parties. For example, a company’s energy usage data can be collected and shared with an external analyzer to study monthly or yearly consumption. The insights from this analysis help the company lower costs by adopting energy-saving or harvesting techniques.
+
+<p align="center">
+  <img width="557" height="208" alt="image" src="https://github.com/user-attachments/assets/8f2107c4-3a0a-475f-97aa-b66f7237e9f3" />
+</p>
+
+---
+## Challenges of IoT 
+IoT devices are widely used but often lack strong security measures, making them easy targets for hackers. Frequent updates and new features can introduce more vulnerabilities, increasing the risk of exploitation. To address this, manufacturers must prioritize security from the design stage through deployment and ongoing maintenance, ensuring IoT devices remain protected throughout their lifecycle.
+
+Discussed below are some of the challenges facing IoT devices that make them vulnerable to threats: 
+1. **Lack of Security and Privacy** → Many IoT devices store sensitive data but often lack even basic security, making them easy targets for hackers.
+2. **Vulnerable Web Interfaces** → Built-in web servers in IoT devices can have flaws that attackers exploit to gain control.
+3. **Legal, Regulatory, and Rights Issues** → Laws and policies for IoT security are not well-defined, leaving many risks unaddressed.
+4. **Default, Weak, and Hardcoded Credentials** → Devices often come with simple or pre-set passwords that hackers can easily guess or crack.
+5. **Clear Text Protocols and Open Ports** → Some devices send data without encryption and keep unnecessary ports open, exposing them to attacks.
+6. **Coding Errors (Buffer Overflow)** → Poor coding in IoT software can cause vulnerabilities like buffer overflows or SQL injection.
+7. **Storage Issues** → Devices have limited storage capacity, but they collect large amounts of data, creating security and management challenges.
+8. **Difficult-to-Update Firmware and OS** → Updating software is critical for security, but many devices lack easy update options, leaving them exposed.
+9. **Interoperability Standard Issues** → Different IoT devices often can’t work smoothly together, making it hard to secure and manage them.
+10. **Physical Theft and Tampering** → Attackers can steal or tamper with devices to install malicious code or alter their hardware.
+11. **Lack of Vendor Support** → Some vendors avoid providing firmware updates or third-party fixes, leaving devices vulnerable.
+12. **Emerging Economy and Development Issues** → Policymakers face difficulties creating new regulations for the fast growth of IoT.
+13. **Handling of Unstructured Data** → Huge amounts of random, unorganized data from devices make it hard to decide what is useful.
+14. **Scalability** → As IoT networks grow, managing and analyzing massive amounts of data becomes harder.
+15. **Power Consumption** → Many IoT devices run on batteries, making energy efficiency a constant challenge.
+16. **Regulatory Compliance** → IoT systems must meet different regional and industry laws about privacy and security.
+17. **Integration with Legacy Systems** → Connecting IoT with old infrastructure is difficult and often creates compatibility and security gaps.
+
+---
+## Threat vs Opportunity 
+IoT can either be a major threat or a great opportunity depending on how it is managed. If misconfigured, it exposes sensitive data and creates risks to security, privacy, and safety. But if properly secured, IoT can improve communication, service delivery, efficiency, and overall quality of life. Since IoT devices handle highly sensitive information like health or financial records, securing them against threats is critical to ensure safe usage, prevent cyberattacks, and unlock their full potential.
+
+---
+## IoT Security Problems 
+Potential vulnerabilities in the IoT system can result in major problems for organizations. Most IoT devices come with security issues such as the absence of a proper authentication mechanism or the use of default credentials, absence of a lock-out mechanism, absence of a strong encryption scheme, absence of proper key management systems, and improper physical security. <br>
+Some of the security issues at each layer of IoT architecture are given below:
+
+<p align="center">
+  <img width="645" height="306" alt="image" src="https://github.com/user-attachments/assets/4891b6b9-7d11-4246-af7a-be4dbeaf78af" />
+</p>
+
+---
+## OWASP Top 10 IoT Threats 
+🔗Source: [https://owasp.org] <br>
+The Top 10 IoT threats, according to the Open Web Application Security Project (OWASP), are listed below: 
+1. **Weak, Guessable, or Hardcoded Passwords** → Using simple, common, or built-in default passwords makes it easy for attackers to brute-force or exploit backdoors to gain unauthorized access.
+2. **Insecure Network Services** → Devices running unsafe services (like open ports or weak protocols) can be exploited with attacks such as buffer overflows, leading to denial-of-service or remote access.
+3. **Insecure Ecosystem Interfaces** → Weak security in web apps, APIs, mobile apps, or cloud services (like poor authentication, weak encryption, or no input validation) can expose the entire IoT system to attacks.
+4. **Lack of Secure Update Mechanisms** → If firmware updates are not properly validated, delivered securely, or protected against rollback, attackers can inject malicious code or exploit outdated software.
+5. **Use of Insecure or Outdated Components** → Using old or vulnerable software, libraries, or third-party components can compromise the device, especially if they come from untrusted sources.
+6. **Insufficient Privacy Protection** → Poor handling of personal data stored on devices can lead to exposure or theft of sensitive user information.
+7. **Insecure Data Transfer and Storage** → Without strong encryption or access controls, sensitive data in transit (network traffic) or at rest (stored data) can be stolen or altered by attackers.
+8. **Lack of Device Management** → Missing security features like monitoring, updates, or secure removal of devices leaves them vulnerable to exploitation once deployed.
+9. **Insecure Default Settings** → Devices often ship with weak factory settings (like open ports or default credentials), and if operators can’t change them, attackers can easily exploit them.
+10. **Lack of Physical Hardening** → Without proper physical protection, attackers can directly tamper with the device, extract sensitive data, or gain control to launch further attacks.
+
+---
+## OWASP IoT Attack Surface Areas 
+🔗Source: [https://owasp.org] <br>
+The OWASP IoT attack surface areas are given below: 
+
+<p align="center">
+  <img width="624" height="333" alt="image" src="https://github.com/user-attachments/assets/76acc77b-ca84-481f-9bf2-64c5f36090a0" />
+  <img width="624" height="459" alt="image" src="https://github.com/user-attachments/assets/4f5767fe-fe8b-4940-a143-288a01b540da" />
+  <img width="622" height="315" alt="image" src="https://github.com/user-attachments/assets/93f4338e-7700-46e8-a4fd-c65db868447c" />
+  <img width="621" height="490" alt="image" src="https://github.com/user-attachments/assets/e976d194-ab21-44c7-b10b-de9089d58f81" />
+  <img width="629" height="409" alt="image" src="https://github.com/user-attachments/assets/f5574647-c4b5-4db5-970c-7085538f7185" />
+  <img width="622" height="496" alt="image" src="https://github.com/user-attachments/assets/34806e0f-e531-472a-9588-ed0431649d57" />
+  <img width="628" height="420" alt="image" src="https://github.com/user-attachments/assets/db7aa37f-b043-42b3-a6a8-0247849b5847" />
+  <img width="625" height="462" alt="image" src="https://github.com/user-attachments/assets/effaffc4-f93c-40c1-b673-0475fdf5d4d7" />
+</p>
+
+---
+## IoT Vulnerabilities 
+🔗Source: [https://owasp.org] <br>
+The OWASP IoT vulnerabilities are given below: 
+
+<p align="center">
+  <img width="621" height="539" alt="image" src="https://github.com/user-attachments/assets/7446d84d-af07-4ee1-8586-ce47f6f96600" />
+  <img width="618" height="209" alt="image" src="https://github.com/user-attachments/assets/b6bd87bd-463b-4705-af77-87f55d52fd5e" />
+  <img width="621" height="440" alt="image" src="https://github.com/user-attachments/assets/ea5a648d-f50b-44a4-9b6b-c1d62d135cc1" />
+  <img width="620" height="390" alt="image" src="https://github.com/user-attachments/assets/18a619db-95e4-4208-8e68-a76cab1547a9" />
+</p>
+
+---
+## IoT Threats
+IoT devices have very few security protection mechanisms against various emerging threats. These devices can be infected by malware or malicious code at an alarming rate. Attackers often exploit these poorly protected devices on the Internet to cause physical damage to the network, to wiretap the communication, and also to launch disruptive attacks such as DDoS.
+Listed below are some types of IoT attack: 
+
+1. **DDoS Attack** → Attackers turn many IoT devices into a botnet and flood a target with traffic, making its service unavailable.
+2. **Attack on HVAC Systems** → Exploiting HVAC vulnerabilities to steal credentials or use the system as a foothold to attack the wider network.
+3. **Rolling Code Attack** → Jam and sniff a vehicle’s remote signal to capture or predict the one-time code, then replay it to unlock/steal the vehicle.
+4. **BlueBorne Attack** → Attackers connect to nearby Bluetooth-enabled devices and exploit Bluetooth protocol flaws to take control or steal data.
+5. **Jamming Attack** → The attacker overwhelms or blocks wireless signals so sender and receiver can’t communicate.
+6. **Remote Access using Backdoor** → Vulnerable IoT devices are compromised and turned into secret entry points for attackers into the network.
+7. **Remote Access using Telnet** → An open Telnet port is abused to read device info or gain shell access and control devices.
+8. **Sybil Attack** → One attacker creates many fake identities on the network to confuse routing or voting systems and disrupt communication.
+9. **Exploit Kits** → Automated scripts or pages target unpatched IoT flaws to install malware or take control quickly.
+10. **Man-in-the-Middle Attack** → The attacker intercepts and possibly alters communications between two devices while pretending to be each party.
+11. **Replay Attack** → Recorded legitimate messages are resent repeatedly to confuse, crash, or gain unauthorized actions from a device.
+12. **Forged Malicious Device** → An attacker with physical access swaps a real IoT device for a malicious clone to spy or inject attacks.
+13. **Side-Channel Attack** → Secrets (like keys) are inferred by observing emissions—power, timing, or radio—rather than breaking the code directly.
+14. **Ransomware Attack** → Malware encrypts device data or locks the screen, demanding payment to restore access.
+15. **Client Impersonation** → A malicious device pretends to be a legitimate client or server to gain data or perform unauthorized actions.
+16. **SQL Injection Attack** → Flaws in web/mobile control apps let attackers run harmful database commands to access or control devices.
+17. **SDR-Based Attack** → Using software-defined radio to listen to or inject wireless signals, enabling snooping or spoofing on IoT links.
+18. **Fault Injection Attack** → Intentionally causing errors (voltage, clock glitches, etc.) to force faulty behavior and extract secrets or bypass checks.
+19. **Network Pivoting** → A compromised IoT device is used as a bridge to reach and attack otherwise protected systems on the network.
+20. **DNS Rebinding Attack** → Malicious JavaScript in a webpage tricks the browser into talking to a local router or device, bypassing same-origin protections.
+21. **Firmware Update (FOTA) Attack** → The attacker intercepts or tampers with a firmware update and installs malicious code on the device.
+
+---
+## Hacking IoT Devices: General Scenario 
+The IoT includes different technologies such as embedded sensors, microprocessors, and power management devices. Security consideration changes from device to device and application to application. The greater the amount of confidential data we send across the network, the greater the risk of data theft, data manipulation, data tampering, and attacks on routers and servers. <br>
+Improper security infrastructure might lead to the following unwanted scenarios:
+- An eavesdropper intercepts communication between two endpoints and discovers the confidential information that is sent across. He/she can misuse that information for his/her own benefit.
+- A fake server can be used to send unwanted commands to trigger unplanned events. For example, some physical resources (water, coal, oil, electricity) could be sent to an unknown and unplanned destination, etc.
+- A fake device can inject a malicious script into the system to make it work as instructed by the device. This may cause the system to behave inappropriately and dangerously.
+
+<p align="center">
+  <img width="663" height="392" alt="image" src="https://github.com/user-attachments/assets/28713dad-19be-406b-af66-94ec5f08d105" />
+</p>
+
+---
+## DDoS Attack
+A distributed denial-of-service (DDoS) attack uses many compromised devices (a botnet) to flood a target server or service with traffic until it slows down or becomes unavailable. Attackers first infect devices with malware to build the botnet, then command those devices to send massive numbers of requests to the victim. Because the incoming traffic exceeds what the server can handle, legitimate users cannot access the service, causing outages, slow performance, or total shutdown. Continuous monitoring and traffic filtering help mitigate these attacks.
+
+Given below are the steps followed by an attacker to perform a DDoS attack on IoT devices:
+- Attacker gains remote access to vulnerable devices
+- After gaining access, he/she injects malware into the IoT devices to turn them into botnets
+- Attacker uses a command and control center to instruct botnets and to send multiple requests to the target server, resulting in a DDoS attack
+- Target server goes offline and becomes unavailable to process any further requests 
+
+<p align="center">
+  <img width="634" height="434" alt="image" src="https://github.com/user-attachments/assets/f6df4b63-160f-48b3-8914-477a7b2d7b4c" />
+</p>
+
+---
+## Exploit HVAC 
+Many organizations use Internet-connected heating, ventilation, and air conditioning (HVAC) systems without implementing security mechanisms, Internet-connected HVAC systems are often deployed with weak or no security, creating an easy entry point for attackers. Using default or shared credentials, exposed remote-access features for vendors, or unpatched vulnerabilities, attackers can take control of HVAC devices, move laterally into corporate networks, and steal sensitive data or disrupt operations. Securing vendor access, changing default logins, and segmenting HVAC systems from critical networks help reduce this risk.
+
+Steps followed by an attacker to exploit HVAC systems:
+- Attacker uses Shodan ([https://www.shodan.io]) and searches for vulnerable industrial control systems (ICSs)
+- Based on the vulnerable ICSs found, the attacker then searches for default user credentials using online tools such as [https://www.defpass.com]
+- Attacker uses default user credentials to attempt to access the ICS
+- After gaining access to the ICS, the attacker attempts to gain access to the HVAC system remotely through the ICS
+- After gaining access to the HVAC system, an attacker can control the temperature from the HVAC or carry out other attacks on the local network
+
+<p align="center">
+  <img width="658" height="234" alt="image" src="https://github.com/user-attachments/assets/444dfab4-c1f2-4cf5-8881-01d81b2196a4" />
+</p>
+
+---
+## Rolling Code Attack 
+
+
+
+
+
+
+
+
+
 
 
 
