@@ -400,15 +400,148 @@ After successfully launching this attack, the attacker could bypass the security
 
 ---
 ## Fault Injection Attacks 
+Fault injection attacks (perturbation attacks) force errors into a system to make it behave insecurely or reveal secrets. An attacker injects faulty inputs, electrical glitches, or malicious code to corrupt data, skip checks, or extract sensitive information. Non-invasive attacks are done nearby the device (e.g., radio, power glitches) without opening it, while invasive attacks require physical access to the chip surface for direct tampering. Both aim to break normal operation and bypass security controls.
 
+Discussed below are different types of fault injection attack: 
+- **Optical, Electromagnetic Fault Injection (EMFI), Body Bias Injection (BBI)** <br>
+  The main objective of these attacks is to inject faults into devices by projecting lasers and electromagnetic pulses that are used in analog blocks such as random number generators (RNGs) and for applying high-voltage pulses. These faults are then used by the attackers in compromising the system security.
 
+- **Power/Clock/Reset Glitching** <br>
+  These types of attacks occur when faults or glitches are injected into the power supply that can be used for remote execution, also causing the skipping of key instructions. Faults can also be injected into the clock network used for delivering a synchronized signal across the chip.
 
+- **Frequency/Voltage Tampering** <br>
+  In these attacks, the attackers try to tamper with the operating conditions of a chip, and they can also modify the level of the power supply and alter the clock frequency of the chip. The intention of the attackers is to introduce fault behavior into the chip to compromise the device security.
 
+- **Temperature Attacks** <br>
+  Attackers alter the temperature for operating the chip, thereby changing the whole operating environment. This attack can be operated in non-nominal conditions.
 
+After injecting faults using various techniques, now attackers can exploit the fault behavior of the device to perform various attacks to steal sensitive information or interrupt the normal operation of the device. 
 
+---
+## Other IoT Attacks 
+- **Sybil Attack** <br>
+  A Sybil attack in vehicular networks happens when a single malicious vehicle pretends to be many different vehicles by creating forged or stolen identities. This fake presence can create the illusion of traffic jams, confuse nearby nodes, and interrupt normal communications. For example, a malicious node “X” may claim multiple identities and appear to multiple neighbors (“A” and “B”) at once, inserting itself into their communication and causing chaos. Such attacks degrade network performance, undermine safety messages, and pose serious risks to VANET applications.
 
+- **Exploit Kits** <br>
+  An exploit kit is a malicious script used by attackers to exploit poorly patched vulnerabilities in an IoT device. These kits are designed in such a way that whenever there are new vulnerabilities, new ways of exploitation and add-on functions will be added to the device automatically. After detecting vulnerabilities, these kits send the exact exploit to install malware, which can execute and corrupt the device. These exploit kits pose a dangerous threat as they go undetected in IoT environments affecting IoT devices and infrastructure, forcing them to behave unexpectedly.
 
+- **Man-in-the-Middle Attack** <br>
+  A man-in-the-middle (MitM) attack is when an attacker secretly intercepts and relays messages between two parties, appearing to both as if they are talking directly to each other. In IoT environments, attackers can impersonate legitimate senders and inject malicious commands or requests to gain control of devices. Many IoT devices (IP cameras, routers, gateways) have weak or faulty cryptography, which makes it easier for an attacker to read, modify, or hijack the traffic. Protecting against MitM requires strong encryption, proper certificate validation, and network monitoring to ensure devices only accept trusted connections.
 
+- **Replay Attack** <br>
+  In a replay attack, attackers intercept legitimate messages from a valid communication and continuously send the intercepted message to the target device to perform a DoS attack or delay it to manipulate the message or crash the target device. For example, consider a replay attack that regenerates the signal used to control IoT devices as like a front door. The front door uses a lock that is opened using simple infrared signals. Essentially, the attacker records the infrared modulation pattern, reproduces the signal, and performs a replay attack on the door to unlock it.
 
+- **Forged Malicious Device** <br>
+  Attackers replace authentic IoT devices with malicious devices if they have physical access to the network. It is very difficult to discover such attacks because the forged device resembles the legitimate one. The forged devices contain backdoors that are used by the attackers to perform various malicious activities in the network.
 
+- **Side-Channel Attack** <br>
+  A side-channel attack extracts secret information (like encryption keys) by observing unintended signals emitted by a device—such as power use, timing, or electromagnetic waves—rather than breaking the algorithm itself. Attackers measure these emissions from IoT or embedded devices while they perform cryptographic operations, analyze variations (for example in power consumption or response time), and deduce the key without touching the device. This method is non-invasive, often fast, and can enable further exploits like differential power analysis or timing attacks. Continuous hardware hardening and noise/randomization techniques can reduce the risk.
 
+- **Ransomware Attack** <br>
+  Ransomware is a type of malware that uses encryption to block a user’s access to his/her device either by locking the screen or by locking a user’s files, and it stays blocked until a ransom is paid that allows a user to regain access to his/her device. <br>
+  A user can encounter this problem in numerous ways. It can be mistakenly downloaded with some other malware, software, or files, and sometimes through malicious advertisements (malvertisements).
+
+  Discussed below are the phases of ransomware:
+  - **Phase 1:** Victim receives an email from the attacker that appears to be from a legitimate sender. This email contains an attachment of a malicious file.
+  - **Phase 2:**
+    - User opens the mail and clicks on the malicious file. Malware is downloaded and launches legitimate child processes such as PowerShell, Vssadmin encryption mechanism, or cmd.exe. As a result, the device becomes connected to an attacker’s command and control (C&C) server.
+    - The personal files on the victim’s device are encrypted.
+  - **Phase 3:** Notification of ransomware is delivered to the victim’s device, and he/she is asked to pay a ransom in the form of money or bitcoin to gain access to his/her files.
+
+---
+## IoT Attacks in Different Sectors 
+IoT technology is making progress in every sector of society, including industry, healthcare,
+agriculture, smart cities, security, transportation, etc. However, due to the implementation of a decentralized approach in IoT technology, organizations focus less on the security of the devices. Therefore, rather than segmenting the IoT technology into different parts, suppliers focus more on spotting the vulnerabilities and exploiting them.
+
+These vulnerabilities present in IoT devices can be exploited by attackers to launch various types of attacks, such as DoS attacks, jamming attacks, MITM attacks, and Sybil attacks, and gather data, which results in loss of privacy and confidentiality. <br>
+Different IoT sectors and their associated attacks are listed below:
+
+<p align="center">
+  <img width="621" height="278" alt="image" src="https://github.com/user-attachments/assets/15a07902-a196-4e97-b0c7-9ac021b00264" />
+  <img width="621" height="423" alt="image" src="https://github.com/user-attachments/assets/b6423500-7df2-4d20-b53e-3ef2856d2183" />
+  <img width="621" height="436" alt="image" src="https://github.com/user-attachments/assets/7199c2d0-7fdc-4111-9750-12de2c007d4c" />
+  <img width="619" height="276" alt="image" src="https://github.com/user-attachments/assets/34556b8e-2dfc-4174-b39e-58e9ef10726e" />
+  <img width="621" height="488" alt="image" src="https://github.com/user-attachments/assets/9da4a525-6f35-413f-b061-47d053f8ce07" />
+  <img width="620" height="109" alt="image" src="https://github.com/user-attachments/assets/115e748f-36e1-42b7-97b8-e7ef77f35433" />
+  <img width="617" height="477" alt="image" src="https://github.com/user-attachments/assets/df5aeeb4-b5fc-449e-9600-84fe44ce590c" />
+  <img width="617" height="246" alt="image" src="https://github.com/user-attachments/assets/beb2ca89-1d52-40ec-b5f6-8f7bb6d8ecb1" />
+</p>
+
+---
+## IoT Malware 
+- **KmsdBot** [https://www.akamai.com] <br>
+  KmsdBot (latest variant Kmsdx) is IoT-targeting malware that scans devices over SSH and Telnet, tries to log in using password lists fetched from its command-and-control server, and then recruits compromised devices into a botnet. The new variant authenticates legitimate Telnet services, verifies responses for reliability, and supports many CPU architectures common in IoT gadgets. By probing for default or weak credentials (often stored in files like `telnet.txt`), it quickly compromises devices, broadening the botnet and increasing risk to poorly secured IoT deployments.
+
+ <p align="center">
+   <img width="461" height="333" alt="image" src="https://github.com/user-attachments/assets/a08149a4-8ecd-4daa-a3c3-3fb46013de70" />
+   <img width="349" height="368" alt="image" src="https://github.com/user-attachments/assets/2dafeee5-8cab-47ce-9d38-1282e95cc3d0" />
+ </p>
+
+Additional IoT malware:
+- WailingCrab
+- P2PInfect
+- NKAbuse
+- IoTroop
+- XorDdos
+
+---
+## Case Study: IZ1H9 
+🔗Source: [https://unit42.paloaltonetworks.com] <br>
+IZ1H9 is a Mirai-based botnet malware discovered in early 2021 and will continue to spread until 2023. Botnet malware has proliferated owing to the exploitation of various vulnerabilities in IoT networks. Once a vulnerable device has been identified and infected, IZ1H9 adds the infected device to the botnet fleet. The malware compromises and hijacks the computational resources of the vulnerable devices, using them for distributed denial of service (DDoS) attacks. IZ1H9 uses a sophisticated shell script downloader to bypass security solutions, hide their presence, and establish a persistent connection with a command-and-control (C2) server.
+
+<p align="center">
+  <img width="634" height="222" alt="image" src="https://github.com/user-attachments/assets/72543419-85eb-4ad8-a87c-1ed6b874457b" />
+</p>
+
+### IZ1H9 Attack Scenario:
+
+#### Step 1: Pre-exploitation 
+Attackers identify and select targets running the Linux operating systems. They then search for weakly configured devices and exploit vulnerabilities in the exposed servers and networking devices in the IoT environment. Attackers attempt to scan and exploit devices containing the following vulnerabilities:
+- Tenda G103 command injection vulnerability
+- LB-Link command injection vulnerability
+- DCN DCBI-Netlog-LAB remote code execution vulnerability
+- Zyxel remote code execution vulnerability
+
+#### Step 2: Exploitation 
+Attackers attempt to download and execute a shellscript downloader (lb.sh) from IP 163.123.143[.]126 on the vulnerable devices. The shell script downloader deletes logs to hide its tracks and downloads bot clients for different Linux architectures, such as
+- hxxp://163.123.143[.]126/bins/dark.x86
+- hxxp://163.123.143[.]126/bins/dark.mips
+- hxxp://163.123.143[.]126/bins/dark.mpsl
+- hxxp://163.123.143[.]126/bins/dark.arm4
+- hxxp://163.123.143[.]126/bins/dark.arm5
+- hxxp://163.123.143[.]126/bins/dark.arm6
+- hxxp://163.123.143[.]126/bins/dark.arm7
+- hxxp://163.123.143[.]126/bins/dark.ppc
+- hxxp://163.123.143[.]126/bins/dark.m68k
+- hxxp://163.123.143[.]126/bins/dark.sh4
+- hxxp://163.123.143[.]126/bins/dark.86_64
+
+Both clients are downloaded from URLs, such as `hxxp://2.56.59[.]215/i.sh` and `hxxp://212.192.241[.]72/lolol.sh`, to contact a C2 domain `dotheneedfull[.]club`, and they resolve it to `212.192.241.72`. <br>
+The botnet client ensures that only a single execution instance exists. If a botnet process already exists on the device, the botnet client overwrites the current process and starts a new process. <br>
+Subsequently, bot clients initialize an encrypted string table and retrieve the encrypted strings using an index for decryption.
+
+<p align="center">
+  <img width="329" height="367" alt="image" src="https://github.com/user-attachments/assets/2d74e933-046e-48ba-8804-8664a90c2de4" />
+  <img width="482" height="172" alt="image" src="https://github.com/user-attachments/assets/69a33890-7f6c-4800-b269-0c31f58f767d" />
+</p>
+
+The IZ1H9 variant decrypts its configuration strings using an XOR decryption with the key 0xBAADF00D. <br>
+The IZ1H9 variant then spread through the HTTP, SSH, and Telnet channels. For SSH and Telnet, the variant spreads through brute-force attacks using a list of nearly 100 weak username and password combinations. <br>
+For HTTP, the variant uses four remote code execution vulnerabilities to execute shellcode scripts for further compromise.
+
+<p align="center">
+  <img width="583" height="419" alt="image" src="https://github.com/user-attachments/assets/96fb19b1-60ab-462d-86fe-b22035a46832" />
+</p>
+
+In the Tenda vulnerability exploitation function, the payload downloads tenda.sh but executes netlog.sh.
+
+<p align="center">
+  <img width="512" height="148" alt="image" src="https://github.com/user-attachments/assets/a9b1b604-0c59-46a4-a74e-56fd5062dca8" />
+</p>
+
+#### Step 3: Persistence
+Botnet clients establish persistent connections with hardcoded C2 networks. Later, the attacker defines a set of attack methods for targets using specific command codes, as shown below.
+
+<p align="center">
+  <img width="467" height="573" alt="image" src="https://github.com/user-attachments/assets/8d491107-6d8f-49ce-9634-580dbf31547f" />
+</p>
