@@ -300,8 +300,106 @@ Steps followed by an attacker to exploit HVAC systems:
 
 ---
 ## Rolling Code Attack 
+Most smart vehicles use smart locking systems, which include an RF signal transmitted in the form of code from a modern key fob to lock or unlock the vehicle. Here, the code sent to the vehicle is only used once and is different for every other use, which means if a vehicle receives the same code again, it rejects it. 
 
+A rolling code attack targets keyless-entry systems that use one-time “rolling” or “hopping” codes to prevent replay. The attacker jams the key fob’s signal while simultaneously capturing the code the fob transmits; because the car never receives it, that code remains valid. Later the attacker replays the captured code to unlock the vehicle or garage. This defeats the replay protection and typically requires physical proximity plus a jamming/sniffing device.
 
+For example, given below are the steps followed by an attacker to perform a rolling-code attack:
+1. Victim presses car remote button and tries to unlock the car
+2. Attacker uses a jammer that jams the car’s reception of the rolling code sent by the victim and simultaneously sniffs the first code
+3. The car does not unlock; victim tries again by sending a second code
+4. Attacker sniffs the second code
+5. On the second attempt by the victim, the attacker forwards the first code, which unlocks the car
+6. The recorded second code is used later by the attacker to unlock and steal the vehicle 
+
+Attackers can make use of tools such as HackRF One and RFCrack to perform this attack.
+
+<p align="center">
+  <img width="639" height="453" alt="image" src="https://github.com/user-attachments/assets/a940f8b5-cbdb-4725-87d5-c81b5446ba34" />
+</p>
+
+---
+## BlueBorne Attack
+A BlueBorne attack exploits flaws in the Bluetooth protocol to take over nearby devices without user interaction or pairing. Because Bluetooth processes run with high privileges, attackers can connect to a device, identify its MAC and OS, and then use known protocol vulnerabilities to execute code, intercept traffic, or move laterally across a network. BlueBorne can affect many IoT and mobile devices (phones, TVs, watches, car systems, printers) and is dangerous because it works across multiple operating systems and requires only that Bluetooth be turned on.
+
+Steps to perform BlueBorne attack:
+1. Attacker discovers active Bluetooth-enabled devices around him/her; all Bluetooth-enabled devices can be located even if they are not in discoverable mod
+2. After locating any nearby device, the attacker obtains the MAC address of the device
+3. Now, the attacker sends continuous probes to the target device to determine the OS
+4. After identifying the OS, the attacker exploits the vulnerabilities in the Bluetooth protocol to gain access to the target device
+5. Now the attacker can perform remote code execution or a man-in-the-middle attack and take full control of the device
+
+<p align="center">
+  <img width="636" height="165" alt="image" src="https://github.com/user-attachments/assets/592e5e57-e125-4485-a038-f7f42b1155af" />
+</p>
+
+---
+## Jamming Attack 
+A jamming attack disrupts wireless communication by flooding the radio channel with noise or bogus signals at the same frequency the target devices use. Attackers use specialized transmitters to create this interference, causing devices to miss or delay transmissions and effectively denying service to legitimate users. Any wireless device or network can be affected, and the result is loss of connectivity and failure of IoT devices or services that rely on the radio link.
+
+<p align="center">
+  <img width="659" height="440" alt="image" src="https://github.com/user-attachments/assets/987c5946-5d9b-4a53-baac-ad291e908315" />
+</p>
+
+---
+## Hacking Smart Grid/Industrial Devices: Remote Access using Backdoor 
+Attackers use social engineering to collect employee emails and send phishing messages with a malicious attachment. When an employee opens it, a backdoor is installed, giving the attacker remote access to the company’s internal network. From there the attacker moves laterally to reach critical systems like the Supervisory Control and Data Acquisition (SCADA) network that controls substations. By installing malicious firmware or issuing crafted commands, the attacker can take control of industrial devices and disable power to targeted areas. Continuous user training, strong email filtering, network segmentation, and firmware integrity checks reduce this risk.
+
+<p align="center">
+  <img width="654" height="188" alt="image" src="https://github.com/user-attachments/assets/4798dedc-f60a-44c3-80a4-dccd72de70d1" />
+</p>
+
+---
+## SDR-Based Attacks on IoT 
+Software-defined radio (SDR) lets radio signals be created and processed in software instead of fixed hardware. Attackers using SDR can sniff IoT communications, inject spam or malicious commands, or alter signal transmission and reception to disrupt or take over devices. Because SDR works at the radio level, it can target both one-way (half-duplex) and two-way (full-duplex) links, enabling eavesdropping, spoofing, and denial-of-service against IoT systems. Continuous monitoring, strong authentication, and secure radio protocols help reduce these risks.
+
+Types of SDR-based attacks performed by attackers to break into an IoT environment:
+
+### Replay Attack 
+This is the major attack described in IoT threats, in which attackers can capture the command sequence from connected devices and use it for later retransmission. An attacker can perform the below steps to launch a replay attack:
+- Attacker targets the specified frequency that is required to share information between devices
+- After obtaining the frequency, the attacker can capture the original data when the commands are initiated by the connected devices
+- Once the original data is collected, the attacker uses free tools such as URH (Universal Radio Hacker) to segregate the command sequence
+- Attacker then injects the segregated command sequence on the same frequency into the IoT network, which replays the commands or captured signals of the devices
+
+### Cryptanalysis Attack
+A cryptanalysis attack is another type of substantial attack on IoT devices. In this attack, the procedure used by the attacker is the same as in a replay attack except for one additional step, i.e., reverse-engineering the protocol to obtain the original signal. To accomplish this task, the attacker must be skilled in cryptography, communication theory, and modulation scheme (to remove noises from the signal). This attack is practically not as easy as a replay attack to launch, yet the attacker can try to breach security using various tools and procedures.
+
+### Reconnaissance Attack
+A reconnaissance attack supplements cryptanalysis by extracting device-specific information from public records and hardware. Many IoT devices must be certified for RF use, and their certification reports can reveal chip models and radio details. If designers try to hide identifiers, an attacker may probe the device with tools like a multimeter to locate pins or markings, identify the chipset, and match it to published reports. This process lets attackers learn hardware IDs, firmware versions, or known weaknesses that help plan later exploits.
+
+---
+## Identifying and Accessing Local IoT Devices 
+An attacker gains access over local IoT devices when a user from the network visits a malicious page, i.e., created and distributed by an attacker in the form of an advertisement or any attractive means. Once the victim visits the harmful website, a malicious JavaScript code inside the page begins the process. <br>
+Attackers generally implement two methods to take control of local IoT devices, as discussed below: 
+
+### Discovering or Identifying the Local IoT Devices
+The first attempt the attacker makes is to identify target devices, then obtain information about all the connected devices. <br>
+To do this, the attacker follows the steps given below: 
+1. Attacker obtains local IP Address (using the malicious code)
+2. Attacker requests all the available devices in the network
+3. Active devices respond with reset packet and request for inactive devices would return timeout
+4. Attacker detects all available devices based on their responses 
+
+<p align="center">
+  <img width="437" height="181" alt="image" src="https://github.com/user-attachments/assets/f977e801-8d04-4c49-b9ba-d047ed4b5d22" />
+</p>
+
+### Accessing the Local IoT Devices using DNS Rebinding
+DNS rebinding is a process of gaining access over the victim’s router using a malicious JavaScript code injected on a web page. After this, an attacker can assault any device activated using the default password. After identifying all the connected devices and their information in the network, the attacker exploits further to gain complete access to the local interconnected devices. <br>
+Now that the attacker has the information on IoT devices in the network, he/she follows the steps given below:
+1. Checks if the malicious code is performing DNS rebinding in all discovered devices, using DNS rebinding tools such as **Singularity of Origin**
+2. Once the DNS rebinding is successfully implemented, the attacker can command and control the local IoT devices
+3. The attacker can further extract private information, such as the UIDs and BSSIDs of local access points that are useful in finding the geo-location of the target devices
+
+<p align="center">
+  <img width="462" height="184" alt="image" src="https://github.com/user-attachments/assets/ef5e264a-5a68-4493-96eb-a8d67a63046f" />
+</p>
+
+After successfully launching this attack, the attacker could bypass the security and gain access to applications running on the local IoT devices. Further, the attacker can launch random audio or video files on different browsers of the devices.
+
+---
+## Fault Injection Attacks 
 
 
 
