@@ -69,6 +69,67 @@ A Distributed Control System (DCS) is an advanced control system used in industr
 </p>
 
 ### Supervisory Control and Data Acquisition (SCADA)
+SCADA (Supervisory Control and Data Acquisition) is a centralized system used to monitor and control industrial processes across large areas, such as oil and gas pipelines, power grids, water treatment, and transportation systems. It combines hardware and software to collect real-time data from field devices like PLCs, RTUs, and IEDs, which are then processed and displayed to operators for decision-making. SCADA enables automation, detects issues, and can respond automatically or alert operators. While designed with redundancy and fault tolerance, SCADA systems remain vulnerable to cyberattacks, making their protection critical for industrial security.
+
+<p align="center">
+  <img width="653" height="295" alt="image" src="https://github.com/user-attachments/assets/9a943fad-002a-43d9-b58b-21b4ff24ba81" />
+</p>
+
+### Programmable Logic Controller (PLC)
+A Programmable Logic Controller (PLC) is a small, durable digital computer used in industrial automation. It is designed to handle harsh environments and provides easy programming, sequential control, timers, counters, and reliable operation. PLCs are widely used in industries like steel, energy, automobile, chemical, and cement. They continuously monitor input signals from sensors and control outputs for actuators, replacing older systems like relays and drum sequencers. This makes PLCs essential for efficient and automated industrial processes.
+
+A PLC system consists of three modules:
+1. **CPU Module:** <br>
+  The CPU module in a PLC includes the processor and memory. The processor handles data processing and computations, while memory consists of RAM for user programs and ROM for the operating system, drivers, and applications. PLCs also use retentive memory to preserve programs and data during power loss, allowing operations to resume without reprogramming once power is restored.
+
+2. **Power Supply Module:** <br>
+  The power supply module in a PLC converts AC power into DC power to keep the system running. It typically provides 5V DC for the CPU and I/O circuits, while some PLCs also supply 24V DC to operate sensors and actuators. Without this module, the PLC and connected devices cannot function.
+
+3. **I/O Modules:** <br>
+  The input and output modules of the PLC system are used in connecting the sensors and actuators with the system for sensing and controlling real-time values such as pressure, temperature, and flow. <br>
+  There are different types of I/O modules. Some of the most important are discussed below:
+   - **Digital I/O Module:** Used for the connection of sensors and actuators that are digital in nature (only for switching ON and OFF). These modules work with multiple digital inputs and outputs and support both AC and DC voltages.
+   - **Analog I/O Module:** Used for the connection of sensors and actuators that provide analog electric signals. This module includes an analog-to-digital converter for converting analog data into digital data. The CPU module processes this digital data.
+   - **Communication I/O Module:** Used for exchanging information between a communication network and a CPU located at a remote distance.
+
+The main purpose of a PLC is to make machinery and systems work automatically without human intervention. Therefore, a PLC is very important, as it is responsible for all the growth, manufacturing, production, etc.
+
+<p align="center">
+  <img width="475" height="244" alt="image" src="https://github.com/user-attachments/assets/a06ff59d-0df7-4c84-94ba-38acee005eb5" />
+</p>
+
+### Basic Process Control System (BPCS)
+A Basic Process Control System (BPCS) is used in industries to control and monitor processes like temperature, pressure, flow, and batch operations. It takes input signals from equipment, processes them, and generates output signals to keep operations running as per design. BPCS acts as the first layer of protection against unsafe conditions and helps improve performance. While it is flexible and supports many industrial needs, it differs from safety systems because it lacks advanced diagnostics to detect system flaws.
+
+Listed below are some of the important functions offered by BPCS:
+- Offers trending and alarm/event logging facilities
+- Provides an interface from which an operator can monitor and control a system using an operator console (HMI)
+- Controls the processes that in turn optimize the plant operation to enhance the quality of the product
+- Generates production data reports
+- Manages the sequencing, timing, and coordination of various process steps running in batches, ensuring consistent quality and efficiency.
+- Includes critical safety interlocks or features that prevent the operation of certain equipment under unsafe conditions, thereby protecting both the processes and personnel.
+- Handles the storage and retrieval of recipes, which include formulas, process steps, and production parameters, facilitating easy replication of batch processes.
+- Integrates with other business and engineering systems, providing a bridge between plant floor operations and business management functions
+
+<p align="center">
+  <img width="530" height="296" alt="image" src="https://github.com/user-attachments/assets/b98947ed-60fc-4404-94eb-29eed4f52867" />
+</p>
+
+### Safety Instrumented Systems (SIS) 
+A Safety Instrumented System (SIS) is an automated control system used in industries to protect people, equipment, and processes during hazardous situations. It monitors critical operations and, if a process goes beyond safe limits, it shuts down the system or switches it to a safe state. SIS works as a key layer of protection when the Basic Process Control System (BPCS) fails. Common examples include fire and gas systems, safety shutdown systems, and interlock systems. By detecting risks early and taking automatic action, SIS helps prevent accidents and ensures safe operations. The events generated and actions performed by the SIS system are illustrated in the diagram:
+
+<p align="center">
+  <img width="471" height="395" alt="image" src="https://github.com/user-attachments/assets/5b925533-b640-4299-a340-6dbf10b22e66" />
+</p>
+
+
+
+
+
+
+
+
+
 
 
 
