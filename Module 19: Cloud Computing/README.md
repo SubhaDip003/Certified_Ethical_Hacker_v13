@@ -224,4 +224,173 @@ Machines-as-a-Service (MaaS), also called Equipment-as-a-Service (EaaS), is a cl
 
 ---
 ## Shared Responsibilities in Cloud 
+In cloud computing, the separation of responsibilities of subscribers and service providers is essential. Separation of duties prevents conflict of interest, illegal acts, fraud, abuse, and error and helps in identifying security control failures, including information theft, security breaches, and evasion of security controls. It also helps in restricting the amount of influence held by any individual and ensures that there are no conflicting responsibilities. <br>
+There are mainly three types of cloud services; namely, IaaS, PaaS, and SaaS. It is essential to know the limitations of each cloud service delivery model when accessing specific clouds and their models. The figure below illustrates the separation of cloud responsibilities specific to service delivery models.
+
+<p align="center">
+  <img width="646" height="286" alt="image" src="https://github.com/user-attachments/assets/2f629b4b-b46e-4c26-bbe1-17b2dd65c67d" />
+</p>
+
+---
+## Cloud Deployment Models 
+Cloud deployment model selection is based on enterprise requirements. One can deploy cloud services in different ways, according to the factors given below:
+- Host location of cloud computing services
+- Security requirements
+- Sharing of cloud services
+- Ability to manage some or all of the cloud services
+- Customization capabilities
+
+The four standard cloud deployment models are 
+
+### Public Cloud 
+A public cloud is a model where a provider delivers services like applications, servers, and storage over the Internet for anyone to use. The provider manages the setup, security, and maintenance of these resources. Public clouds can be free or pay-as-you-go, with popular examples including Amazon EC2, Google App Engine, Microsoft Azure, and IBM Bluemix.
+
+- **Advantages:**
+  - Simplicity and efficiency
+  - Low cost
+  - Reduced time (when server crashes, needs to restart or reconfigure cloud)
+  - No maintenance (public cloud service is hosted off-site)
+  - No contracts (no long-term commitments)
+
+- **Disadvantages:**
+  - Security is not guaranteed
+  - Lack of control (third-party providers are in charge)
+  - Slow speed (relies on Internet connections; the data transfer rate is limited)
+
+<p align="center">
+  <img width="362" height="329" alt="image" src="https://github.com/user-attachments/assets/3c2010d8-da2d-4059-b1cf-df5f879ea877" />
+</p>
+
+### Private Cloud 
+A private cloud is a cloud setup used by a single organization and secured within its own firewall. It gives full control over data, resources, and security, making it suitable for businesses that handle sensitive information. Solutions like BMC Software, VMware vRealize Suite, and SAP Cloud Platform are common examples of private cloud deployments.
+
+- **Advantages:**
+  - Security enhancement (services are dedicated to a single organization)
+  - Increased control over resources (organization is in charge)
+  - High performance (cloud deployment within the firewall implies high data transfer rates)
+  - Customizable hardware, network, and storage performances (as the organization owns private cloud)
+  - Sarbanes Oxley, PCI DSS, and HIPAA compliance data are much easier to attain
+
+- **Disadvantages:**
+  - High cost
+  - On-site maintenance
+
+<p align="center">
+  <img width="418" height="383" alt="image" src="https://github.com/user-attachments/assets/0051e338-68ed-491d-92ed-367114391cc3" />
+</p>
+
+### Community Cloud
+A community cloud is a shared cloud environment where multiple organizations with similar needs, such as security, compliance, or performance, use the same infrastructure. It can be hosted on-premises or by a third-party provider and is managed collectively or externally. This model is often used in industries like healthcare or government to meet strict regulatory and data security requirements.
+
+- **Advantages:**
+  - Less expensive compared to the private cloud
+  - Flexibility to meet the community’s needs
+  - Compliance with legal regulations
+  - High scalability
+  - Organizations can share a pool of resources from anywhere via the Internet
+
+- **Disadvantages:**
+  - Competition between consumers in resource usage
+  - Inaccurate prediction of required resources
+  - Lack of legal entity in case of liability
+  - Moderate security (other tenants may be able to access data)
+  - Trust and security concerns between tenants
+
+<p align="center">
+  <img width="459" height="348" alt="image" src="https://github.com/user-attachments/assets/51393604-e2e4-42fc-80ed-29fb36866118" />
+</p>
+
+### Hybrid Cloud
+A hybrid cloud combines private, public, or community clouds into one environment, allowing organizations to use both in-house and external resources. This model offers flexibility, scalability, and cost efficiency while keeping sensitive data secure in private systems and using public cloud services like Microsoft Azure for broader needs. (e.g., Microsoft Azure, Zymr, Parangat Cloud Computing, Logicalis). <br>
+**Example:** An organization performs its critical activities on the private cloud (e.g., operational customer data) and non-critical activities on the public cloud. 
+
+- **Advantages:**
+  - High scalability (contains both public and private clouds)
+  - Offers both secure and scalable public resources
+  - High level of security (comprises private cloud)
+  - Allows to reduce and manage the cost according to requirements
+
+- **Disadvantages:**
+  - Communication at the network level may be conflicted as it uses both public and private clouds
+  - Difficult to achieve data compliance
+  - Organization reliant on the internal IT infrastructure in case of outages (maintain redundancy across data centers to overcome)
+  - Complex service level agreements (SLAs) 
+
+<p align="center">
+  <img width="421" height="323" alt="image" src="https://github.com/user-attachments/assets/9a0d7697-5fe4-46fe-9b42-9e760df259af" />
+</p>
+
+### Multi Cloud
+Multi-cloud is an environment where organizations use services from multiple cloud providers to run workloads, store data, and manage applications. It can be all-private, all-public, or a mix of both. By spreading resources across different vendors, multi-cloud improves performance, increases storage and computing power, and reduces the risk of downtime or data loss. Examples include Microsoft Azure Arc and Google Cloud Anthos.
+
+- **Advantages:**
+  - High reliability and low latency
+  - Flexibility to meet business needs
+  - Cost-performance optimization and risk mitigation
+  - Low risk of distributed denial-of-service (DDoS) attacks
+  - Increased storage availability and computing power
+  - Low probability of vendor lock-in
+
+- **Disadvantages:**
+  - Multi-cloud system failure affects business agility
+  - Using more than one provider causes redundancy
+  - Security risks due to complex and large attack surface
+  - Operational overhead
+
+<p align="center">
+  <img width="331" height="278" alt="image" src="https://github.com/user-attachments/assets/2c82d013-d533-4b32-b58b-4798991264ed" />
+</p>
+
+Other cloud deployment models include the following. 
+### Distributed Cloud 
+A distributed cloud is a centralized cloud system that uses multiple public or private clouds spread across different locations but managed under one control plane. It allows users to access data and services as if they were stored locally, improving speed, privacy, and compliance with local regulations. This model supports edge computing and is useful for AI, ML, and IoT applications. Examples include Google Distributed Cloud and Cloudflare CDN.
+
+- **Advantages:**
+  - High performance
+  - Reduced latency
+  - High management and operational consistency compared to hybrid and multi cloud
+  - On-site modernization
+  - Edge computing capabilities
+  - On-premises data processing capability
+  - Stringent data security
+  - Automation applications (AI, ML, IoT etc.)
+
+- **Disadvantages:**
+  - Security-related vulnerabilities may arise
+  - High cost (network infrastructure deployment cost)
+  - Limited software assistance
+  - Complex troubleshooting
+
+<p align="center">
+  <img width="382" height="243" alt="image" src="https://github.com/user-attachments/assets/a2f778a9-efbb-41b4-a267-da66ecb16b5e" />
+</p>
+
+### Poly Cloud
+Poly Cloud is a cloud model that combines features from different cloud providers into a single platform. Unlike multi-cloud, where separate clouds are used, poly cloud lets businesses choose and use specific services from multiple providers, such as AI from Google Cloud or ML from AWS. This approach gives flexibility, better automation, and optimized performance based on business needs.
+
+- **Advantages:**
+  - High flexibility
+  - Environmental choice
+  - Infrastructure and return on investment (ROI) optimization
+  - Provides specialized AI and ML services
+  - Cost effective
+  - High performance
+
+- **Disadvantages:**
+  - Time-consuming for initial setup
+  - Lack of a fixed tool
+  - High R&D cost prior to implementation of the tool
+  - Not affordable by small-and medium-cap companies
+  - Lack of a fixed model
+
+<p align="center">
+  <img width="416" height="270" alt="image" src="https://github.com/user-attachments/assets/48b65d97-81fd-4a86-ab18-9b2364b4290d" />
+</p>
+
+---
+## NIST Cloud Deployment Reference Architecture 
+
+
+
+
 
