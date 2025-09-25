@@ -389,8 +389,157 @@ Poly Cloud is a cloud model that combines features from different cloud provider
 
 ---
 ## NIST Cloud Deployment Reference Architecture 
+The figure below gives an overview of the NIST cloud computing reference architecture; it displays the primary actors, activities, and functions in cloud computing. The diagram illustrates a generic high-level architecture, intended for better understanding the uses, requirements, characteristics, and standards of cloud computing.
 
+<p align="center">
+  <img width="547" height="299" alt="image" src="https://github.com/user-attachments/assets/6d3c0e08-ccd1-4ea5-9eb4-ebabb01dbcad" />
+</p>
 
+The five significant actors are as follows: 
+- **Cloud Consumer** <br>
+  A cloud consumer is an individual or organization that uses services from a cloud service provider (CSP). They select services from the provider’s catalog, sign service contracts or service level agreements (SLAs), and pay based on usage. The SLA defines requirements like performance, security, and remedies for failures, while also outlining the consumer’s responsibilities and limitations.
 
+The services available to a cloud consumer in the PaaS, IaaS, and SaaS models are as follows:
+- **PaaS** – database (DB), business intelligence, application deployment, development and testing, and integration
+- **IaaS** – storage, services management, content delivery network (CDN), platform hosting, backup and recovery, and computing
+- **SaaS** – human resources, enterprise resource planning (ERP), sales, customer relationship management (CRM), collaboration, document management, email and office productivity, content management, financial services, and social networks.
 
+- **Cloud Provider** <br>
+  A cloud provider is an organization or individual that owns and manages computing infrastructure to deliver services over a network, either directly or through a cloud broker, allowing users to access computing resources remotely.
 
+- **Cloud Carrier** <br>
+  A cloud carrier acts as an intermediary that provides connectivity and transport services between CSPs and cloud consumers. The cloud carrier provides access to consumers via a network, telecommunication, or other access devices.
+
+- **Cloud Auditor** <br>
+  A cloud auditor independently examines a cloud service provider’s controls to ensure they meet security, privacy, and performance standards. By reviewing objective evidence, the auditor evaluates safeguards that protect data confidentiality, integrity, and availability, checks compliance with privacy laws, and verifies that the cloud services perform as expected.
+
+- **Cloud Broker** <br>
+  A cloud broker is an intermediary that manages cloud services on behalf of consumers. Instead of dealing directly with cloud service providers (CSPs), the broker handles service usage, performance, delivery, and maintains the relationship between the consumer and the CSP, simplifying cloud management.
+
+The services provided by cloud brokers fall in three categories:
+1. **Service Intermediation** → The broker adds extra features like security, monitoring, or performance improvement to existing cloud services, making them more useful for consumers.
+2. **Service Aggregation** → The broker combines multiple cloud services into a single package, so users get everything in one integrated solution.
+3. **Service Arbitrage** → The broker selects the best services from different providers (without fixing them together) to give consumers the most cost-effective or high-quality option.
+
+---
+## Cloud Storage Architecture 
+Cloud storage allows organizations to store digital data on distributed servers managed by cloud providers. Users access data through APIs, web services, or applications, while providers handle availability, security, and maintenance. Its architecture includes three layers: the front-end for user access and APIs, the middleware for functions like data replication and de-duplication, and the back-end where the physical hardware resides. Cloud storage is highly scalable, fault-tolerant, and durable, with popular services including Amazon S3, Microsoft Azure Storage, Oracle Cloud Storage, and OpenStack Swift.
+
+<p align="center">
+  <img width="557" height="445" alt="image" src="https://github.com/user-attachments/assets/4018d849-b95f-4d7e-86d9-9682772f1b71" />
+</p>
+
+---
+## Virtual Reality and Augmented Reality on Cloud 
+Combining virtual reality (VR) and augmented reality (AR) with cloud computing can significantly enhance performance and accessibility for these applications. VR/AR headsets and connected devices require high computing power and advanced graphics capabilities, which can be expensive to maintain locally. By leveraging cloud infrastructure, users can access multi-core CPUs and powerful GPUs remotely, reducing the need for costly hardware upgrades.
+
+Cloud-based delivery also addresses the rapid evolution of VR/AR software and user interfaces, enabling seamless updates and consistent user experiences. Since many VR/AR applications are used intermittently, cloud services allow for flexible pay-per-use models, making them more cost-effective. Additionally, cloud environments can provide the necessary speed and processing resources to handle demanding VR/AR workloads, ensuring smooth graphics rendering, real-time interactions, and scalable deployment for both individual users and enterprise applications.
+
+Overall, integrating VR/AR with the cloud lowers hardware costs, supports dynamic software changes, and enables scalable, on-demand access to high-performance computing resources, enhancing both usability and adoption.
+
+---
+## Fog Computing 
+Fog computing is a distributed computing model that sits between IoT devices and the cloud, acting as an intermediary layer or “intelligent gateway.” It brings processing, storage, and analysis closer to the data sources, enabling faster and more efficient handling of large volumes of data generated by IoT devices. By connecting edge nodes to devices, fog computing enhances performance and supports quick, real-time decision-making while complementing cloud services.
+
+### Working of Fog Computing
+Fog computing uses connected devices called fog nodes, which have processing power and storage, to handle data closer to where it is generated. These nodes process IoT data at the network edge, enabling real-time analytics even with unstable Internet connections. This approach supports applications like smart cities, smart grids, connected cars, and other scenarios requiring immediate data processing.
+
+<p align="center">
+  <img width="614" height="278" alt="image" src="https://github.com/user-attachments/assets/c804d534-61d6-4a64-be47-e1e88929aca0" />
+</p>
+
+### Advantages:
+Fog computing has been beneficial in the field of IoT, big data, and real-time analytics. The following are the main advantages of fog computing over cloud computing.
+- **Low latency:** Fog computing can process large volumes of data with no delay as the fog is geographically nearer to end users and can offer rapid responses.
+- **High business agility:** Developers can easily and swiftly design fog instances and deploy them based on the requirement.
+- **No glitches with bandwidth:** All the data are accumulated at distinct points, instead of being transmitted together to one center through a single channel, thereby avoiding bandwidth-related problems.
+- **No connection loss:** The presence of several interconnected channels does not cause connection loss.
+- **Elevated security:** Fog computing enhances security as the data processing is performed by numerous nodes in a complex distributed system.
+- **Low operating cost:** Fog computing can drastically reduce cost through the conservation of network bandwidth as data are processed locally, instead of being sent to the cloud for analysis.
+- **High power efficiency:** Edge devices run power-saving protocols such as Zigbee, Z-Wave, or Bluetooth.
+
+### Disadvantages:
+The following are some of the disadvantages of fog computing in comparison to cloud computing.
+- **Additional expenditures:** Organizations must buy additional edge devices such as routers, hubs, and gateways.
+- **Complicated system:** As fog is an extra layer in the data processing and storage system, it makes the whole system complicated.
+- **Constrained scalability:** Fog is not as scalable as the cloud.
+
+---
+## Edge Computing 
+Edge computing is a decentralized computing model that processes and stores data close to the devices generating it, rather than relying on a central cloud. This approach reduces latency, improves performance, lowers bandwidth usage, and enables real-time processing for urgent operations. It is widely used in automation systems and applications that require fast, efficient, and timely responses.
+
+<p align="center">
+  <img width="433" height="329" alt="image" src="https://github.com/user-attachments/assets/abb82de2-9485-4f15-9c51-47f2447d5e8d" />
+</p>
+
+---
+## Cloud vs. Fog Computing vs. Edge Computing
+Cloud computing is a centralized system where large data centers process and store data. Edge computing is decentralized, processing data directly on devices or near them, such as IoT endpoints. Fog computing sits between edge devices and the cloud, using distributed nodes to quickly process, store, and analyze data closer to the source while still connecting to the cloud for broader tasks.
+
+# Comparison of Cloud, Fog, and Edge Computing
+
+| **Feature**       | **Cloud Computing** | **Fog Computing** | **Edge Computing** |
+|--------------------|----------------------|-------------------|---------------------|
+| **Speed**          | Higher access speed than fog computing but depends on VM connectivity | Higher speed than cloud computing | Higher speed than fog computing |
+| **Latency**        | High latency | Low latency | Low latency |
+| **Data Integration** | Integrates multiple data sources | Integrates multiple data sources and devices | Integrates limited data sources |
+| **Capacity**       | No data reduction while delivering or converting data | Reduces the amount of data sent to cloud computing | Reduces the amount of data sent to fog computing |
+| **Responsiveness** | Low response time | High response time | High response time |
+| **Security**       | Less secure than fog computing | Highly secure | Customized security |
+
+<p align="center">
+  <img width="642" height="333" alt="image" src="https://github.com/user-attachments/assets/29fe2392-bcb8-4d44-a2f3-e6c894123b50" />
+</p>
+
+---
+## Cloud Computing vs. Grid Computing 
+The two most popular computing models, cloud computing and grid computing, are based on the client–server and distributed computing architecture, respectively. The table below lists the main differences between these two:
+
+# Cloud Computing vs Grid Computing
+
+| **Cloud Computing** | **Grid Computing** |
+|----------------------|---------------------|
+| Follows client–server architecture | Follows distributed computing architecture |
+| Higher scalability | Standard scalability |
+| Resources are used in a centralized way | Resources are used collaboratively |
+| More flexible | Less flexible |
+| Infrastructure providers own the cloud servers | An organization owns and manages the grids |
+| Services include IaaS, PaaS, and SaaS | Services include distributed information, distributed computing, and distributed pervasive systems |
+| Accessed using regular web protocols | Accessed using grid middleware |
+| Pay-as-you-go model | Users need not pay for their usage |
+| Service-oriented | Application-oriented |
+| Provides different amounts of computing resources to meet different types of user requirements | Provides a shared group of computing resources for the users |
+| Does not support interoperability, which can in turn lead to vendor lock-in issues | Supports interoperability and can be managed easily |
+| Contains a large-scale pool of resources and assets | Contains a limited number of assets and resources |
+
+---
+## Cloud Service Providers 
+Discussed below are some of the popular cloud service providers:
+- **Amazon Web Service (AWS)** [https://aws.amazon.com] <br>
+  AWS provides on-demand cloud computing services to individuals, organizations, the
+government, etc. on a pay-per-use basis. This service provides the necessary technical infrastructure through distributed computing and tools. The virtual environment provided by AWS includes CPU, GPU, RAM, HDD storage, operating systems, applications, and networking software such as web servers, databases, and CRM.
+
+  <p align="center">
+    <img width="470" height="303" alt="image" src="https://github.com/user-attachments/assets/83de0593-3821-42f1-89d2-4d24cc151c70" />
+  </p>
+
+- **Microsoft Azure** [https://azure.microsoft.com] <br>
+  Microsoft Azure provides cloud computing services for building, testing, deploying, and managing applications and services through Azure data centers. It provides all types of cloud computing services, such as SaaS, PaaS, and IaaS. It offers various cloud services, such as computing, mobile storage, data management, messaging, media, machine learning, and IoT.
+
+  <p align="center">
+    <img width="481" height="302" alt="image" src="https://github.com/user-attachments/assets/b5ab210e-25e8-4d56-b55f-0a89ec663899" />
+  </p>
+
+- **Google Cloud Platform (GCP)** [https://cloud.google.com] <br>
+  GCP provides IaaS, PaaS, and serverless computing services. These include computing, data storage and analytics, machine learning, networking, bigdata, cloud AI, management tools, identity and security, IoT, and API platforms.
+
+  <p align="center">
+    <img width="494" height="312" alt="image" src="https://github.com/user-attachments/assets/98deef1d-3e64-4542-8ded-76188b76b78c" />
+  </p>
+
+- **IBM Cloud** [https://www.ibm.com] <br>
+  IBM CloudTM is a robust suite of advanced data and AI tools and deep industry expertise. It provides various cloud services, such as IaaS, SaaS, and PaaS, through public, private, and hybrid cloud delivery models. These services include computing, networking, storage, management, security, databases, analytics, AI, IoT, mobile, Dev tools, and blockchain.
+
+  <p align="center">
+    <img width="522" height="329" alt="image" src="https://github.com/user-attachments/assets/d8ec16c2-7580-453b-a8ee-e5a9827aeb02" />
+  </p>
