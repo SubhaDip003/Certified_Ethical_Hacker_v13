@@ -43,6 +43,7 @@ Cryptography is categorized into two types according to the number of keys emplo
      <img width="464" height="109" alt="image" src="https://github.com/user-attachments/assets/eb0ce245-7c68-4788-986f-2396c7b430d8" />
    </p>
 
-  
+ ### Strengths and Weaknesses of Crypto Methods 
+ 
 
 
