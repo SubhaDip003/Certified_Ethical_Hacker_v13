@@ -172,4 +172,57 @@ Symmetric encryption algorithms developed by RSA Security are discussed below.
   RC6 is a symmetric-key block cipher derived from RC5. It is a parameterized algorithm with a variable block size, key size, and number of rounds. Two features that differentiate RC6 from RC5 are integer multiplication (which is used to increase the diffusion, achieved in fewer rounds with increased speed of the cipher) and the use of four 4-bit working registers rather than two 2-bit registers. RC6 uses four 4-bit registers instead of two 2-bit registers because the block size of the AES is 128 bits.
 
 ### Blowfish 
+Blowfish is a fast and secure symmetric block cipher used to replace older algorithms like DES. It encrypts data in 64-bit blocks using the same secret key for both encryption and decryption, with key sizes ranging from 32 to 448 bits. It’s a 16-round Feistel cipher that offers strong security and high performance, making it suitable for applications like password protection and online payment systems. The algorithm has two main parts: key expansion, which generates multiple subkeys from the main key using a P-array and S-boxes, and the encryption process that uses these subkeys to securely transform the data.
+
+Key expansion is performed as follows: 
+1. The first step is to initialize the P-array and S-boxes.
+2. Then, XOR the P-array with the key bits. For example, P1 XOR (first 32 bits of the key), P2 XOR (next 32 bits of the key).
+3. Use the above method to encrypt the all-zero string.
+4. This new output is now P1 and P2.
+5. Encrypt the new P1 and P2 with the modified subkeys.
+6. This new output is now P3 and P4.
+7. Repeat the process 521 times to calculate new subkeys for the P-array and the four S-boxes.
+
+The round function splits the 32-bit input into four 8-bit quarters and uses the quarters as input to the S-boxes. The outputs are added modulo 2^32 and XORed to produce the final 32-bit output.
+
+### Twofish
+Twofish is a fast and flexible encryption algorithm developed by Bruce Schneier and his team as one of the finalists to replace DES. It’s a 128-bit block cipher that uses a single key (up to 256 bits) for both encryption and decryption. Based on the Feistel structure, Twofish is known for its efficiency on both hardware and software, making it suitable for various applications. Its design allows users to balance speed, memory, and hardware use, providing strong security with adaptable performance.
+
+### Threefish 
+Threefish was developed in 2008 and it is a part of the Skein algorithm. It was enrolled in NIST’s SHA-3 (hash function) contest. It is a large tweakable symmetric-key block cipher in which the block and key sizes are equal, i.e., 256, 512, and 1024. Threefish involves only three operations, i.e., ARX (addition-rotation-XOR), which makes the coding simple, and all these operations work on 64-bit words. Threefish blocks 256, 512, and 1024 involve 72, 72, and 80 rounds of computations, respectively, to achieve the final security goal. This algorithm does not use S-boxes to prevent cache timing attacks.
+
+### Serpent 
+Serpent is a symmetric-key block cipher developed by Ross Anderson, Eli Biham, and Lars Knudsen. It uses 128-bit data blocks and supports key sizes of 128, 192, or 256 bits. The algorithm performs 32 rounds of substitution and permutation operations using S-boxes that work in parallel, making it highly secure. However, Serpent is slower than Rijndael (the AES winner) due to its large number of rounds and complexity. Despite its slower speed, Serpent provides strong security and minimizes correlations between plaintext and ciphertext more effectively than Twofish or Rijndael.
+
+### TEA 
+The Tiny Encryption Algorithm (TEA) is a simple and fast symmetric encryption method developed in 1994 by David Wheeler and Roger Needham. It works as a Feistel cipher, usually running 64 rounds, and encrypts 64-bit data blocks using a 128-bit key. The key is divided into four 32-bit parts, and a special constant called *delta*—derived from the golden ratio—is used in each round to ensure variation. Instead of only using XOR operations like many ciphers, TEA also relies on modular addition and subtraction. In each round, the data block is split into two halves; one half is processed through a round function involving shifts, additions, and delta, then mixed with the other half through XOR before swapping for the next round. This process provides strong encryption with a compact and efficient design.
+
+### CAST-128 
+CAST-128, also known as CAST5, is a symmetric block cipher that encrypts data in 64-bit blocks using keys between 40 and 128 bits. It works through 12 or 16 Feistel rounds that combine operations like addition, subtraction, XOR, and key-dependent rotations. The cipher uses four large S-boxes and two types of keys — a masking key and a rotation key — to control encryption steps. CAST-128 is used in tools like GPG and PGP for secure communication. Its extended version, CAST-256, supports larger 128-bit blocks and keys up to 256 bits, offering stronger security.
+
+<p align="center">
+  <img width="396" height="266" alt="image" src="https://github.com/user-attachments/assets/ff7d3ab5-4904-404b-8bfe-5d84fd4379a5" />
+</p>
+
+### GOST Block Cipher 
+The GOST block cipher, also known as Magma, is a Russian symmetric encryption algorithm that uses a 64-bit data block and a 256-bit key. It operates through 32 rounds of a Feistel network, where data is mixed and transformed for strong security. Each round adds a 32-bit subkey (from the main key) using modular addition, passes the result through substitution boxes (S-boxes), and rotates bits left by 11 positions. The 256-bit key is divided into eight 32-bit subkeys—used in sequence for the first 24 rounds and in reverse for the last 8 rounds. A modern version of GOST, called **Kuznyechik**, enhances it by using 128-bit data blocks for improved security.
+
+### Camellia 
+Camellia is a strong symmetric block cipher used for secure data encryption. It works on 128-bit data blocks and supports key sizes of 128, 192, or 256 bits. Like AES, it provides high performance and strong security. Camellia uses multiple rounds of Feistel structure, S-box substitutions, logical transformations, and key whitening to protect data from attacks. It’s also part of the TLS protocol, making it widely used for secure internet communication. Despite using 128-bit keys, it remains resistant to brute-force attacks and is considered as secure as AES.
+
+---
+## Asymmetric Encryption Algorithms 
+The table below shows specified asymmetric encryption algorithms, including information such as key size and application areas.
+
+| Algorithm | Key Size (bits) | Application Areas |
+| :--- | :--- | :--- |
+| **Rivest–Shamir–Adleman (RSA)** | Variable | Encryption, digital signatures, key exchange |
+| **Digital Signature Algorithm (DSA)** | Variable | Digital signatures |
+| **Diffie-Hellman** | Variable | Key exchange, secure communication |
+| **Elliptic Curve Cryptography (ECC)** | 160–521 bits | Encryption, digital signatures, key exchange |
+| **ElGamal** | Variable | Encryption, key exchange |
+
+
+
+
 
