@@ -222,7 +222,41 @@ The table below shows specified asymmetric encryption algorithms, including info
 | **Elliptic Curve Cryptography (ECC)** | 160–521 bits | Encryption, digital signatures, key exchange |
 | **ElGamal** | Variable | Encryption, key exchange |
 
+### DSA and Related Signature Schemes 
+The Digital Signature Algorithm (DSA) is a standard method developed by NIST to create and verify digital signatures, ensuring message authenticity and data integrity. It’s part of the Digital Signature Standard (DSS) under FIPS 186. DSA uses mathematical rules and specific parameters to confirm that a message truly comes from the claimed sender and hasn’t been altered. It typically generates a 320-bit signature and supports key sizes from 512 to 1024 bits, making it suitable for secure and sensitive communications.
 
+**Processes involved in DSA:**
+- **Signature Generation Process:** The private key is used to know who has signed it.
+- **Signature Verification Process:** The public key is used to verify whether the given digital signature is genuine.
 
+DSA is a public-key cryptosystem, as it involves the use of both private and public keys. <br>
+
+**Benefits of DSA:**
+- Less chances of forgery compared with a written signature
+- Quick and easy method of business transactions
+- Fake currency problem can be mitigated considerably 
+
+DSA Algorithm: Each entity A does the following: 
+1. Select a prime number q such that 2159 < q < 2160
+2. Choose t such that 0 ≤ t ≤ 8, and select a prime number p where 2511+64t<p< 2512+64t with the property that q divides (p-1)
+3. Select a generator α of the unique cyclic group of order q in Z*p g  Z*p and then computing α = g(p−1)/q mod p until α ≠1
+4. Select a random integer d such that 1 ≤ d ≤ q-1 5. Compute y = αd mod p 6. A’s public key is (p, q, α, y); A’s private key is d.
+
+To sign a message m, A does the following: 
+1. Select a random secret integer k, 0<k<q.
+2. Compute r=(αk mod p)mod q
+3. Compute k-1mod q
+4. Compute s=k-1{h(m) + dr}mod q, where h is the Secure Hash Algorithm
+5. A’s signature for m is the pair (r, s)
+
+To verify A’s signature (r, s) on m, B should do the following: 
+1. Obtain A’s authentic public key (p,q,α,y)
+2. Verify that 0<r<q and 0<s<q; if not, then reject the signature
+3. Compute w = s-1mod q and h(m)
+4. Compute u1 = w*h(m) mod q and u2 = rw mod q
+5. Compute v = (αu1yu2 mod p) mod q
+6. Accept the signature if and only if v=r
+
+### Rivest Shamir Adleman (RSA) 
 
 
