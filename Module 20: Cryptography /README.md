@@ -258,5 +258,64 @@ To verify A’s signature (r, s) on m, B should do the following:
 6. Accept the signature if and only if v=r
 
 ### Rivest Shamir Adleman (RSA) 
+RSA (Rivest–Shamir–Adleman) is a public-key encryption system developed by Ron Rivest, Adi Shamir, and Leonard Adleman. It secures data on the internet by using two large prime numbers and modular arithmetic to create a pair of keys — one public and one private. RSA is widely used for encryption and authentication in systems from companies like Microsoft, Apple, and Sun, as well as in hardware such as smart cards and secure communication devices. It remains one of the most trusted and standard methods for protecting digital information.
 
+**RSA works as follows:**
+1. Two large prime numbers are taken (a and b), and their product is determined (c = ab, where “c” is called the modulus).
+2. RSA chooses a number “e” that it is less than “c” and relatively prime to (a-1)(b-1). Therefore, e and (a-1)(b-1) have no common factor except 1.
+3. Furthermore, RSA chooses a number “f” such that (ef - 1) is divisible by (a-1)(b-1).
+4. The values “e” and “f” are the public and private exponents, respectively.
+5. The public key is the pair (c, e); the private key is the pair (c, f).
+6. It is difficult to obtain the private key (c, f) from the public key (c, e). However, if someone can factor “c” into “a” and “b”, then that person can decipher the private key (c, f).
 
+The security of the RSA system depends on the assumption that such factoring is difficult to carry out, making the cryptographic technique safe. 
+
+> **How RSA works (in easy words):**
+>
+> Imagine you want to send secret messages that only you can read. RSA helps you do that using two special keys — one is **public** (you can share it with anyone), and the other is **private** (you keep it secret).
+>
+> 1. **Start with two secret numbers:** <br>
+>     You choose two very large secret prime numbers (let’s call them **a** and **b**). A prime number is a number that can only be divided by 1 and itself (like 3, 5, 7, 11, etc.).
+>
+> 2. **Multiply them together:** <br>
+>    You multiply these two prime numbers to get a new big number called **c**. This number **c** will be shared with everyone. But the two original numbers (**a** and **b**) must always be kept secret.
+>
+> 3. **Pick a small public number (e):** <br>
+>    Now you choose another number called **e**, which works well with your secret numbers. This number **e** becomes part of your public key — it’s the one everyone can see and use to lock (encrypt) a message for you.
+>
+> 4. **Find your private number (f):** <br>
+>   Next, you calculate another special number **f** using **a**, **b**, and **e**. This number is chosen in a way that only you (the owner) can use it to unlock (decrypt) messages that were locked using your public key. **f** is your private key and must never be shared.
+>
+> 5. **Create your keys:**
+>
+>    * **Public key:** (c, e) — anyone can use this to send you a secret message.
+>    * **Private key:** (c, f) — you use this to read the message.
+>
+> 6. **How messages are locked and unlocked:**
+>
+>   * To **encrypt**, someone takes your public key and scrambles the message using it.
+>   * To **decrypt**, you use your private key to unscramble it and read the original message.
+>
+> 7. **Why it’s safe:** <br>
+>    The only way to figure out your private key is to break the big number **c** back into your two secret primes (**a** and **b**). For small numbers, that’s easy. But when **a** and **b** are extremely large (hundreds or thousands of digits), even the fastest computers in the world would take thousands of years to figure them out. That’s why RSA is secure.
+>
+>
+> **Simple example (with small numbers):** <br>
+> Let’s say you pick **a = 5** and **b = 11**, so **c = 55**. <br>
+> You share 55 with everyone. <br>
+> Then you choose a small public number **e = 3** and calculate your private number **f = 27** (that part is normally done by computer).
+>
+> * Public key = (55, 3) <br>
+> * Private key = (55, 27) <br>
+>
+> Someone can send you a message using **(55, 3)** to lock it. <br>
+> Only you can open it using **(55, 27)**. <br>
+>
+> So in short: <br>
+> RSA is all about **making two special keys** from **two large secret primes**. <br>
+>
+> * One key **locks** (encrypts) messages. <br>
+> * The other key **unlocks** (decrypts) them. <br>
+> And it’s safe because **finding the secret key requires solving an almost impossible math problem.** <br>
+
+#### An example of how cryptography uses RSA algorithms in a practical interchange is illustrated by the following sequence: 
